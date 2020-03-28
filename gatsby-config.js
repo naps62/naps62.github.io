@@ -1,6 +1,6 @@
 require(`dotenv`).config({
   path: `.env`,
-})
+});
 
 module.exports = {
   siteMetadata: {
@@ -12,28 +12,14 @@ module.exports = {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       options: {
         navigation: [
-          {
-            title: `Blog`,
-            slug: `/blog`,
-          },
-          {
-            title: `About`,
-            slug: `/about`,
-          },
+          { title: `Blog`, slug: `/blog` },
+          { title: `About`, slug: `/about` },
+          { title: 'Speaking', slug: `/speaking` },
         ],
         externalLinks: [
-          {
-            name: `Github`,
-            url: `https://github.com/naps62`
-          },
-          {
-            name: `Twitter`,
-            url: `https://twitter.com/naps62`,
-          },
-          {
-            name: `Instagram`,
-            url: `https://www.instagram.com/naps62/`,
-          },
+          { name: `Github`, url: `https://github.com/naps62` },
+          { name: `Twitter`, url: `https://twitter.com/naps62` },
+          { name: `Instagram`, url: `https://www.instagram.com/naps62/` },
         ],
       },
     },
@@ -54,11 +40,20 @@ module.exports = {
         background_color: `#fff`,
         theme_color: `#6B46C1`,
         display: `standalone`,
-        icon: 'src/images/favicon.png'
+        icon: 'src/images/favicon.png',
       },
     },
     `gatsby-plugin-offline`,
     `gatsby-plugin-netlify`,
+    `gatsby-plugin-postcss`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src`,
+      },
+    },
     // `gatsby-plugin-webpack-bundle-analyser-v2`,
   ],
-}
+};
