@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      name: Checkout
-      run: actions/checkout@v1
+      - name: Checkout
+        run: actions/checkout@v1
 
       - name: Setup Cache
         uses: actions/cache@v1
@@ -22,8 +22,8 @@ jobs:
             v1-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
             v1-${{ runner.os }}
 
-      name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-      name: Deploy
-      run: npm run deploy
+      - name: Deploy
+        run: npm run deploy
