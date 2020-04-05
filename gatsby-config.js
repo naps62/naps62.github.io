@@ -43,6 +43,7 @@ module.exports = {
         icon: 'src/images/favicon.png',
       },
     },
+    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-netlify`,
     `gatsby-plugin-postcss`,
@@ -54,6 +55,7 @@ module.exports = {
         path: `${__dirname}/src`,
       },
     },
+
     // `gatsby-plugin-webpack-bundle-analyser-v2`,
   ],
 };

@@ -1,0 +1,130 @@
+---
+title: "Lists vs Tuples in Elixir"
+date: 2018-08-21
+tags:
+  - Elixir
+---
+
+import { Meta } from '../../../src/components/meta';
+import { SVG } from '../../../src/components/svg';
+import SVGList from './list.svg';
+import SVGTuple from './tuple.svg';
+import SVGKeyword from './keyword.svg';
+
+<Meta canonical="https://blog.appsignal.com/2018/08/21/elixir-alchemy-list-vs-tuples.html" />
+
+*Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2018/08/21/elixir-alchemy-list-vs-tuples.html)*
+
+Lists and Tuples share some similarities that can make it difficult to discern when each data structure is suitable for use. They can both hold several values of any type. Visually, they even look similar, the only difference is in the braces that each uses:
+
+```elixir
+iex> list = [1, 2, true, 3]
+iex> tuple = {1, 2, true, 3}
+```
+
+However, they have fundamental differences that are important when deciding which one to use to store your data.
+
+Lists are meant to hold variable-length data, and tuples are meant for single data points that have a fixed number of elements.
+
+Conceptually speaking, you can think of this as storing a sequence of numbers (a list of numbers) versus storing several numbers corresponding to a certain value, for example, three numbers that correspond to a 3D point in space (i.e. a single value made up of 3 numbers).
+
+## Lists
+
+Lists are represented internally as linked lists. They have the following characteristics:
+
+* They support adding/removing elements
+* Memory usage scales with the list size. The more elements the list has, the more memory it requires
+* Fetching elements may sometimes be slow
+
+Picture the list above (`[1, 2, true, 3]`) laid out in your computer’s RAM. It is distributed arbitrarily, in no particular order, with each element holding a reference to the next one:
+
+<SVG src={SVGList} alt="Lists in Memory" />
+
+In order to reach the 3rd element, the system needs to know where the list begins (which is pretty much all it knows), and then traverse from there. This means that to get to the 100th element, all 99 elements before it have to be traversed.
+
+To add a new element, a new memory slot is reserved **anywhere where free memory is available**, and then a reference to it is added to the previous last element.
+
+Granted, there are optimizations that can be done by your compiler to optimize all of this. But the overall principle still holds.
+
+## Tuples
+
+Tuples behave like static data structures, except that they don’t have explicit names for each element. Aside from that, all their other characteristics are pretty much the same:
+
+* They are meant to hold a fixed number of elements
+* As a result of the previous point, memory usage is also static, and allocated upfront.
+* The data structure does not support addition/removal of elements. Any change requires recreating an entirely new version of the structure.
+In memory, this looks a lot different from lists:
+
+<SVG src={SVGTuple} alt="Tuples in Memory" />
+
+You can see that memory usage is a lot more predictable (it’s 100% predictable, actually).
+
+All that’s needed to access an element is:
+
+* A reference to where the tuple’s memory begins
+* The index of the element you’re accessing
+
+Coming from other programming languages, you might recognize this as being very similar to accessing a static array. And you’d be right. Tuples are not much more than abstractions to statically-sized arrays. The difference comes in the semantic meaning given to both.
+
+Arrays tend to hold data we can append or remove from. And while old C-style arrays would often have a fixed size, more recent languages easily provide ways for us to push, pop, shift and unshift elements. The way memory is handled to support this varies from language to language.
+
+Tuples, on the other hand, are not meant to change. They provide one piece of information, not a list of pieces.
+
+Examples of items that would fit in a tuple:
+
+### Name & email pairs
+
+You can see this represented in most email clients when you see `"Miguel Palhas <miguel@example.com>"`. In Elixir, this could be `{"Miguel Palhas", "miguel@example.com"}`. There’s actually an Elixir library that does this.
+
+### 2D points
+
+Such as `{ 1, 2 }`. This could also be represented as a map `%{ x: 1, y: 2 }`. Whichever you choose to use is mostly a matter of personal choice, and of the specific use-case.
+
+### Key-Value pairs
+
+Any mapping between a key and a value can be a two-element tuple:
+
+```elixir
+a = { :name, "Miguel Palhas" }
+b = { :email, "miguel@example.com" }
+```
+
+Which leads us to an interesting point: Keyword lists. In Elixir, you may already have come across something like this:
+
+```elixir
+list1 = [ name: "Miguel Palhas", email: "miguel@example.com" ]
+```
+
+As it turns out, this is just syntactic sugar for a list, where each value is a 2-element tuple. It is equivalent to:
+
+```elixir
+list2 = [
+  { :name, "Miguel Palhas"},
+  { :email, "miguel@example.com" }
+]
+```
+
+You can verify this yourself by fetching a single element from this list:
+
+```elixir
+iex> Enum.at(list1, 0)
+{:name, "Miguel Palhas"}
+```
+
+Looking at how this would look like in memory, we’d see something like this:
+
+<SVG src={SVGKeyword} alt="Keyword lists in Memory" />
+
+## Can you Add to Tuples?
+
+Yes, you can. In Elixir, you have access to functions such as `Tuple.append/1`, `Tuple.insert_at/1` or `Tuple.delete_at/1`.
+
+Looking at what they do, you may be tempted to use them as you would with lists, adding and removing elements at-will.
+
+However, these functions are rarely used, since what they actually do is create an entirely new tuple with the updated result somewhere else in memory. As you can probably see, this doesn’t scale well. Constantly re-creating your tuple to add a few elements quickly gets out of hand.
+
+With a list, adding/removing elements is a cheap operation that doesn’t need to mess with existing memory, which is why they’re more suited for dynamic collections.
+
+## Summary
+
+We touched on the differences in data structure between Lists and Tuples. And got to the cool stuff about how this works out in memory. Tuples are cheaper to get data out of, Lists are cheaper to add to.
