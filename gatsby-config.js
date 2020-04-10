@@ -6,6 +6,7 @@ module.exports = {
   siteMetadata: {
     siteTitle: `Miguel Palhas | @naps62`,
     siteTitleAlt: `Miguel Palhas | @naps62`,
+    siteDescription: `Software Developer | Elixir | Ruby | Rust | DevOps | Chess`,
   },
   plugins: [
     {
