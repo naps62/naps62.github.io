@@ -6,12 +6,17 @@ module.exports = {
   siteMetadata: {
     siteTitle: `Miguel Palhas | @naps62`,
     siteTitleAlt: `Miguel Palhas | @naps62`,
+    siteUrl: 'https://naps62.com',
     siteDescription: `Software Developer | Elixir | Ruby | Rust | DevOps | Chess`,
+    siteLanguage: 'en',
+    siteImage: '',
+    author: '@naps62',
   },
   plugins: [
     {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       options: {
+        feedTitle: 'Miguel Palhas | @naps62 | Software Developer',
         navigation: [
           { title: `Blog`, slug: `/blog` },
           { title: `About`, slug: `/about` },
