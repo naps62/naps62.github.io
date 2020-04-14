@@ -61,7 +61,15 @@ module.exports = {
         path: `${__dirname}/src`,
       },
     },
-
-    // `gatsby-plugin-webpack-bundle-analyser-v2`,
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: 'UA-53251745-1',
+        head: false,
+        anonymize: true,
+        respectDNT: true,
+        cookieDomain: 'naps62.com',
+      },
+    },
   ],
 };
