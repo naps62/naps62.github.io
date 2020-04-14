@@ -13,10 +13,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Set git Identity
+      - name: Set git identity
         run: |
-          git config --global user.name "Miguel Palhas"
+          git config --global user.name "Github Actions"
           git config --global user.email "mpalhas@gmail.com"
+
+      - name: Set git remote
+        run: |
+          git remote set-url origin https://naps62:${{ secrets.GITHUB_TOKEN }}@github.com/naps62/naps62.github.io
 
       - name: Setup Cache
         uses: actions/cache@v1
