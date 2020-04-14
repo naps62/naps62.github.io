@@ -14,6 +14,16 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: 'UA-53251745-1',
+        head: false,
+        anonymize: true,
+        respectDNT: true,
+        cookieDomain: 'naps62.com',
+      },
+    },
+    {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       options: {
         feedTitle: 'Miguel Palhas | @naps62 | Software Developer',
@@ -59,16 +69,6 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/src`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: 'UA-53251745-1',
-        head: false,
-        anonymize: true,
-        respectDNT: true,
-        cookieDomain: 'naps62.com',
       },
     },
   ],
