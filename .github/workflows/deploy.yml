@@ -13,6 +13,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Set git Identity
+        run: |
+          git config --global user.name "Miguel Palhas"
+          git config --global user.email "mpalhas@gmail.com"
+
       - name: Setup Cache
         uses: actions/cache@v1
         with:
