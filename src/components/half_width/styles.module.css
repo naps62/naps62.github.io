@@ -1,0 +1,28 @@
+@custom-media --small (width <= 50rem);
+
+.container {
+  margin: auto;
+  width: 50%;
+
+  & img {
+    width: 100%;
+  }
+}
+
+.large_100 {
+  width: 100%;
+}
+
+.large_50 {
+  width: 50%;
+}
+
+@media (--small) {
+  .small_100 {
+    width: 100%;
+  }
+
+  .small_50 {
+    width: 50%;
+  }
+}

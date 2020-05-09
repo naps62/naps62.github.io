@@ -1,5 +1,4 @@
 import React from 'react';
-import { jsx } from 'theme-ui';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import styles from './talks.module.css';
