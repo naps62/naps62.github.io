@@ -1,0 +1,98 @@
+---
+title: Clap
+slug: /posts/clap
+date: 2020-05-24
+tags:
+  - Rust
+---
+
+import rayTracingGif from './ray-tracing.gif';
+
+[typespecs]: https://hexdocs.pm/elixir/typespecs.html
+[sppm]: https://www.ci.i.u-tokyo.ac.jp/~hachisuka/sppm.pdf
+[cuda]: https://en.wikipedia.org/wiki/CUDA
+
+I've been diving a lot into strong/static typing lately. I mostly prefer TypeScript as oposed to JavaScript nowadays; I fill my
+Elixir code with [Typespecs](typespecs) whenever appropriate; and on weekends, I've been fiddling around a lot with Rust.
+
+Right before I first got a job, and started working mostly on the web, I was knee-deep into C++, CUDA, and the [most
+buzzword-filled names](sppm) for ray tracing algorithms. That was a world of stronly typed languages (ok let's be honest, mostly C++).
+
+It was also a decade ago, and much has changed since then
+
+<Gif src={rayTracingGif} alt="Ray Tracing" />
+
+# What is strong/static typing?
+
+First of all, it should be said, to get a common confusion out of the way, that static typing and strong typing are two
+distinct terms
+
+*Statically typed languages* where types for each variable must be known at compile-time, and must not be incompatible;
+*Strongly typed languages* are a more subjective category, but can be described as languages that prevent you from
+working around the type system's rules.
+
+C is a statically typed languages. But it's also a weakly typed language (as contradictory as that may sound). While you
+need to specify types for everything, it's very easy (and painful) to find loopholes, accidental or otherwise.
+
+Ruby is dynamically typed. It's the kind of language where `a=1; a='a'` works just fine, because there's no specific
+type bound to a variable. But it's also strongly typed, because `1 + 'a'` fails to execute.
+
+
+This is confusing. I had to double check a lot of this as I was writing, because it's easy to mix up definitions. That's
+why I usually prefer to avoid these terms, and just consider these as two different features that affect the overall
+*type safety* of our code.
+
+# The state of the web
+
+Let's take as an example 3 of the most popular backend languages for the web: PHP, JavaScript and Ruby.
+
+Do you know what `1 + '1'` evaluates to in each of those?
+
+If you guessed one of them wrong (or if you felt the need to open an interpreter), you might find this frustrating too.
+Here are the answers:
+
+```bash
+# JavaScript
+$ node -e "console.log(1 + '1')"
+11
+
+
+# PHP
+$ echo "<?php echo 1 + '1' ?>" | php
+2
+
+# Ruby
+$ ruby -e "1 + '1'"
+-e:1:in `+`: String can't be coerced into Integer (TypeError)
+```
+
+3 different languages yield 3 different results. And you can find valid arguments for either of them making sense.
+
+- Python: `'1'` is a string, so Python assumes you want to concatenate things
+- PHP: `1` is a number, and `'1'` can obviously be converted into one. `+` is a sum, so why not?
+- Ruby: Wait a minute, you can't add apples and oranges!
+
+
+I don't really have a strong opinion towards each argument. *(ok, I come from Ruby, and this a post on typing systems.
+Just play along, please)*
+What I am strongly against, is inconsistencies. That's what generates confusion, misunderstandings, and at the end of
+the day, bugs.
+
+If, for every new stack I need to work with, we also need to know the underlying quircks of each language, or the
+individual opinions of their creators on what "makes sense", then we're setting ourselves up for disaster.
+
+> So yes, I am in favor of more strict typing systems. And from the looks of it, a lot of the community is as well (people
+> did go to the trouble of writing TypesScript and various other tools, after all).
+
+Types are useful not just to create consistency
+
+What then, moved us in this direction?
+
+# 
+
+# Types are useful restrictions
+
+At the CPU level, everything is just 0s and 1s. We're the ones who given meaning to those.
+Your computer doesn't care whether `100011` is binary for the number 13, or the ASCII code for the a `#`. But you probably do. `13 + 1`
+makes a lot of sense, but `# + 1` not so much.
+
