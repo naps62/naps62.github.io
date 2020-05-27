@@ -1,5 +1,6 @@
 talks:
   - title: Automating your Way to Confidence
+    event: DevOps Lisbon (May 2020)
     description: |
       A few months ago, Github Actions went to public beta, and it ended up fitting our needs nicely. It also turned out that this CI has a lot more to offer than I was previously used to.
       This talk is about our journey to make better and faster releases, about how I'm trying to deprecate our project managers, and about how awesome Github Actions can be.
