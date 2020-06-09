@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './styles.module.css';
 
-const HalfWidthImage = function ({ img, alt, ...opts }) {
+const HalfWidthImage = function ({ src, alt, ...opts }) {
   const largeClass = `large_${opts.large || 100}`;
   const smallClass = `small_${opts.small || 100}`;
 
@@ -14,7 +14,7 @@ const HalfWidthImage = function ({ img, alt, ...opts }) {
 
   return (
     <div className={classes}>
-      <img src={img} alt={alt} />
+      <img src={src} alt={alt} />
     </div>
   );
 };

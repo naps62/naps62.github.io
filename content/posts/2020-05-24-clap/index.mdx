@@ -6,6 +6,7 @@ tags:
   - Rust
 ---
 
+import { HalfWidthImage } from '../../../src/components/half_width';
 import rayTracingGif from './ray-tracing.gif';
 
 [typespecs]: https://hexdocs.pm/elixir/typespecs.html
@@ -18,9 +19,9 @@ Elixir code with [Typespecs](typespecs) whenever appropriate; and on weekends, I
 Right before I first got a job, and started working mostly on the web, I was knee-deep into C++, CUDA, and the [most
 buzzword-filled names](sppm) for ray tracing algorithms. That was a world of stronly typed languages (ok let's be honest, mostly C++).
 
-It was also a decade ago, and much has changed since then
+It was also a decade ago, and much has changed since then.
 
-<Gif src={rayTracingGif} alt="Ray Tracing" />
+<HalfWidthImage src={rayTracingGif} alt="Ray Tracing" />
 
 # What is strong/static typing?
 
@@ -42,7 +43,8 @@ This is confusing. I had to double check a lot of this as I was writing, because
 why I usually prefer to avoid these terms, and just consider these as two different features that affect the overall
 *type safety* of our code.
 
-# The state of the web
+
+# Types in the web
 
 Let's take as an example 3 of the most popular backend languages for the web: PHP, JavaScript and Ruby.
 
@@ -72,12 +74,67 @@ $ ruby -e "1 + '1'"
 - PHP: `1` is a number, and `'1'` can obviously be converted into one. `+` is a sum, so why not?
 - Ruby: Wait a minute, you can't add apples and oranges!
 
-
 I don't really have a strong opinion towards each argument. *(ok, I come from Ruby, and this a post on typing systems.
 Just play along, please)*
-What I am strongly against, is inconsistencies. That's what generates confusion, misunderstandings, and at the end of
-the day, bugs.
 
+# Type coercion
+
+In fact, what happened up there in the first two languages is what's called **Implicit Type Coercion**. It's a fancy way to describe
+Ruby
+how a language allows values of different types to interact with each other.
+
+In JavaScript, the addition operator, when faced with a least one `String` argument, coerces the other one to a `String`
+as well. PHP seems to prefer coercing into numbers intead. It also does some very funny business if the string does not
+represent a valid number. Go on, try it out, I'll wait.
+
+Ruby, being the all-trick-pony that he is, allows each type or class to implement their own [coerce](https://apidock.com/ruby/Integer/coerce) function, so custom type implicit conversions can be implemented.
+
+These are all nice, until you shoot yourself in the foot, and all the implicitness just turns your codebase into
+a treasure hunt.
+
+
+## Type coercion in static languages
+
+C, one of the founding fathers of statically typed languages, also does type coercion, although to a very small degree.
+
+```C
+int main() {
+  int x = 1;
+  float y = 2.5;
+
+  printf("%f\n", x + y); // 3.5
+}
+```
+
+The addition of a regular integer with a short unsigned one works correctly, at least until an overflow can be reached.
+
+But this is mostly it, though. Try something slighly different, like assigning a float to an integer, and your program
+will compile, but produce terrible results.
+C mostly takes in the bytes of those variables, and interprets them like you ask him to do so. You can cast a string to
+an array of floats, but you'll do that on your own, and suffer the consequences.
+
+# Typing systems over the years
+
+In general, most of these behaviours are to be avoided in C, for your own safety and sanity. The language just wasn't built at a time where a compiler could be powerful enough to be more powerful. The computing power wasn't up to the task, and computer science was still a relatively new field.
+
+And that's partly why I believe people have drifted away from typing systems over the years.
+
+Typing systems are seens as this clunky tool that just forces you to do more work, deal with cryptic compiler errors,
+and more often than not require you to explicitly convert between types. All of this while you, so sure of yourself, are
+just thinking "I fucking know this is a string. But there's a number in there, and I want to sum it. I know what I'm
+doing".
+
+But no. You don't know what you're doing. None of us do.
+
+It turns out that all these years of research and experience taught us one valuable lesson: computers are much better
+than humans at finding bugs.
+
+
+# Outdated 
+
+This, in my opinion, is one of the arguments in favor of stronger typing systems. It introduces more consistency.
+
+This isn't to say that all statically typed languages agree on how to sum integers and strings. 
 If, for every new stack I need to work with, we also need to know the underlying quircks of each language, or the
 individual opinions of their creators on what "makes sense", then we're setting ourselves up for disaster.
 
