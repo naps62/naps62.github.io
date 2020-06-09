@@ -48,9 +48,9 @@ const Image = ({ src }) => {
   );
 };
 
-const Talk = ({ title, event, description, slides, ...opts }) => {
+const Talk = ({ title, id, event, description, slides, ...opts }) => {
   return (
-    <section className={styles.talk}>
+    <section id={id} className={styles.talk}>
       <div className={styles.description}>
         <h2>{title}</h2>
         <h3>{event}</h3>
