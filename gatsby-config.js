@@ -24,6 +24,21 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-embed-video',
+            options: {
+              width: 800,
+              related: false,
+              noIframeBorder: true,
+            },
+          },
+        ],
+      },
+    },
+    {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       options: {
         feedTitle: 'Miguel Palhas | @naps62 | Software Developer',

@@ -28,6 +28,8 @@
     "gatsby-plugin-react-helmet": "^3.2.1",
     "gatsby-plugin-sharp": "^2.5.3",
     "gatsby-plugin-sitemap": "^2.2.19",
+    "gatsby-remark-embed-video": "^3.0.10",
+    "gatsby-transformer-remark": "^2.8.15",
     "gatsby-transformer-sharp": "^2.4.3",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.2",
