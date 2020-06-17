@@ -1,27 +1,13 @@
 import React from 'react';
 import { Global } from '@emotion/core';
-import { Main, Styled, Box, css, jsx } from 'theme-ui';
+import { Main, Styled, Container, css } from 'theme-ui';
 import 'typeface-ibm-plex-sans';
 import SEO from './seo';
 import Header from './header';
-import Footer from './footer';
 import CodeStyles from '../styles/code';
 import SkipNavLink from './skip-nav';
 
 type LayoutProps = { children: React.ReactNode; className?: string };
-
-const Container = (props) =>
-  jsx(Box, {
-    ...props,
-    sx: {
-      width: '100%',
-      minWidth: 0,
-      maxWidth: 1024,
-      mx: 'auto',
-      p: 4,
-      variant: 'styles.Container',
-    },
-  });
 
 const Layout = ({ children, className }: LayoutProps) => (
   <Styled.root data-testid="theme-root">
@@ -53,7 +39,6 @@ const Layout = ({ children, className }: LayoutProps) => (
       <Main id="skip-nav" css={css({ ...CodeStyles })} className={className}>
         {children}
       </Main>
-      <Footer />
     </Container>
   </Styled.root>
 );

@@ -1,22 +1,14 @@
 require(`dotenv`).config({
   path: `.env`,
 });
+const withDefaults = require(`./utils/default-options`);
 
 const newsletterFeed = require(`./src/utils/newsletterFeed`);
 
-const lekoOptions = {
+const lekoOptions = withDefaults({
   feedTitle: 'Miguel Palhas | @naps62 | Software Developer',
-  navigation: [
-    { title: `Blog`, slug: `/blog` },
-    { title: `About`, slug: `/about` },
-    { title: 'Speaking', slug: `/speaking` },
-  ],
-  externalLinks: [
-    { name: `Github`, url: `https://github.com/naps62` },
-    { name: `Twitter`, url: `https://twitter.com/naps62` },
-    { name: `Instagram`, url: `https://www.instagram.com/naps62/` },
-  ],
-};
+});
+
 const {
   feed = true,
   feedTitle = `Minimal Blog - @lekoarts/gatsby-theme-minimal-blog`,
@@ -60,10 +52,48 @@ module.exports = {
       },
     },
     {
-      resolve: `@lekoarts/gatsby-theme-minimal-blog-core`,
-      options: lekoOptions,
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: lekoOptions.postsPath,
+        path: lekoOptions.postsPath,
+      },
     },
-    feed && {
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: lekoOptions.pagesPath,
+        path: lekoOptions.pagesPath,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 960,
+              quality: 90,
+              linkImagesToOriginal: false,
+            },
+          },
+        ],
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 960,
+              quality: 90,
+              linkImagesToOriginal: false,
+            },
+          },
+        ],
+      },
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-typescript`,
+    {
       resolve: `gatsby-plugin-feed`,
       options: newsletterFeed(feedTitle),
     },

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from 'theme-ui';
+import { jsx, useColorMode, Styled } from 'theme-ui';
 import { Link } from 'gatsby';
 import { Flex } from '@theme-ui/components';
 import useSiteMetadata from '../hooks/use-site-metadata';
