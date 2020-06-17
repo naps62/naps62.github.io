@@ -13,7 +13,6 @@ export default {
     </Title>
   ),
   pre: (preProps) => {
-    console.log('pre');
     const props = preToCodeBlock(preProps);
     // if there's a codeString and some props, we passed the test
     if (props) {
