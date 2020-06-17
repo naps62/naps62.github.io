@@ -27,7 +27,6 @@ Also be sure to checkout other [Free & Open Source Gatsby Themes](https://themes
 
 - MDX
 - Fully customizable through the usage of Gatsby Themes (and Theme UI)
-- Light Mode / Dark Mode
 - Typography driven, minimal style
 - Tags/Categories support
 - Code highlighting with [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer) and [react-live](https://github.com/FormidableLabs/react-live) support. Also allows adding line numbers, line highlighting, language tabs, and file titles.
