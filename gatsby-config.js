@@ -2,10 +2,31 @@ require(`dotenv`).config({
   path: `.env`,
 });
 
+const newsletterFeed = require(`./src/utils/newsletterFeed`);
+
+const lekoOptions = {
+  feedTitle: 'Miguel Palhas | @naps62 | Software Developer',
+  navigation: [
+    { title: `Blog`, slug: `/blog` },
+    { title: `About`, slug: `/about` },
+    { title: 'Speaking', slug: `/speaking` },
+  ],
+  externalLinks: [
+    { name: `Github`, url: `https://github.com/naps62` },
+    { name: `Twitter`, url: `https://twitter.com/naps62` },
+    { name: `Instagram`, url: `https://www.instagram.com/naps62/` },
+  ],
+};
+const {
+  feed = true,
+  feedTitle = `Minimal Blog - @lekoarts/gatsby-theme-minimal-blog`,
+} = lekoOptions;
+
 module.exports = {
   siteMetadata: {
     siteTitle: `Miguel Palhas | @naps62`,
     siteTitleAlt: `Miguel Palhas | @naps62`,
+    siteHeadline: `Miguel Palhas | @naps62`,
     siteUrl: 'https://naps62.com',
     siteDescription: `Software Developer | Elixir | Ruby | Rust | DevOps | Chess`,
     siteLanguage: 'en',
@@ -39,21 +60,17 @@ module.exports = {
       },
     },
     {
-      resolve: `@lekoarts/gatsby-theme-minimal-blog`,
-      options: {
-        feedTitle: 'Miguel Palhas | @naps62 | Software Developer',
-        navigation: [
-          { title: `Blog`, slug: `/blog` },
-          { title: `About`, slug: `/about` },
-          { title: 'Speaking', slug: `/speaking` },
-        ],
-        externalLinks: [
-          { name: `Github`, url: `https://github.com/naps62` },
-          { name: `Twitter`, url: `https://twitter.com/naps62` },
-          { name: `Instagram`, url: `https://www.instagram.com/naps62/` },
-        ],
-      },
+      resolve: `@lekoarts/gatsby-theme-minimal-blog-core`,
+      options: lekoOptions,
     },
+    feed && {
+      resolve: `gatsby-plugin-feed`,
+      options: newsletterFeed(feedTitle),
+    },
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-typescript`,
+    `gatsby-plugin-catch-links`,
+    `gatsby-plugin-theme-ui`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
