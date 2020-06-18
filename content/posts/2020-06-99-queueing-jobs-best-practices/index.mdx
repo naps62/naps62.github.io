@@ -10,6 +10,8 @@ tags:
 
 [quantum]: https://github.com/quantum-elixir/quantum-core
 [sidekiq]: https://github.com/mperham/sidekiq
+[fun-with-flags]: https://github.com/tompave/fun_with_flags
+[redis_mutex]: https://github.com/queer/redis_mutex
 
 Erlang & Elixir are ready for asynchronous work right off the bat. So, generally speaking, background job systems aren't
 needed as much as in other ecosystems. But they still have their place for particular use cases.
@@ -71,14 +73,186 @@ config :my_app, MyApp.Scheduler,
     first: [
       # every hour
       schedule: "0 * * * *",
-      task: {MyApp.Jobs.First, :run, []}
+      task: {MyApp.ExampleJob, :run, []}
     ],
     second: [
       # every minute
       schedule: "* * * * *",
-      task: {MyApp.Jobs.Second, :run, []}
+      task: {MyApp.AnotherExampleJob, :run, []}
     ]
   ]
 ```
 
-Some may argue that, because 
+Some may argue that, because Erlang/OTP already provides the infrastructure for creating these processes, packages such
+as `Quantum` are not necessary. But the structure created by them can end up being more intuitive, especially if you're
+not as familiar with OTP. Which is the case for anyone that might be coming in from Ruby or other such communities.
+
+## How to structure background jobs
+
+Let's now get into a few tips that should help you keeping your jobs ready to deal with potential future problems
+
+Most of these are preventive measures due to the fact that all of these are background processes. They're not responding
+to an HTTP request, and happen without any intervention, so sometimes debugging can be hard if you don't take some
+precautions.
+
+Let's consider for this a small example, which sends confirmation emails to users that haven't received it yet:
+
+```elixir
+defmodule MyApp.ExampleJob do
+  def run do
+    get_users()
+    |> Enum.each(fn user ->
+      # send single email to user
+    end)
+  end
+
+  defp get_users do
+    MyApp.User
+    |> where(confirmation_email_sent: false)
+    |> MyApp.Repo.all()
+  end
+end
+```
+
+### 1. Put in a killswitch
+
+This is one of those I'll never not do again, since it's hurt me so many times.
+You'll create a background job, test it, deploy it, and configure it to run periodically and send some emails.
+
+It hits production, and you quickly notice something's wrong. The same 100 people are being spammed with emails every
+minute. You messed up the `geth_next_batch/1` function, and it always goes over the same batch of users.
+It's a developer's horror story. You need to fix it (or kill it) quickly, but all that time waiting for the new release to get
+online is physically painful.
+
+So, avoid that:
+
+```elixir
+defmodule MyApp.ExampleJob do
+  def run do
+    return if !enabled?
+
+    # ...
+  end
+
+  defp enabled? do
+    # check a Redis flag, or a database record, or anything really
+  end
+end
+```
+
+You can plug in some persistent system that allows you to quickly toggle the job on/off. A good suggestion would be to
+use a feature flag package, such as [FunWithFlags][fun-with-flags]
+
+### 2. Always batch your jobs by default
+
+It's easy to miss this one on a first draft. You're just trying to get something online quickly.
+But in some cases, it may be important to not hurt your performance, if you're working on a very resource-intensive job,
+or simply if your list of records to process grows too quickly.
+
+Doing `User |> where(confirmation_email_sent: false) |> Repo.all()` can be dangerous if there's potential for that to
+yield too many results.
+You may end up consuming too many resources, for something that could be done in smaller batches, keeping your system
+a lot more stable:
+
+```elixir
+defmodule MyApp.ExampleJob do
+  @batch_size 100
+
+  defp get_users do
+    MyApp.User
+    |> where(confirmation_email_sent: false)
+    |> limit(^@batch_size)
+    |> MyApp.Repo.all()
+  end
+end
+```
+
+Whatever job queue mechanism you plug this worker into, it will end up being called frequently. So you shouldn't hurry
+in processing smaller batches one at a time
+
+### 3. Avoid overlaps
+
+This is kind of related to the previous point, but it's a concern that goes beyond performance.
+
+If you program a job to run every minute, and a single execution has potential to last longer than that, you end up
+risking cascading performance problems, or even worse, race conditions, where the first and second executions are both
+trying to process the same set of data, and conflicting with each other in the process.
+
+This is obviously dependent on what your exact business logic is, but as a general rule, it's best to be defensive here.
+
+If you use a GenServer approach like the one showcased above, this is solved automatically, as instead of scheduling
+jobs every minute, you can instead use `Process.send_after(self(), :poll, delay)` to only schedule the next run after
+the current one has finished, avoiding overlap.
+
+When using `Quantum`, you also have an `overlap: true` option that you can add to automatically prevent this:
+
+```
+config :my_app, MyApp.Scheduler,
+  jobs: [
+    first: [
+      # every hour
+      schedule: "0 * * * *",
+      task: {MyApp.ExampleJob, :run, []}
+      overlap: false
+    ]
+
+
+This, by the way, might already be reason enough to consider using a package rather than just plain Elixir.
+
+### 4. Plug in a manual mode
+
+If your job is processing a batch of records, it's useful to plug in some public functions that allow you to manually
+process specific records. This can serve two purposes:
+
+* Better ability to debug the job;
+* Ability to do a few manual runs before enabling the global job (by toggling the feature flag discussed above)
+
+A sample structure could look like this:
+
+```elixir
+defmodule MyApp.ExampleJob do
+  import MyApp.Lock
+
+  def run do
+    lock("example_job", fn ->
+      get_users()
+      |> Enum.each(&process_user/1)
+    end)
+  end
+
+  def run_manually(users) when is_list(users) do
+    lock("example_job", fn ->
+      users
+      |> Enum.each(&process_user/1)
+    end)
+  end
+
+  def run_manually(user), do: run_manually([user])
+
+  def process_user(%User{} = user) do
+    # process a single user
+  end
+end
+```
+
+In this case, we're creating a `run_manually/1` public function, that can receive either a single user or a batch of
+them, and performs the same logic as the automatic job would.
+
+One important detail here is to again avoid race conditions, which in this case is being done with a custom `Lock`
+module, that uses the [`redis_mutex`][redis_mutex] package to prevent potential issues:
+
+```elixir
+defmodule MyApp.Lock do
+  use RedisMutex
+  require Logger
+
+  def lock(lock_name, fun) do
+    with_lock(lock_name, 60_000) do
+      fun.()
+    end
+  rescue
+    _e in RedisMutex.Error ->
+      Logger.debug("#{locker_name} another process already running")
+  end
+end
+```
