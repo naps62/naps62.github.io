@@ -1,0 +1,84 @@
+---
+title: Background jobs: best practices
+slug: /posts/job-queues-best-practices
+
+date: 2020-06-99
+tags:
+  - Elixir
+  - Best Practices
+---
+
+[quantum]: https://github.com/quantum-elixir/quantum-core
+[sidekiq]: https://github.com/mperham/sidekiq
+
+Erlang & Elixir are ready for asynchronous work right off the bat. So, generally speaking, background job systems aren't
+needed as much as in other ecosystems. But they still have their place for particular use cases.
+
+This post goes through a few best practices I often try to think of in advance when I a job queue, so that I don't shoot
+myself in the foot later on.
+
+## Flavours
+
+Elixir already gives you the ability to schedule asynchronous work pretty easily. Something as simple as this already
+covers a lot:
+
+```elixir
+Task.async(fn ->
+  # some heavy lifting
+end)
+```
+
+But you might need something a bit more powerful, either just for convenience (having some tooling & monitoring around
+that task), or because you need something like periodic jobs. Again, all of this can be achieved with something like
+a GenServer:
+
+```elixir
+defmodule PeriodicJob do
+  use GenServer
+
+  @period 60_000
+
+  def init do
+    Process.send_after(self(), :poll, @period)
+
+    {:ok, :state}
+  end
+
+  def handle_info(:poll, state) do
+    # some heavy lifting
+
+    Process.send_after(self(), :poll, @period)
+  end
+end
+```
+
+You can also use a job queuing library such as [`Quantum`][quantum]. If you come from Ruby land, and are used to libraries such as
+[`Sidekiq`][sidekiq], you might feel more familiar with something like this:
+
+```elixir
+#
+# lib/my_app/scheduler.ex
+#
+defmodule MyApp.Scheduler do
+  use Quantum.Scheduler, opt_app: :my_app
+end
+
+#
+# config/config.exs
+#
+config :my_app, MyApp.Scheduler,
+  jobs: [
+    first: [
+      # every hour
+      schedule: "0 * * * *",
+      task: {MyApp.Jobs.First, :run, []}
+    ],
+    second: [
+      # every minute
+      schedule: "* * * * *",
+      task: {MyApp.Jobs.Second, :run, []}
+    ]
+  ]
+```
+
+Some may argue that, because 
