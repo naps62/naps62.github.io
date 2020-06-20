@@ -1,9 +1,9 @@
-import { tint } from "@theme-ui/color"
+import { tint } from '@theme-ui/color';
 
 export default {
   "[data-name='live-editor']": {
     fontSize: 1,
-    "textarea, pre": {
+    'textarea, pre': {
       padding: (t: any) => `${t.space[3]} !important`,
     },
   },
@@ -11,7 +11,7 @@ export default {
     padding: (t: any) => `calc(${t.space[2]} + 10px) !important`,
     backgroundColor: tint(`primary`, 0.7),
   },
-  ".prism-code": {
+  '.prism-code': {
     fontSize: 1,
     padding: 3,
     webkitOverflowScrolling: `touch`,
@@ -21,34 +21,34 @@ export default {
     minWidth: `100%`,
     mb: 0,
     '&[data-linenumber="false"]': {
-      ".token-line": {
+      '.token-line': {
         pl: 3,
       },
     },
   },
-  ".token": {
+  '.token': {
     display: `inline-block`,
   },
-  "p > code, li > code": {
+  'p > code, li > code': {
     bg: `rgb(1, 22, 39)`,
     color: `rgb(214, 222, 235)`,
     px: 2,
     py: 1,
   },
-  ".gatsby-highlight": {
+  '.gatsby-highlight': {
     fontSize: 1,
     position: `relative`,
     webkitOverflowScrolling: `touch`,
     bg: `rgb(1, 22, 39)`,
     overflow: `auto`,
     mx: [0, 0, 0, -3],
-    ".token-line": {
+    '.token-line': {
       mx: -3,
     },
-    "pre.language-": {
+    'pre.language-': {
       mt: 0,
     },
-    "pre.language-noLineNumbers": {
+    'pre.language-noLineNumbers': {
       mt: 0,
     },
     'pre[class*="language-"]:before': {
@@ -144,7 +144,7 @@ export default {
     tabSize: 4,
     hyphens: `none`,
   },
-  ".line-number-style": {
+  '.line-number-style': {
     display: `inline-block`,
     width: `3em`,
     userSelect: `none`,
@@ -152,7 +152,7 @@ export default {
     textAlign: `center`,
     position: `relative`,
   },
-  ".code-title": {
+  '.code-title': {
     backgroundColor: tint(`primary`, 0.7),
     color: `black`,
     fontSize: 0,
@@ -164,16 +164,16 @@ export default {
   "[data-name='live-preview'], [data-name='live-editor']": {
     mx: [0, 0, 0, -3],
   },
-  ".token-line": {
+  '.token-line': {
     pr: 3,
   },
-  ".highlight-line": {
+  '.highlight-line': {
     backgroundColor: `rgb(2, 55, 81)`,
     borderLeft: `4px solid rgb(2, 155, 206)`,
-    ".line-number-style": {
+    '.line-number-style': {
       width: `calc(3em - 4px)`,
       opacity: 0.5,
       left: `-2px`,
     },
   },
-}
+};

@@ -39,7 +39,7 @@ some bits that need to go beyond Vim, such as increasing font size, for instance
 
 Let's start with the easy stuff. Creating a `:Focus` command is pretty straightforward.
 
-```vimscript
+```vim
 let g:focused = 0
 function! Focus()
   if g:focused == 0
@@ -50,8 +50,6 @@ function! Focus()
     let g:focused = 1
   endif
 endfunction
-
-command Focus call Focus()
 ```
 
 We can even have our function work as a toggle. Calling it a second time will (ideally) undo all the evil we did.
@@ -66,7 +64,7 @@ the `if` statement), check out the full code in [this gist][gist].
 
 This plugin adds a distraction-free mode to Vim, which hides most the of clutter already.
 
-```vimscript
+```vim
 " enable distraction-free with a 120 column wide buffer
 :Goyo 120
 ```
@@ -75,7 +73,7 @@ This plugin adds a distraction-free mode to Vim, which hides most the of clutter
 
 Built by the same author, this goes one step further, and dims down all content but the currently highlighted paragrah.
 
-```vimscript
+```vim
 :Limelight
 ```
 
@@ -83,7 +81,7 @@ Built by the same author, this goes one step further, and dims down all content 
 
 Yet another package. This one adds a Table of Contents to the left of your content buffer. It builds an index for markdown and other standard content formats, making it pretty useful for navigating large files.
 
-```
+```vim
 " enable sidebar TOC for a markdown file
 :VOoM markdown
 ```
@@ -93,7 +91,7 @@ Yet another package. This one adds a Table of Contents to the left of your conte
 Now for the actual custom stuff. These are a few small settings that I normally use on Vim, but wanted to disable while
 in focus mode:
 
-```vimscript
+```vim
 " disable highlighting of the current line
 set nocursorline
 
@@ -119,7 +117,7 @@ I manually scrolled down those extra lines.
 The trick is to override the default navigation mappings, and combine them with `zz` which brings the cursor current
 line to the vertical center of the screen:
 
-```vimscript
+```vim
 :nmap j jzz
 :nmap k kzz
 :nmap G Gzz
@@ -132,7 +130,7 @@ at the center. It's not perfect, but it's close enough.
 
 Since I always run Vim inside a tmux session, I wanted to hide that as well. This one is actually pretty simple:
 
-```vimscript
+```vim
 :silent !tmux set status off
 ```
 
@@ -145,7 +143,7 @@ I use [alacritty](https://github.com/alacritty/alacritty). Like most other termi
 in/out, and reset. In my case, I have those set to `Ctrl+'`, `Ctrl+-` and `Ctrl+0`, respectively. In `alacritty.yml`'s
 config file, that translates to:
 
-```
+```yaml
 key_bindings:
   - { key: Key0,       mods: Control, action: ResetFontSize    }
   - { key: Apostrophe, mods: Control, action: IncreaseFontSize }
@@ -156,7 +154,7 @@ As far as I could tell, there is no command line API that I could call to achiev
 keyboard shortcuts. Using `xdotool`, it's easy to send those keystroke signals to the terminal window, with a single
 command:
 
-```vimscript
+```vim
 :silent !xdotool key --repeat 10 Ctrl+apostrophe
 ```
 
@@ -169,4 +167,4 @@ A similar `xdotool key Ctrl+0` can be used to get back to the default zoom level
 
 I used this full setup for the first time while writing this post. It has a few rough edges that I'll still be
 improving on in the future, but it's already proven extremely helpful.
-Check out the full [vimscript code here][gist], or let me know on [twitter](https://twitter.com/naps62) if you have any thoughts on how to improve this.
+Check out the full [vim code here][gist], or let me know on [twitter](https://twitter.com/naps62) if you have any thoughts on how to improve this.

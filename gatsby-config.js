@@ -37,21 +37,6 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [
-          {
-            resolve: 'gatsby-remark-embed-video',
-            options: {
-              width: 800,
-              related: false,
-              noIframeBorder: true,
-            },
-          },
-        ],
-      },
-    },
-    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: lekoOptions.postsPath,
@@ -75,6 +60,12 @@ module.exports = {
               maxWidth: 960,
               quality: 90,
               linkImagesToOriginal: false,
+            },
+          },
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              showLineNumbers: false,
             },
           },
         ],

@@ -4,7 +4,6 @@ import { Main, Styled, Container, css } from 'theme-ui';
 import 'typeface-ibm-plex-sans';
 import SEO from './seo';
 import Header from './header';
-import CodeStyles from '../styles/code';
 import SkipNavLink from './skip-nav';
 
 type LayoutProps = { children: React.ReactNode; className?: string };
@@ -36,7 +35,7 @@ const Layout = ({ children, className }: LayoutProps) => (
     <SkipNavLink>Skip to content</SkipNavLink>
     <Container>
       <Header />
-      <Main id="skip-nav" css={css({ ...CodeStyles })} className={className}>
+      <Main id="skip-nav" className={className}>
         {children}
       </Main>
     </Container>
