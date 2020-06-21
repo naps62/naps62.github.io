@@ -15,7 +15,6 @@ type NavigationProps = {
 const Navigation = ({ nav }: NavigationProps) => {
   const { basePath } = useMinimalBlogConfig();
 
-  console.log(nav);
   return (
     <React.Fragment>
       {nav && nav.length > 0 && (
