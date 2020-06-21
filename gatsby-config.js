@@ -1,18 +1,9 @@
 require(`dotenv`).config({
   path: `.env`,
 });
-const withDefaults = require(`./utils/default-options`);
+const { feedTitle, postsPath, pagesPath } = require(`./config/options`);
 
 const newsletterFeed = require(`./src/utils/newsletterFeed`);
-
-const lekoOptions = withDefaults({
-  feedTitle: 'Miguel Palhas | @naps62 | Software Developer',
-});
-
-const {
-  feed = true,
-  feedTitle = `Minimal Blog - @lekoarts/gatsby-theme-minimal-blog`,
-} = lekoOptions;
 
 module.exports = {
   siteMetadata: {
@@ -39,15 +30,15 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: lekoOptions.postsPath,
-        path: lekoOptions.postsPath,
+        name: postsPath,
+        path: postsPath,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: lekoOptions.pagesPath,
-        path: lekoOptions.pagesPath,
+        name: pagesPath,
+        path: pagesPath,
       },
     },
     {

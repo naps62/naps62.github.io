@@ -35,7 +35,8 @@ const px = [`32px`, `16px`, `8px`, `4px`];
 const shadow = px.map((v) => `rgba(0, 0, 0, 0.15) 0px ${v} ${v} 0px`);
 const postWidthCss = {
   maxWidth: 650,
-  margin: 'auto',
+  marginLeft: 'auto',
+  marginRight: 'auto',
 };
 
 const sectionCss = {
@@ -54,7 +55,7 @@ const Post = ({ data: { post } }: PostProps) => (
       description={post.description ? post.description : post.excerpt}
       image={post.banner ? post.banner.childImageSharp.resize.src : undefined}
     />
-    <Styled.h2 cx={postWidthCss}>{post.title}</Styled.h2>
+    <Styled.h1 sx={postWidthCss}>{post.title}</Styled.h1>
     <p
       sx={{
         color: `secondary`,
