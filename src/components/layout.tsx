@@ -1,7 +1,6 @@
 import React from 'react';
 import { Global } from '@emotion/core';
 import { Main, Styled, Container, css } from 'theme-ui';
-import 'typeface-ibm-plex-sans';
 import SEO from './seo';
 import Header from './header';
 import SkipNavLink from './skip-nav';
