@@ -100,7 +100,7 @@ module.exports = ({ actions }) => {
       body: String! @mdxpassthrough(fieldName: "body")
     }
 
-    type MinimalBlogConfig implements Node {
+    type BlogConfig implements Node {
       basePath: String
       blogPath: String
       postsPath: String

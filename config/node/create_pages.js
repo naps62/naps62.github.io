@@ -1,4 +1,4 @@
-const { basePath, blogPost, tagsPath, formatString } = require(`../options`);
+const { basePath, blogPath, tagsPath, formatString } = require(`../options`);
 
 // These template are only data-fetching wrappers that import components
 const homepageTemplate = require.resolve(

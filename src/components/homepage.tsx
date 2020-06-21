@@ -9,7 +9,7 @@ import Bottom from '../texts/bottom';
 import Title from './title';
 import Listing from './listing';
 import List from './list';
-import useMinimalBlogConfig from '../hooks/use-minimal-blog-config';
+import useBlogConfig from '../hooks/use-blog-config';
 import replaceSlashes from '../utils/replaceSlashes';
 
 type PostsProps = {
@@ -28,7 +28,7 @@ type PostsProps = {
 };
 
 const Homepage = ({ posts }: PostsProps) => {
-  const { basePath, blogPath } = useMinimalBlogConfig();
+  const { basePath, blogPath } = useBlogConfig();
 
   return (
     <Layout>

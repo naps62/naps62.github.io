@@ -27,9 +27,9 @@ module.exports = ({ actions, createContentDigest }) => {
     parent: null,
     children: [],
     internal: {
-      type: `MinimalBlogConfig`,
-      contentDigest: createContentDigest(minimalBlogConfig),
-      content: JSON.stringify(minimalBlogConfig),
+      type: `BlogConfig`,
+      contentDigest: createContentDigest(blogConfig),
+      content: JSON.stringify(blogConfig),
       description: `Blog options`,
     },
   });

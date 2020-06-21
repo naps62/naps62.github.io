@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx, Styled } from 'theme-ui';
 import { Link } from 'gatsby';
-import useMinimalBlogConfig from '../hooks/use-minimal-blog-config';
+import useBlogConfig from '../hooks/use-blog-config';
 import replaceSlashes from '../utils/replaceSlashes';
 
 type NavigationProps = {
@@ -13,7 +13,7 @@ type NavigationProps = {
 };
 
 const Navigation = ({ nav }: NavigationProps) => {
-  const { basePath } = useMinimalBlogConfig();
+  const { basePath } = useBlogConfig();
 
   return (
     <React.Fragment>
