@@ -35,4 +35,7 @@ jobs:
         run: npm install
 
       - name: Deploy
+        run: node_modules/.bin/gh-pages-clean
+
+      - name: Deploy
         run: npm run deploy
