@@ -1,4 +1,5 @@
 const { basePath, blogPath, tagsPath, formatString } = require(`../options`);
+const kebabCase = require(`lodash.kebabcase`);
 
 // These template are only data-fetching wrappers that import components
 const homepageTemplate = require.resolve(
