@@ -76,6 +76,7 @@ module.exports = ({ actions }) => {
       id: ID!
       slug: String!
       title: String!
+      cssClass: String
       excerpt(pruneLength: Int = 160): String!
       body: String!
     }
@@ -96,6 +97,7 @@ module.exports = ({ actions }) => {
     type MdxPage implements Node & Page {
       slug: String!
       title: String!
+      cssClass: String
       excerpt(pruneLength: Int = 140): String! @mdxpassthrough(fieldName: "excerpt")
       body: String! @mdxpassthrough(fieldName: "body")
     }

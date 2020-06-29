@@ -1,0 +1,34 @@
+---
+title: FFmpeg tutorial with Rust
+slug: /ffmpeg-rust-tutorial/intro
+cssClass: ffmpeg-tutorial
+---
+
+import { ToC, BottomNav } from './components/toc';
+
+[FFmpeg/libav](https://trac.ffmpeg.org/wiki/Using%20libav*) is a collection of programs and libraries to deal with all
+things related to audio & video.
+
+This tutorial was born out of my own frustrations trying to learn, not only how video/audio work on a lower-level layer,
+but also how to interact with FFmpeg in my own code.
+
+Being an almost 20-year old project, a lot of the documentation, despite being incredibly detailed, is also highly
+outdated and borderline incomprehensible sometimes. Searching for user questions leads mostly to old mailing list posts
+that are rarely helpful.
+I'll try my best to provide an up-to-date, beginner-friendly introduction to the topic. Here's what you can expect from
+this series:
+
+* Learning how video encoding/decoding works behind the curtains
+* How to use ffmpeg's CLI
+* Using FFmpeg's C API (libav)
+* Learning some Rust along the way
+
+All of the code shown is replicated entirely in my [rust-ffmpeg-examples](https://github.com/naps62/rust-ffmpeg-examples) git repo. Feel free to checkout the code.
+Also feel free to hit me on [twitter](https://twitter.com/naps62) or via [email](mailto:mpalhas@gmail.com) if you feel
+like it.
+
+In the meantime, jump into the [first chapter](/ffmpeg-rust-tutorial/what-is-video)
+
+## Table of contents
+
+<ToC current="intro" />

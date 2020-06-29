@@ -1,0 +1,19 @@
+.toc {
+}
+
+.bottomNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  font-size: 1rem;
+  margin: 4em 0;
+}
+
+.bottomNav div:first-child a:before {
+  content: '<< ';
+}
+
+.bottomNav div:last-child a:after {
+  content: ' >>';
+}

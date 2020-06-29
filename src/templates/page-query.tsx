@@ -10,6 +10,7 @@ export const query = graphql`
       slug
       excerpt
       body
+      cssClass
     }
   }
 `;

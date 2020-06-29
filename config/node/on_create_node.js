@@ -68,6 +68,7 @@ module.exports = ({
     const fieldData = {
       title: node.frontmatter.title,
       slug: node.frontmatter.slug,
+      cssClass: node.frontmatter.cssClass,
     };
 
     const mdxPageId = createNodeId(`${node.id} >>> MdxPage`);
