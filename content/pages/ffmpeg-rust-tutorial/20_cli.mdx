@@ -1,0 +1,46 @@
+---
+title: FFmpeg CLI
+slug: /ffmpeg-rust-tutorial/cli
+cssClass: ffmpeg-tutorial
+---
+
+import { ToC, BottomNav } from './components/toc';
+
+<ToC current="cli" />
+
+Before diving into the internals of the API, it's good to get an understanding of how the command line tool works as
+well.
+
+Many of the things we'll see here map out almost directly to how things work under the hood, so it should make it easier
+to understand the library.
+
+There are many binaries shipped with the ffmpeg package, with `ffmpeg` itself being the main one. calls to `ffmpeg`
+generally have the following format:
+
+```
+$ ffmeg <global> <input_opts> <input_url> <output_opts> <output_url>
+```
+
+
+Here's an example of how to convert both the audio and video codecs of an input file
+([transcoding](/ffmpeg-rust-tutorial/what-is-video#transcoding)):
+
+```bash
+$ ffmpeg \
+    -y                             \ # overwrite output files without asking
+    -c:a libfdk_aac -c:v libx264   \ # codecs to decode input
+    -i input.mp4                   \ # input file
+    -c:a libvorbis -c:v libvpx-vp9 \ # codecs to encode output
+    output.webm                    \ # output file
+```
+
+The above commad takes an input video called `input.mp4`, uses `libfdk_aac` and `libx264` to decode the audio and video
+tracks, and encodes them again using `libvorbis` and `libvxp-vp9` respectively. The result is saved in a `output.webm`.
+
+The container format isn't necessary as an argument, because FFmpeg can infer those based on the filenames of the
+input/output files. The input is expected to be an MP4 container, and the output will be using WebM.
+
+It's not important at this stage what each individual codec does, and how they differ from each other. They're actually
+not a direct part of FFmpeg, but independent libraries, which FFmpeg integrates with, providing a common API.
+
+<BottomNav current="cli" />

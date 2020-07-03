@@ -9,6 +9,7 @@ const AllSections = [
   { slug: 'intro', title: 'Intro' },
   { slug: 'what-is-video', title: 'What is Video?' },
   { slug: 'what-is-audio', title: 'And what is audio?' },
+  { slug: 'cli', title: 'FFmpeg CLI' },
 ];
 
 const Link = (slug, current: string, prefix: string) => {
@@ -44,6 +45,7 @@ const ToC = ({ current }) => (
         <Styled.li>{Link('what-is-audio', current)}</Styled.li>
       </Styled.ol>
     </Styled.li>
+    <Styled.li>{Link('cli', current)}</Styled.li>
   </Styled.ol>
 );
 
