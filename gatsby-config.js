@@ -18,13 +18,10 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-goat-counter`,
       options: {
-        trackingId: 'UA-53251745-1',
-        head: false,
-        anonymize: true,
-        respectDNT: true,
-        cookieDomain: 'naps62.com',
+        code: 'naps62',
+        referrer: true,
       },
     },
     {
