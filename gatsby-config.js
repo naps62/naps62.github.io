@@ -18,7 +18,7 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-goat-counter`,
+      resolve: `gatsby-plugin-goatcounter`,
       options: {
         code: 'naps62',
         referrer: true,
