@@ -106,6 +106,7 @@ module.exports = {
         path: `${__dirname}/src`,
       },
     },
+
     `gatsby-plugin-webpack-bundle-analyser-v2`,
   ],
 };
