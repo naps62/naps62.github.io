@@ -18,13 +18,10 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-goatcounter`,
       options: {
-        trackingId: 'UA-53251745-1',
-        head: false,
-        anonymize: true,
-        respectDNT: true,
-        cookieDomain: 'naps62.com',
+        code: 'naps62',
+        referrer: true,
       },
     },
     {
@@ -102,12 +99,6 @@ module.exports = {
     `gatsby-plugin-typescript`,
     `gatsby-plugin-catch-links`,
     `gatsby-plugin-theme-ui`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_ID,
-      },
-    },
     `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -134,5 +125,7 @@ module.exports = {
         path: `${__dirname}/src`,
       },
     },
+
+    `gatsby-plugin-webpack-bundle-analyser-v2`,
   ],
 };

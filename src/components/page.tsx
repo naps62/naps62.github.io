@@ -16,14 +16,16 @@ type PageProps = {
   };
 };
 
-const Page = ({ data: { page } }: PageProps) => (
-  <Layout>
-    <SEO title={page.title} description={page.excerpt} />
-    <Styled.h1>{page.title}</Styled.h1>
-    <section sx={{ my: 5 }} className={page.cssClass}>
-      <MDXRenderer>{page.body}</MDXRenderer>
-    </section>
-  </Layout>
-);
+const Page = ({ data: { page } }: PageProps) => {
+  return (
+    <Layout>
+      <SEO title={page.title} description={page.excerpt} />
+      <Styled.h1>{page.title}</Styled.h1>
+      <section sx={{ my: 5 }} className={page.cssClass}>
+        <MDXRenderer>{page.body}</MDXRenderer>
+      </section>
+    </Layout>
+  );
+};
 
 export default Page;

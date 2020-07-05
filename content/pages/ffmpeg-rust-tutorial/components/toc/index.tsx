@@ -22,7 +22,6 @@ const Link = (slug, current: string, prefix: string) => {
     AllSections,
     (section) => section.slug === current
   );
-  console.log(currentSection);
 
   if (activeSection.slug === currentSection.slug) {
     return <span>{currentSection.title}</span>;

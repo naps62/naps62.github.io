@@ -38,9 +38,105 @@ The above commad takes an input video called `input.mp4`, uses `libfdk_aac` and 
 tracks, and encodes them again using `libvorbis` and `libvxp-vp9` respectively. The result is saved in a `output.webm`.
 
 The container format isn't necessary as an argument, because FFmpeg can infer those based on the filenames of the
-input/output files. The input is expected to be an MP4 container, and the output will be using WebM.
+input/output files. The input is expected to be an MP4 container, and the output will be a WebM file.
 
 It's not important at this stage what each individual codec does, and how they differ from each other. They're actually
 not a direct part of FFmpeg, but independent libraries, which FFmpeg integrates with, providing a common API.
+
+
+Let's go through the operations listed in the [What is video?](/ffmpeg-rust-tutorial/what-is-video#transcoding) section
+and see how each of them translates to the CLI. I'll be using this [Costa Rica video](./assets/costa-rica.webm) as a sample.
+
+## Video operations
+
+### Transmuxing
+
+```bash
+$ ffmpeg \
+    -i costa-rica.webm \
+    -c copy            \ # skip encoding, just copy all streams
+    costa-rica.mp4
+```
+
+Since FFmeg guesses container formats from filenames, not much is needed here, other than `-c copy` to state that we
+want don't want to touch the encoding of the input. Only the container changes.
+
+### Tranrating
+
+The sample video I'm using has a bitrate of XXX. Let's change that:
+
+
+```bash
+$ ffmpeg \
+  -i costa-rica.webm \
+  -maxrate 3856K -bufsize 2000K \
+  costa-rica.webm
+```
+
+### Transizing
+
+The video has a resolution of 800x600 (the original one is actually 4K, but I resized it for the sake of keeping these
+demos fast). Let's resize it again, to 240p (427x240):
+
+```bash
+$ ffmpeg \
+  -i costa-rica.webm \
+  -vf scale=-1:240 \
+  costa-rica.webm
+```
+
+A scale of `-1:240` means we want a height of 240 pixels, and whatever width will keep the same aspect ratio as the
+input.
+
+## Adaptive Streaming
+
+This is a pretty interesting concept, where one can create a video file containing multiple resolutions, so that each
+consumer can select and stream the most appropriate one.
+Similar concepts are used nowadays for a range of streaming services (e.g.: when you selecta resolution on Youtube) and
+WebRTC calls, which broadcast real-time video feeds according to the network restrictions of each peer. Without adaptive
+streaming, each peer would end up receiving a small stream, limited by whoever peer has the slowest on the call (because
+WebRTC tries to optimize for real-time, and not quality). Adaptive streaming provides the ability for each client to
+cherry-pick his own stream.
+
+```bash
+# generate individual video streams
+$ ffmpeg -i costa-rica.webm -c:v libvpx-vp9 -s 160x-1 -b v:250k -an f webm -dash 1 160.webm
+$ ffmpeg -i costa-rica.webm -c:v libvpx-vp9 -s 320x-1 -b v:500k -an f webm -dash 1 320.webm
+$ ffmpeg -i costa-rica.webm -c:v libvpx-vp9 -s 640x-1 -b v:750k -an f webm -dash 1 640.webm
+$ ffmpeg -i costa-rica.webm -c:v libvpx-vp9 -s 800x-1 -b v:750k -an f webm -dash 1 800.webm
+
+# audio stream
+$ ffmpeg -i costa-rica.webm -c:a libvorbis -b:a 128k -vn -dash audio.webm
+
+$ ffmpeg \
+    -f webm_dash_manifest -i 160.webm \
+    -f webm_dash_manifest -i 320.webm \
+    -f webm_dash_manifest -i 640.webm \
+    -f webm_dash_manifest -i 800.webm \
+    -f webm_dash_manifest -i audio.webm \
+    -c copy \
+    -map 0 -map 1 - map 2 -map 3 -map 4 \
+    -f webm_dash_manifest \
+    -adaptation_sets "id=0,streams=0,1,2,3,id=1,streams=4" \
+    mainfest.mdp
+```
+
+This relies on [MPEG-DASH](https://en.wikipedia.org/wiki/Dynamic_Adaptive_Streaming_over_HTTP), which uses a manifest
+file to announce all the available streams. It's a rather new technology (available on the)
+
+## Other commands
+
+Besides `ffmpeg` itself, the FFmpeg package comes bundled with a few other useful commands. Let's check a few of them
+
+## ffplay
+
+As any good Unix CLI tool, FFmpeg is easy to compose with other commands. It can, for example, write to standard output
+rather than a specific file. This is useful if you want to pipe your streams to another command directly. `ffplay` is
+a good showcase of this, being a tool that allows you to reproduce a video coming from the standard input
+
+```bash
+$ ffmpeg
+`ffplay` is another binary that comes bundled with the FFmpeg suite
+
 
 <BottomNav current="cli" />

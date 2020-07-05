@@ -2,6 +2,7 @@
 // The core theme sets up MDX as a type for the general interface
 
 const options = require(`../options`);
+const kebabCase = require(`lodash.kebabcase`);
 
 const mdxResolverPassthrough = (fieldName) => async (
   source,
