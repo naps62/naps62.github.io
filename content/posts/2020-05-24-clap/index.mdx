@@ -13,12 +13,10 @@ import rayTracingGif from './ray-tracing.gif';
 [sppm]: https://www.ci.i.u-tokyo.ac.jp/~hachisuka/sppm.pdf
 [cuda]: https://en.wikipedia.org/wiki/CUDA
 
-I've been diving a lot into strong/static typing lately. I mostly prefer TypeScript as oposed to JavaScript nowadays; I fill my
-Elixir code with [Typespecs](typespecs) whenever appropriate; and on weekends, I've been fiddling around a lot with Rust.
-
 Right before I first got a job, and started working mostly on the web, I was knee-deep into C++, CUDA, and the [most
-buzzword-filled names](sppm) for ray tracing algorithms. That was a world of stronly typed languages (ok let's be honest, mostly C++).
+buzzword-filled names](sppm) for ray tracing algorithms. Next to me, a friend was parallelizing Matrix Multiplication algorithms.
 
+That was a world of stronly typed languages (ok let's be honest, mostly C++).
 It was also a decade ago, and much has changed since then.
 
 <HalfWidthImage src={rayTracingGif} alt="Ray Tracing" />
@@ -38,10 +36,22 @@ need to specify types for everything, it's very easy (and painful) to find looph
 Ruby is dynamically typed. It's the kind of language where `a=1; a='a'` works just fine, because there's no specific
 type bound to a variable. But it's also strongly typed, because `1 + 'a'` fails to execute.
 
-
 This is confusing. I had to double check a lot of this as I was writing, because it's easy to mix up definitions. That's
 why I usually prefer to avoid these terms, and just consider these as two different features that affect the overall
 *type safety* of our code.
+
+# Types in the web
+
+The web moves fast. And it just keeps on accelerating.
+
+Because of that speed, companies have to churn out results more quickly than software development was original geared towards. There are no longer yearly releases packaged on a CD-ROM. Code goes from my editor to your screen in a matter of hours.
+
+That need for speed factors a lot when choosing your technology stack. C/C++ is traditionally, well, a pain in the butt. Java is cumbersome in just as many ways, if not more.
+The web ended up gearing towards scripting languages such as Python and PHP, mostly because of their "scripting" ability, not so much the "language" part
+
+Scripting languages allow you to get things done quickly, without the friction of a compilation step, having to package
+a release, and the often slow feedback loops that were needed.
+Just write some code, test it, and `ftp` that thing right into the server.
 
 
 # Types in the web
