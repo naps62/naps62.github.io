@@ -1,11 +1,15 @@
 require(`dotenv`).config({
   path: `.env`,
 });
+const { feedTitle, postsPath, pagesPath } = require(`./config/options`);
+
+const newsletterFeed = require(`./src/utils/newsletterFeed`);
 
 module.exports = {
   siteMetadata: {
     siteTitle: `Miguel Palhas | @naps62`,
     siteTitleAlt: `Miguel Palhas | @naps62`,
+    siteHeadline: `Miguel Palhas | @naps62`,
     siteUrl: 'https://naps62.com',
     siteDescription: `Software Developer | Elixir | Ruby | Rust | DevOps | Chess`,
     siteLanguage: 'en',
@@ -14,37 +18,68 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-goatcounter`,
       options: {
-        trackingId: 'UA-53251745-1',
-        head: false,
-        anonymize: true,
-        respectDNT: true,
-        cookieDomain: 'naps62.com',
+        code: 'naps62',
+        referrer: true,
       },
     },
     {
-      resolve: `@lekoarts/gatsby-theme-minimal-blog`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        feedTitle: 'Miguel Palhas | @naps62 | Software Developer',
-        navigation: [
-          { title: `Blog`, slug: `/blog` },
-          { title: `About`, slug: `/about` },
-          { title: 'Speaking', slug: `/speaking` },
-        ],
-        externalLinks: [
-          { name: `Github`, url: `https://github.com/naps62` },
-          { name: `Twitter`, url: `https://twitter.com/naps62` },
-          { name: `Instagram`, url: `https://www.instagram.com/naps62/` },
-        ],
+        name: postsPath,
+        path: postsPath,
       },
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_ID,
+        name: pagesPath,
+        path: pagesPath,
       },
     },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 960,
+              quality: 90,
+              linkImagesToOriginal: false,
+            },
+          },
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              showLineNumbers: true,
+            },
+          },
+        ],
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 960,
+              quality: 90,
+              linkImagesToOriginal: false,
+            },
+          },
+        ],
+      },
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-typescript`,
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: newsletterFeed(feedTitle),
+    },
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-typescript`,
+    `gatsby-plugin-catch-links`,
+    `gatsby-plugin-theme-ui`,
     `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -71,5 +106,7 @@ module.exports = {
         path: `${__dirname}/src`,
       },
     },
+
+    `gatsby-plugin-webpack-bundle-analyser-v2`,
   ],
 };

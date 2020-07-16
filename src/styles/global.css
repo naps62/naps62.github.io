@@ -1,3 +1,10 @@
-a {
-  text-decoration: underline;
+* {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  boxsizing: border-box;
+  text-rendering: optimize-legibility;
 }

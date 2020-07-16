@@ -1,12 +1,15 @@
 talks:
-  - title: Continuous Stuff
+  - title: Automating your Way to Confidence
+    id: automating-to-confidence
+    event: DevOps Lisbon (May 2020)
     description: |
       A few months ago, Github Actions went to public beta, and it ended up fitting our needs nicely. It also turned out that this CI has a lot more to offer than I was previously used to.
       This talk is about our journey to make better and faster releases, about how I'm trying to deprecate our project managers, and about how awesome Github Actions can be.
     slides: https://slides.com/naps62/continuous-stuff
-    image: enei-2020
+    youtubeID: KrRGMG99zyQ
 
   - title: "Smart Contracts: A Beginner's Guide"
+    id: pixels-camp-2019
     event: Pixels Camp 2019
     description: |
       Let's talk blockchain! But not the whole money thing. Smart Contracts are the real juice.
@@ -16,6 +19,7 @@ talks:
     youtubeID: tDthJdl26G4
 
   - title: An Introduction to Smart Contracts
+    id: scaleconf-colombia-2018
     event: ScaleConf Colombia 2018
     description: |
       Let's talk blockchain! But not the whole money thing. Smart Contracts are the real juice.
@@ -25,6 +29,7 @@ talks:
     youtubeID: bYUrCHv9ewI
 
   - title: Mastering your Tools
+    id: pycon-otto
     event: PyConf Otto (2017, Florence, Italy)
     description: 'This talk goes through some very practical advices about writing code efficiently: ranging from useful and perhaps-not-so-well-known tools, to some editor/terminal/OS configurations that I obsess over in order to tweak my environment to perfection.'
     slides: https://slides.com/naps62/mastering-your-tools-pycon-24
