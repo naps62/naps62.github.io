@@ -1,0 +1,22 @@
+# The URL the site will be built for
+base_url = "https://naps62.com"
+
+title = "Miguel Palhas | @naps62"
+description = "Software Developer | Elixir | Ruby | Rust | DevOps | Chess"
+default_language = "en"
+
+compile_sass = true
+highlight_code = true
+build_search_index = true
+
+highlight_theme = "base16-ocean-light"
+generate_feed = true
+rss_limit = 20
+
+[extra]
+profile = "photo.png"
+website = "naps62.com"
+twitter = "naps62"
+github = "naps62"
+email = "mpalhas@gmail.com"
+goatcounter = "naps62"

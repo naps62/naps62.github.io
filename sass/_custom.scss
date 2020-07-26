@@ -1,0 +1,47 @@
+@import 'colors';
+
+.index_about {
+    display: block;
+    margin: auto; max-width: 600px;
+    font-size: 1.5em;
+
+    padding: 1em 0;
+    border-top: solid 2px $accent2;
+    border-bottom: solid 2px $accent2;
+    margin-bottom: 3em;
+}
+
+.post_more {
+    display: block;
+    margin: auto;
+    text-align: center;
+    max-width: 600px;
+    font-size: 2em;
+
+    padding-bottom: 30px;
+    position: relative;
+    > article {
+        display: block;
+    }
+}
+
+.regular_page_content {
+    display: block;
+    margin: auto;
+    max-width: 600px;
+}
+
+.speaking_page {
+    h2:not(:first-child) {
+        margin-top: 2em;
+    }
+
+    .youtube iframe {
+        max-height: 56.25vw;
+    }
+}
+
+.home_link {
+    display: inline-block;
+    text-decoration: none;
+}
