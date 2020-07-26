@@ -10,32 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
-      - name: Set git identity
-        run: |
-          git config --global user.name "Github Actions"
-          git config --global user.email "mpalhas@gmail.com"
-
-      - name: Set git remote
-        run: |
-          git remote set-url origin https://naps62:${{ secrets.GITHUB_TOKEN }}@github.com/naps62/naps62.github.io
-
-      - name: Setup Cache
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: v3-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            v3-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-            v3-${{ runner.os }}
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Deploy
-        run: node_modules/.bin/gh-pages-clean
-
-      - name: Deploy
-        run: npm run deploy
+      - name: shalzz/zola-deploy-action
+        uses: shalzz/zola-deploy-action@master
+        env:
+          PAGES_BRANCH: master
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
