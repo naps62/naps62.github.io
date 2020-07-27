@@ -7,11 +7,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-    <!-- SEO -->
     {% if page.title %}
-    <title> {{ page.title }} | {{ config.title }} </title>
+    {% set title = page.title ~ ' | ' ~ config.title %}
     {% else %}
-    <title> {{ config.title }} </title>
+    {% set title = config.title %}
+    {% endif %}
+
+
+    {% if page.extra.description %}
+    {% set description = page.extra.description %}
+    {% else %}
+    {% set description = config.description %}
+    {% endif %}
+
+    <!-- SEO -->
+    <title>{{ title }}</title>
+    <meta name="title" content="{{ title }}" />
+    <meta name="description" content="{{ description }}" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ current_url }}" />
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="twitter:url" content="{{ current_url }}" />
+    <meta property="twitter:title" content="{{ title }}" />
+    <meta property="twitter:description" content="{{ description }}" />
+    <meta property="twitter:creator" content="@{{ config.extra.twitter }}" />
+
+    {% if page.extra.seo_image %}
+    <meta property="og:image" content="{{ page.extra.seo_image }}">
+    <meta property="twitter:card" content="summary_large_card" />
+    <meta property="twitter:image" content="{{ page.extra.seo_image }}">
     {% endif %}
 
     <!-- Enable responsiveness on mobile devices-->
