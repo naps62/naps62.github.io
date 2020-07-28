@@ -10,10 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@master
 
-      - name: shalzz/zola-deploy-action
-        uses: shalzz/zola-deploy-action@master
+      - name: Deploy
+        uses: naps62/zola-deploy-action@master
         env:
           PAGES_BRANCH: master
           TOKEN: ${{ secrets.DEPLOY_TOKEN }}
