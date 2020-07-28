@@ -192,7 +192,7 @@ Remember what I said about searching for tags or sources?
 
 [`ripgrep`][ripgrep] is an extremely fast full-text search tool.
 
-I can build a searh for tags (words starting with `#`) with something like the
+I can build a search for tags (words starting with `#`) with something like the
 following:
 
 ```sh
