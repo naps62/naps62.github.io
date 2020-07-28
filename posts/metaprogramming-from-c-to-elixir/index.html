@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    
+    
+
+
+    
+    
+    
+
+    
+
+    <!-- SEO -->
+    <title>Metaprogramming: From C Preprocessing to Elixir Macros | Miguel Palhas | @naps62</title>
+    <meta name="title" content="Metaprogramming: From C Preprocessing to Elixir Macros | Miguel Palhas | @naps62" />
+    <meta name="description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;metaprogramming-from-c-to-elixir&#x2F;" />
+    <meta property="og:title" content="Metaprogramming: From C Preprocessing to Elixir Macros | Miguel Palhas | @naps62" />
+    <meta property="twitter:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;metaprogramming-from-c-to-elixir&#x2F;" />
+    <meta property="twitter:title" content="Metaprogramming: From C Preprocessing to Elixir Macros | Miguel Palhas | @naps62" />
+    <meta property="twitter:description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+    <meta property="twitter:creator" content="@naps62" />
+
+    
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <!--  css -->
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;naps62.com/ergo.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="http://naps62.com/favicon.ico">
+
+    <!-- fonts -->
+    <!-- preload  -->
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway" as="style">
+    <link rel="preload" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" as="style">
+    <!-- load -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- canonical -->
+    
+    <link rel="canonical" href="https:&#x2F;&#x2F;blog.appsignal.com&#x2F;2019&#x2F;07&#x2F;16&#x2F;elixir-alchemy-metaprogramming.html" />
+    
+    
+</head>
+
+<body>
+    
+    
+<input type="checkbox" id="openSidebarMenu" class="openSidebarMenu">
+<label class="menu cross menu--1" for="openSidebarMenu">
+    <svg viewBox="0 0 75 75" xmlns="https://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="30" />
+        <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
+        <path class="line--2" d="M0 50h70" />
+        <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
+    </svg>
+</label>
+
+<div id="sidebarMenu">
+    <div class="menu_wrapper">
+        <ul class="sidebarMenuInner">
+            <li>
+                <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+                <div class="menu_div"></div>
+            </li>
+            
+            <li><a href="https://naps62.com" target="_blank">naps62.com</a></li>
+            
+            
+            <li><a href="https://github.com/naps62" target="_blank">naps62</a><i class="fab fa-github"></i></li>
+            
+            
+            <li><a href="https://twitter.com/naps62" target="_blank">@naps62</a><i class="fab fa-twitter"></i></li>
+            
+            
+            
+            
+            
+            
+            
+            <li><a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank">say hello</a><i class="fas fa-envelope"></i></li>
+            
+            
+            <li><a href="https:&#x2F;&#x2F;naps62.com/rss.xml" target="_blank">rss</a><i class="fas fa-rss"></i></li>
+            
+        </ul>
+    </div>
+</div>
+
+    
+
+    
+<nav id="overlord" class="overlord">
+    
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+</nav>
+
+<section class="post_container">
+    <article>
+        
+        <h1 class="article_title"><a href="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;metaprogramming-from-c-to-elixir&#x2F;" id="article_link">Metaprogramming: From C Preprocessing to Elixir Macros</a></h1>
+        
+<ul class="frontmatter frontmatter_page" id="frontmatter">
+    <li>
+        <time class="article_time" datetime="2019-02-19">February 19, 2019</time>
+    </li>
+    <span class="dotDivider"></span>
+    <li> 1481 words </li>
+    <span class="dotDivider"></span>
+    <li> 8 min </li>
+</ul>
+
+
+        <p><em>Note: This post was originally written on <a target="_blank" rel="noopener" href="https://blog.appsignal.com/2019/07/16/elixir-alchemy-metaprogramming.html">AppSignal's Elixir Alchemy Blog</a></em></p>
+<p>Developers have a love-hate relationship with metaprogramming. On the one hand, it’s a powerful tool to build reusable code. On the other hand, it can quickly become hard to understand and maintain.</p>
+<p>I like to think of it as salt. It’s pretty handy on many occasions, but use just a little too much of it, and you’re left with an unenjoyable dish.</p>
+<p>Also, large doses of either of them can lead to increased blood pressure. 😅</p>
+<p>However, metaprogramming has come a long way since it’s early days. While I still try not to overuse it, it’s become more useful and easy to work with. Let’s see how it evolved.</p>
+<h2 id="c-c">C/C++</h2>
+<p>If we go back a few decades, to a time when programming languages were more close to the metal, the C/C++ preprocessor was one of the only options we had to do something close to metaprogramming.</p>
+<p>This preprocessor was literally what the name suggests: A parser that would run through C code, and process specific definitions (keywords such as <code>#define</code> and <code>#if</code>), and would output a final version of the C code to the compiler. This final version could change based on some criteria. It would look something like this:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#a7adba;">#define FOO 1
+
+#if FOO == 1
+#define MSG &quot;Hello, World&quot;
+#else
+#define MSG &quot;Goodbye, World&quot;
+#endif
+
+#include &lt;stdio.h&gt;
+</span><span style="color:#4f5b66;">
+int main() {
+  printf(</span><span style="color:#d08770;">MSG</span><span style="color:#4f5b66;">);
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>This program would print <code>&quot;Hello, World&quot;</code>, always. As you may guess, changing the FOO definition to 0, and re-compiling the program, would instead cause it to print <code>&quot;Goodbye, World&quot;</code> instead.</p>
+<p>These preprocessor directives would often be used to create code targeting specific platforms or architectures. For example, you could set different behaviors for your program when compiled to target Windows systems than when targeting Linux systems. The two resulting binaries would have only the code that was relevant to that specific platform, and thus wouldn’t need to perform runtime checks for these conditions. These savings in storage and runtime performance could often be significant.</p>
+<p>However, if you have any C experience at all, you know how dangerous it is just in vanilla form. Now add a lot of preprocessing behavior on top of that, and it quickly becomes quite hard to manage. So it wouldn’t be advisable to use it for much more than small configurations, most of the time.</p>
+<h2 id="ruby">Ruby</h2>
+<p>With better technology and higher-level scripting languages, also came the possibility of creating more elaborate styles of programming. Particularly in Ruby, metaprogramming proved to be a powerful, yet scary feature.</p>
+<p>The way this works in Ruby is based on the idea that code is nothing more than a string of text, interpreted and executed by the Ruby environment.</p>
+<p>Since Ruby is interpreted at runtime, there’s no requirement of having the entire codebase compiled upfront. Ruby allows you to dynamically define instance methods on classes.</p>
+<p>Also, due to the way Ruby classes and instances are constructed internally, you can even define methods for individual instances rather than the entire class!</p>
+<p>PS: Further reading on Ruby Classes <a target="_blank" rel="noopener" href="https://www.devalot.com/articles/2008/09/ruby-singleton">here</a>.</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">class </span><span style="color:#d08770;">Foo
+  </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">hello1
+    </span><span style="color:#96b5b4;">puts </span><span style="color:#4f5b66;">&quot;</span><span style="color:#a3be8c;">Hello from a regular method</span><span style="color:#4f5b66;">&quot;
+  </span><span style="color:#b48ead;">end
+
+  </span><span style="color:#4f5b66;">[</span><span style="color:#a3be8c;">:hello2</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:hello3</span><span style="color:#4f5b66;">].each </span><span style="color:#b48ead;">do </span><span style="color:#4f5b66;">|</span><span style="color:#bf616a;">f</span><span style="color:#4f5b66;">|
+    </span><span style="color:#96b5b4;">define_method</span><span style="color:#4f5b66;"> f </span><span style="color:#b48ead;">do
+      </span><span style="color:#96b5b4;">puts </span><span style="color:#4f5b66;">&quot;</span><span style="color:#a3be8c;">Hello from a dynamically-defined </span><span style="color:#4f5b66;">#{f}</span><span style="color:#a3be8c;"> method</span><span style="color:#4f5b66;">&quot;
+    </span><span style="color:#b48ead;">end
+  end
+end</span><span style="color:#4f5b66;">
+
+foo = </span><span style="color:#d08770;">Foo</span><span style="color:#4f5b66;">.</span><span style="color:#8fa1b3;">new</span><span style="color:#4f5b66;">
+
+foo.</span><span style="color:#96b5b4;">define_singleton_method</span><span style="color:#4f5b66;">(</span><span style="color:#a3be8c;">:hello4</span><span style="color:#4f5b66;">) { </span><span style="color:#96b5b4;">puts </span><span style="color:#4f5b66;">&quot;</span><span style="color:#a3be8c;">Hello only from this instance of Foo</span><span style="color:#4f5b66;">&quot; }
+
+foo.hello1
+foo.hello2
+foo.hello3
+foo.hello4
+</span></code></pre>
+<p>Ruby is also pretty lax when it comes to editing existing code, even from the standard library. This is valid Ruby:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">array = [</span><span style="color:#d08770;">1</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">2</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">3</span><span style="color:#4f5b66;">]
+
+</span><span style="color:#a7adba;"># will print out 3
+</span><span style="color:#96b5b4;">puts</span><span style="color:#4f5b66;"> array.size
+
+</span><span style="color:#b48ead;">class </span><span style="color:#d08770;">Array
+  </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">size
+    </span><span style="color:#4f5b66;">&quot;</span><span style="color:#a3be8c;">Hello</span><span style="color:#4f5b66;">&quot;
+  </span><span style="color:#b48ead;">end
+end
+
+</span><span style="color:#a7adba;"># will now print out &quot;Hello&quot;
+</span><span style="color:#96b5b4;">puts</span><span style="color:#4f5b66;"> array.size
+</span></code></pre>
+<p>Don’t to that, though! It will most likely break your program and is a bad practice overall.</p>
+<p>Last but not least, Ruby has some powerful ways of handling unexpected function calls, such as the <code>method_missing</code> callback:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">array = [</span><span style="color:#d08770;">1</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">2</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">3</span><span style="color:#4f5b66;">]
+
+</span><span style="color:#b48ead;">class </span><span style="color:#d08770;">Array
+  </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">method_missing</span><span style="color:#4f5b66;">(</span><span style="color:#bf616a;">method</span><span style="color:#4f5b66;">, *</span><span style="color:#bf616a;">args</span><span style="color:#4f5b66;">)
+    </span><span style="color:#96b5b4;">puts </span><span style="color:#4f5b66;">&quot;#{</span><span style="color:#96b5b4;">method</span><span style="color:#4f5b66;">}</span><span style="color:#a3be8c;"> method not found</span><span style="color:#4f5b66;">&quot;
+
+    </span><span style="color:#b48ead;">if </span><span style="color:#96b5b4;">method </span><span style="color:#4f5b66;">== </span><span style="color:#a3be8c;">:sise </span><span style="color:#b48ead;">then
+      </span><span style="color:#96b5b4;">puts </span><span style="color:#4f5b66;">&quot;</span><span style="color:#a3be8c;">Did you intend to type size instead?</span><span style="color:#4f5b66;">&quot;
+    </span><span style="color:#b48ead;">end
+  end
+end
+
+</span><span style="color:#96b5b4;">puts</span><span style="color:#4f5b66;"> array.sise
+</span></code></pre>
+<p>Overall, these abilities were a big game-changer for me when I first learned about them. It enabled me to think about my codebase in a whole new different way and improve it in the process.</p>
+<p>There were some issues, though. You know what they say: with great power comes great responsibility.</p>
+<p>Several Ruby libraries used and abused these metaprogramming mechanisms to create their own Domain Specific Languages. In the long run, this overuse would result in similar problems as we had in C++ times: difficulty maintaining and understanding a codebase.</p>
+<p>Elixir took, in my opinion, yet another step forward in the right direction here…</p>
+<h2 id="elixir">Elixir ❤️</h2>
+<p>Here, metaprogramming is built into the language’s core in a much more powerful way. Whereas Ruby allowed you to define methods dynamically, or event generate a string and evaluate it as code (the old <code>eval</code> method that we all hate), Elixir allows you to mess with the Abstract Syntax Tree (AST) itself.</p>
+<p>This is done through the <code>quote</code> keyword:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">iex&gt; expr = </span><span style="color:#b48ead;">quote do
+  </span><span style="color:#4f5b66;">&quot;</span><span style="color:#a3be8c;">Hello, </span><span style="color:#4f5b66;">&quot; &lt;&gt; &quot;</span><span style="color:#a3be8c;">World</span><span style="color:#4f5b66;">&quot;
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>Trying out the above code, you’ll find that the string concat operation doesn’t get executed directly. Instead of a final string, you end up with an AST expression that describes your code:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">{</span><span style="color:#a3be8c;">:&lt;&gt;</span><span style="color:#4f5b66;">, [</span><span style="color:#d08770;">context: Elixir</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">import: Kernel</span><span style="color:#4f5b66;">], [&quot;</span><span style="color:#a3be8c;">Hello, </span><span style="color:#4f5b66;">&quot;, &quot;</span><span style="color:#a3be8c;">World</span><span style="color:#4f5b66;">&quot;]}
+</span></code></pre>
+<p>Those familiar with <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Polish_notation">Polish Notation</a> may quickly identify that this is equivalent to the string concatenation code from above. So by quoting some code, you get an AST description of that code, which you can then use across the rest of your codebase.</p>
+<p>You can then start to reason about your code as if it were a data structure (which it is… an AST), and perform operations to transform it:</p>
+<p>Let’s modify things a little bit:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">iex&gt; expr = </span><span style="color:#b48ead;">quote do
+  </span><span style="color:#4f5b66;">&quot;</span><span style="color:#a3be8c;">Hello, </span><span style="color:#4f5b66;">&quot; &lt;&gt; name
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>Now our expression uses a dynamic name instead. However, where does that name come from? We don’t have that variable defined anywhere, but it is still syntactically correct:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">{</span><span style="color:#a3be8c;">:&lt;&gt;</span><span style="color:#4f5b66;">, [</span><span style="color:#d08770;">context: Elixir</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">import: Kernel</span><span style="color:#4f5b66;">], [&quot;</span><span style="color:#a3be8c;">Hello, </span><span style="color:#4f5b66;">&quot;, {</span><span style="color:#a3be8c;">:name</span><span style="color:#4f5b66;">, [], </span><span style="color:#d08770;">Elixir</span><span style="color:#4f5b66;">}]}
+</span></code></pre>
+<p>However, it will fail to execute, which we can test by using <code>Code.eval_quoted/3</code>:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">iex&gt; </span><span style="color:#d08770;">Code</span><span style="color:#4f5b66;">.eval_quoted(expr)
+** (</span><span style="color:#d08770;">CompileError</span><span style="color:#4f5b66;">) </span><span style="color:#d08770;">nofile:1</span><span style="color:#4f5b66;">: undefined function name/</span><span style="color:#d08770;">0
+    </span><span style="color:#4f5b66;">(elixir) lib/code.</span><span style="color:#d08770;">ex:590</span><span style="color:#4f5b66;">: </span><span style="color:#d08770;">Code</span><span style="color:#4f5b66;">.eval_quoted/</span><span style="color:#d08770;">3</span><span style="color:#4f5b66;">
+    test.</span><span style="color:#d08770;">ex:5</span><span style="color:#4f5b66;">: (file)
+</span></code></pre>
+<p>Let’s now create a second AST definition:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">definition = </span><span style="color:#b48ead;">quote do</span><span style="color:#4f5b66;">
+  name = &quot;</span><span style="color:#a3be8c;">Miguel</span><span style="color:#4f5b66;">&quot;
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>This second expression definition defines a variable called <code>name</code>. However, remember, we’re not defining any value, just creating the AST for that operation.</p>
+<p>We can combine these two expressions into a single one:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">final_code = </span><span style="color:#b48ead;">quote do
+  unquote</span><span style="color:#4f5b66;">(definition)
+  </span><span style="color:#b48ead;">unquote</span><span style="color:#4f5b66;">(expr)
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>This ends up having the same result as if we had typed:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">name = &quot;</span><span style="color:#a3be8c;">Miguel</span><span style="color:#4f5b66;">&quot;
+&quot;</span><span style="color:#a3be8c;">Hello, </span><span style="color:#4f5b66;">&quot; &lt;&gt; name
+</span></code></pre>
+<p>However, notice we never had to abandon the Elixir syntax and rules while doing so. We’re writing Elixir that writes Elixir!</p>
+<p>This is heavily used internally within Elixir’s core. Whenever you define a function, or a simple if statement, you’re executing macros that change the code’s AST according to fit your code into them. Speaking of which…</p>
+<h2 id="elixir-s-macros">Elixir’s Macros</h2>
+<p>Much of Elixir’s features are written with macros. Many of the common operators you use can be rewritten with macros. Let’s take, for instance, the <code>unless</code> operator (which already exists in the language’s core) and define it ourselves:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">defmodule </span><span style="color:#d08770;">Foo </span><span style="color:#b48ead;">do
+  defmacro </span><span style="color:#8fa1b3;">custom_unless</span><span style="color:#4f5b66;">(condition, </span><span style="color:#d08770;">do:</span><span style="color:#4f5b66;"> do_clause, </span><span style="color:#d08770;">else:</span><span style="color:#4f5b66;"> else_clause) </span><span style="color:#b48ead;">do quote do
+      if </span><span style="color:#4f5b66;">!</span><span style="color:#b48ead;">unquote</span><span style="color:#4f5b66;">(condition) </span><span style="color:#b48ead;">do
+        unquote</span><span style="color:#4f5b66;">(do_clause)
+      </span><span style="color:#b48ead;">else
+        unquote</span><span style="color:#4f5b66;">(else_clause)
+      </span><span style="color:#b48ead;">end
+    end
+  end
+
+  defmacro </span><span style="color:#8fa1b3;">custom_unless</span><span style="color:#4f5b66;">(condition, </span><span style="color:#d08770;">do:</span><span style="color:#4f5b66;"> do_clause) </span><span style="color:#b48ead;">do
+    quote do
+      </span><span style="color:#d08770;">Foo</span><span style="color:#4f5b66;">.custom_unless(</span><span style="color:#b48ead;">unquote</span><span style="color:#4f5b66;">(condition), </span><span style="color:#d08770;">do: </span><span style="color:#b48ead;">unquote</span><span style="color:#4f5b66;">(do_clause), </span><span style="color:#d08770;">else: nil</span><span style="color:#4f5b66;">)
+    </span><span style="color:#b48ead;">end
+  end
+end
+
+defmodule </span><span style="color:#d08770;">Bar </span><span style="color:#b48ead;">do
+  require </span><span style="color:#d08770;">Foo
+
+  Foo</span><span style="color:#4f5b66;">.custom_unless </span><span style="color:#d08770;">true</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">do: IO</span><span style="color:#4f5b66;">.puts(&quot;</span><span style="color:#a3be8c;">not true</span><span style="color:#4f5b66;">&quot;), </span><span style="color:#d08770;">else: IO</span><span style="color:#4f5b66;">.puts(&quot;</span><span style="color:#a3be8c;">true</span><span style="color:#4f5b66;">&quot;)
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>Our <code>custom_unless</code> macro take in a boolean value. Inside, we check for the opposite of the condition (we run whatever code AST was given on that condition, and invert the resulting boolean). Then we execute the AST given for either the <code>do</code> or the else clause, depending on the result.</p>
+<p>However, the fun part about Elixir is that, since even the basic constructs such as <code>if</code> clauses are often built using macros themselves, we can better embed our macros in the language. In other words, after defining our macro, this is also working Elixir code:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">defmodule </span><span style="color:#d08770;">Bar</span><span style="color:#4f5b66;">
+  # importing instead of requiring allows us to call the macro directly,
+  # without the </span><span style="color:#d08770;">Foo</span><span style="color:#4f5b66;">. prefix
+  import </span><span style="color:#d08770;">Foo</span><span style="color:#4f5b66;">
+
+  custom_unless true </span><span style="color:#b48ead;">do
+    </span><span style="color:#d08770;">IO</span><span style="color:#4f5b66;">.puts(&quot;</span><span style="color:#a3be8c;">not true</span><span style="color:#4f5b66;">&quot;)
+  </span><span style="color:#b48ead;">else
+    </span><span style="color:#d08770;">IO</span><span style="color:#4f5b66;">.puts(&quot;</span><span style="color:#a3be8c;">true</span><span style="color:#4f5b66;">&quot;)
+  </span><span style="color:#b48ead;">end
+end
+</span></code></pre>
+<p>This works because the interpretation of a multiline <code>if</code>/<code>else</code> block in Elixir is not much more than syntactic sugar for:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">if</span><span style="color:#4f5b66;"> condition </span><span style="color:#d08770;">do:</span><span style="color:#4f5b66;"> something, </span><span style="color:#d08770;">else:</span><span style="color:#4f5b66;"> something_else
+</span></code></pre><h2 id="conclusion">Conclusion</h2>
+<p>Hopefully, this has been a useful walkthrough of how macros evolved in the past, especially for Elixir developers that may not know the full power of their language, as well as the history.</p>
+
+
+        
+    </article>
+</section>
+
+     
+
+    <footer>
+        
+        
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+        
+<ul class="social_list foot_list">
+    <li class="font_faint">
+        <a href="https://github.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-github"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https://twitter.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-twitter"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank" class="extra_small">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https:&#x2F;&#x2F;naps62.com/atom.xml" target="_blank" class="extra_small">
+            <i class="fas fa-rss"></i>rss
+        </a>
+    </li>
+
+</ul>
+
+        
+    </footer>
+
+    
+    <script data-goatcounter="https://naps62.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    
+    
+
+
+    
+    
+    
+
+    
+
+    <!-- SEO -->
+    <title>Super-powered Vim, part III: Skeletons | Miguel Palhas | @naps62</title>
+    <meta name="title" content="Super-powered Vim, part III: Skeletons | Miguel Palhas | @naps62" />
+    <meta name="description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;super-powered-vim-iii-skeletons&#x2F;" />
+    <meta property="og:title" content="Super-powered Vim, part III: Skeletons | Miguel Palhas | @naps62" />
+    <meta property="twitter:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;super-powered-vim-iii-skeletons&#x2F;" />
+    <meta property="twitter:title" content="Super-powered Vim, part III: Skeletons | Miguel Palhas | @naps62" />
+    <meta property="twitter:description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+    <meta property="twitter:creator" content="@naps62" />
+
+    
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <!--  css -->
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;naps62.com/ergo.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="http://naps62.com/favicon.ico">
+
+    <!-- fonts -->
+    <!-- preload  -->
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway" as="style">
+    <link rel="preload" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" as="style">
+    <!-- load -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- canonical -->
+    
+    <link rel="canonical" href="https:&#x2F;&#x2F;subvisual.com&#x2F;blog&#x2F;posts&#x2F;135-super-powered-vim-part-iii-skeletons&#x2F;" />
+    
+    
+</head>
+
+<body>
+    
+    
+<input type="checkbox" id="openSidebarMenu" class="openSidebarMenu">
+<label class="menu cross menu--1" for="openSidebarMenu">
+    <svg viewBox="0 0 75 75" xmlns="https://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="30" />
+        <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
+        <path class="line--2" d="M0 50h70" />
+        <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
+    </svg>
+</label>
+
+<div id="sidebarMenu">
+    <div class="menu_wrapper">
+        <ul class="sidebarMenuInner">
+            <li>
+                <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+                <div class="menu_div"></div>
+            </li>
+            
+            <li><a href="https://naps62.com" target="_blank">naps62.com</a></li>
+            
+            
+            <li><a href="https://github.com/naps62" target="_blank">naps62</a><i class="fab fa-github"></i></li>
+            
+            
+            <li><a href="https://twitter.com/naps62" target="_blank">@naps62</a><i class="fab fa-twitter"></i></li>
+            
+            
+            
+            
+            
+            
+            
+            <li><a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank">say hello</a><i class="fas fa-envelope"></i></li>
+            
+            
+            <li><a href="https:&#x2F;&#x2F;naps62.com/rss.xml" target="_blank">rss</a><i class="fas fa-rss"></i></li>
+            
+        </ul>
+    </div>
+</div>
+
+    
+
+    
+<nav id="overlord" class="overlord">
+    
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+</nav>
+
+<section class="post_container">
+    <article>
+        
+        <h1 class="article_title"><a href="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;super-powered-vim-iii-skeletons&#x2F;" id="article_link">Super-powered Vim, part III: Skeletons</a></h1>
+        
+<ul class="frontmatter frontmatter_page" id="frontmatter">
+    <li>
+        <time class="article_time" datetime="2017-04-04">April 04, 2017</time>
+    </li>
+    <span class="dotDivider"></span>
+    <li> 930 words </li>
+    <span class="dotDivider"></span>
+    <li> 5 min </li>
+</ul>
+
+
+        <p>This post is the third of a three-part series. If you're interested, you can start by checking out <a href="/posts/super-powered-vim-i-projections">part I</a> and <a href="/super-powered-vim-ii-snippets">part II</a>.</p>
+<p>Writing code is boring.</p>
+<p>In the previous parts I showed how we could speed things up a bit, by having some powerful shortcuts for file navigation and inserting repeatable blocks of code (snippets).</p>
+<p>Now, let's see how we can go one step further:</p>
+<p>Let's stick with Ruby as our sample language. The common practice in the community is to have a class or module in each file, with the name matching the file path. So <code>app/models/user.rb</code> will have a <code>class User</code>, and <code>app/models/foo/bar.rb</code> will have a <code>class Foo::Bar</code>.</p>
+<p>So wouldn't it be pretty cool if, when creating one of these files, it got be pre-populated by that class definition?</p>
+<h2 id="wait-what">Wait... What?</h2>
+<p>In <a target="_blank" rel="noopener" href="https://subvisual.co/blog/posts/134-super-powered-vim-part-ii-snippets">part II</a>, I already mentioned a <code>class</code> snippet, which creates a Ruby class based on the path of the file.</p>
+<p>Now I want this snippet to be automatically inserted in any new files created in the <code>app</code> directory.</p>
+<p>Could we define some kind of attribute for these paths? Say... a projection?</p>
+<p>Let's take the <code>.projections.json</code> example from <a target="_blank" rel="noopener" href="https://subvisual.co/blog/posts/133-super-powered-vim-part-i-projections">part I</a> and expand it a bit:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">{
+  &quot;</span><span style="color:#a3be8c;">app/*.rb</span><span style="color:#4f5b66;">&quot;: {
+    &quot;</span><span style="color:#a3be8c;">alternate</span><span style="color:#4f5b66;">&quot;: &quot;</span><span style="color:#a3be8c;">spec/{}_spec.rb</span><span style="color:#4f5b66;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">skeleton</span><span style="color:#4f5b66;">&quot;: &quot;</span><span style="color:#a3be8c;">class</span><span style="color:#4f5b66;">&quot;
+  },
+  &quot;</span><span style="color:#a3be8c;">spec/*_spec.rb</span><span style="color:#4f5b66;">&quot;: {
+    &quot;</span><span style="color:#a3be8c;">alternate</span><span style="color:#4f5b66;">&quot;: &quot;</span><span style="color:#a3be8c;">app/{}.rb</span><span style="color:#4f5b66;">&quot;,
+    &quot;</span><span style="color:#a3be8c;">skeleton</span><span style="color:#4f5b66;">&quot;: &quot;</span><span style="color:#a3be8c;">spec</span><span style="color:#4f5b66;">&quot;
+  }
+}
+</span></code></pre>
+<p>We now have a <code>skeleton</code> attribute for both <code>app</code> and <code>spec</code> files. <code>class</code> and <code>spec</code> are snippet names, which insert a class definition, and some RSpec boilerplate, respectively.</p>
+<p>Now let's look at some vimscript magic (I know... sorry):</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">augroup</span><span style="color:#4f5b66;"> UltiSnips_custom
+  </span><span style="color:#96b5b4;">autocmd</span><span style="color:#4f5b66;">!
+  </span><span style="color:#96b5b4;">autocmd </span><span style="color:#4f5b66;">BufNewFile </span><span style="color:#b48ead;">*</span><span style="color:#4f5b66;"> silent! call </span><span style="color:#8fa1b3;">skel#InsertSkeleton</span><span style="color:#4f5b66;">()
+</span><span style="color:#b48ead;">augroup</span><span style="color:#4f5b66;"> END
+</span></code></pre>
+<p>This is defining an autogroup (<a target="_blank" rel="noopener" href="http://learnvimscriptthehardway.stevelosh.com/chapters/14.html">more on what that is here</a>) that listens to the <code>BufNewFile</code> event. This event is called when a buffer is created for a new file (i.e.: a file that is not yet persisted to disk). All of this happens when we do the <code>:edit</code> command for with a non-existing path.</p>
+<p>That command will then call the <code>skel#InsertSkeleton</code> function (see the code snippet at the end of the post for its definition). In short, the function will:</p>
+<ol>
+<li>Make sure the buffer does not exist and is empty (we probably don't want to do anything in these cases)</li>
+<li>Loop through the existing projections, to look for a <code>skeleton</code> key matching the current file path</li>
+<li>If a skeleton is found, insert the snippet's name, and expand it using the appropriate function from UltiSnips.</li>
+</ol>
+<p>For the example of <code>app/models/foo.rb</code>, this will literally insert the word <code>class</code> into the buffer, and call <code>UltiSnips#ExpandSnippet()</code> for us, creating the class definition.</p>
+<p><img src="http://i.imgur.com/Efolbol.gif" alt="magic" /></p>
+<h2 id="but-wait-there-s-more">But wait, there's more</h2>
+<p>You just created a Ruby class by simply opening a new file.</p>
+<p>Now you want to write some tests for it, so you use your newly learnt <code>vim-projectionist</code> skills, and type <code>:A</code> (or whatever shortcut you have) to go to it's alternate file, as defined by the projections. This should match to <code>spec/models/foo_spec.rb</code></p>
+<p>This file also does not exist, but <code>vim-projectionist</code> is aware of this (see <a target="_blank" rel="noopener" href="https://subvisual.co/blog/posts/133-super-powered-vim-part-i-projections">part I</a> for more on this). This will conveniently ask you if you want to create it on the fly.</p>
+<p>Once you accept to do so, the same events will be triggered, and this time, the <code>spec</code> snippet will be inserted on this file.</p>
+<p>You can then proceed to writing the interesting part of your app. Or you can take a break, enjoying those 15 seconds of work you just avoided. You deserve it.</p>
+<h2 id="full-code">Full code</h2>
+<p>I avoided going through the entire vim code in this post, as that would've been a bit offtopic, and probably hard as well, given how much VimL sucks. All the vimscript code needed to reproduce my setup is right here for those who want it.</p>
+<p>Feel free to <a target="_blank" rel="noopener" href="https://twitter.com/naps62">reach me out through twitter</a> for any questions you might have, or bugs you might find, or checkout <a target="_blank" rel="noopener" href="https://github.com/naps62/dotfiles">my dotfiles</a> if you want to dig some more useful tips from there.</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">augroup</span><span style="color:#4f5b66;"> UltiSnips_custom
+  </span><span style="color:#96b5b4;">autocmd</span><span style="color:#4f5b66;">!
+</span><span style="color:#a7adba;">  &quot; autocmd User ProjectionistActivate silent! call skel#InsertSkeleton()
+  </span><span style="color:#96b5b4;">autocmd </span><span style="color:#4f5b66;">BufNewFile </span><span style="color:#b48ead;">*</span><span style="color:#4f5b66;"> silent! call </span><span style="color:#8fa1b3;">skel#InsertSkeleton</span><span style="color:#4f5b66;">()
+</span><span style="color:#b48ead;">augroup</span><span style="color:#4f5b66;"> END
+
+</span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">s:try_insert</span><span style="color:#4f5b66;">(skel)
+  </span><span style="color:#96b5b4;">execute </span><span style="color:#a3be8c;">&quot;normal! i&quot; </span><span style="color:#b48ead;">. </span><span style="color:#96b5b4;">a</span><span style="color:#b48ead;">:</span><span style="color:#4f5b66;">skel </span><span style="color:#b48ead;">. </span><span style="color:#a3be8c;">&quot;\&lt;C-r&gt;=UltiSnips#ExpandSnippet()\&lt;CR&gt;&quot;
+
+  </span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">g:ulti_expand_res </span><span style="color:#b48ead;">== </span><span style="color:#d08770;">0</span><span style="color:#4f5b66;">
+    silent! undo
+    </span><span style="color:#b48ead;">return
+  endif
+</span><span style="color:#a7adba;">
+  &quot; enter insert mode and advance cursor (equivalent to typing `a` instead of `i`)
+  </span><span style="color:#96b5b4;">execute </span><span style="color:#a3be8c;">&quot;startinsert&quot;</span><span style="color:#4f5b66;">
+  call </span><span style="color:#8fa1b3;">cursor</span><span style="color:#4f5b66;">( </span><span style="color:#8fa1b3;">line</span><span style="color:#4f5b66;">(</span><span style="color:#a3be8c;">&#39;.&#39;</span><span style="color:#4f5b66;">), </span><span style="color:#8fa1b3;">col</span><span style="color:#4f5b66;">(</span><span style="color:#a3be8c;">&#39;.&#39;</span><span style="color:#4f5b66;">) + </span><span style="color:#d08770;">1</span><span style="color:#4f5b66;">)
+
+  </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">g:ulti_expand_res
+</span><span style="color:#b48ead;">endfunction
+
+function</span><span style="color:#4f5b66;">! </span><span style="color:#8fa1b3;">skel#InsertSkeleton</span><span style="color:#4f5b66;">() abort
+  </span><span style="color:#96b5b4;">let</span><span style="color:#4f5b66;"> filename = </span><span style="color:#8fa1b3;">expand</span><span style="color:#4f5b66;">(</span><span style="color:#a3be8c;">&#39;%&#39;</span><span style="color:#4f5b66;">)
+</span><span style="color:#a7adba;">
+  &quot; abort on non-empty buffer or exitant file
+  </span><span style="color:#b48ead;">if</span><span style="color:#4f5b66;"> !(</span><span style="color:#8fa1b3;">line</span><span style="color:#4f5b66;">(</span><span style="color:#a3be8c;">&#39;$&#39;</span><span style="color:#4f5b66;">) </span><span style="color:#b48ead;">== </span><span style="color:#d08770;">1 </span><span style="color:#b48ead;">&amp;&amp; </span><span style="color:#8fa1b3;">getline</span><span style="color:#4f5b66;">(</span><span style="color:#a3be8c;">&#39;$&#39;</span><span style="color:#4f5b66;">) </span><span style="color:#b48ead;">== </span><span style="color:#a3be8c;">&#39;&#39;</span><span style="color:#4f5b66;">) </span><span style="color:#b48ead;">|| </span><span style="color:#8fa1b3;">filereadable</span><span style="color:#4f5b66;">(filename)
+    </span><span style="color:#b48ead;">return
+  endif
+
+  if</span><span style="color:#4f5b66;"> !</span><span style="color:#8fa1b3;">empty</span><span style="color:#4f5b66;">(</span><span style="color:#a3be8c;">&#39;b:projectionist&#39;</span><span style="color:#4f5b66;">)
+</span><span style="color:#a7adba;">    &quot; Loop through projections with &#39;skeleton&#39; key and try each one until the
+    &quot; snippet expands
+    </span><span style="color:#b48ead;">for</span><span style="color:#4f5b66;"> [root, value] </span><span style="color:#b48ead;">in </span><span style="color:#8fa1b3;">projectionist#query</span><span style="color:#4f5b66;">(</span><span style="color:#a3be8c;">&#39;skeleton&#39;</span><span style="color:#4f5b66;">)
+      </span><span style="color:#96b5b4;">echo</span><span style="color:#4f5b66;"> value
+      </span><span style="color:#b48ead;">if </span><span style="color:#8fa1b3;">s:try_insert</span><span style="color:#4f5b66;">(value)
+        </span><span style="color:#b48ead;">return
+      endif
+    endfor
+  endif</span><span style="color:#4f5b66;">
+
+  call </span><span style="color:#8fa1b3;">s:try_insert</span><span style="color:#4f5b66;">(</span><span style="color:#a3be8c;">&#39;skel&#39;</span><span style="color:#4f5b66;">)
+</span><span style="color:#b48ead;">endfunction
+
+</span></code></pre><h2 id="what-s-next">What's next?</h2>
+<p>If you haven't seen the prequels to this post, maybe now would be a good time to do so?</p>
+<p>Check out <a target="_blank" rel="noopener" href="https://subvisual.co/blog/posts/133-super-powered-vim-part-i-projections">part I</a> and <a target="_blank" rel="noopener" href="https://subvisual.co/blog/posts/134-super-powered-vim-part-ii-snippets">part II</a> for more details on what projections and snippets are, and how to use them!</p>
+<p>Or take a look at <a target="_blank" rel="noopener" href="https://subvisual.co/blog/posts/tag/development">another post by one of our developers</a>. Happy coding!</p>
+
+
+        
+    </article>
+</section>
+
+     
+
+    <footer>
+        
+        
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+        
+<ul class="social_list foot_list">
+    <li class="font_faint">
+        <a href="https://github.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-github"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https://twitter.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-twitter"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank" class="extra_small">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https:&#x2F;&#x2F;naps62.com/atom.xml" target="_blank" class="extra_small">
+            <i class="fas fa-rss"></i>rss
+        </a>
+    </li>
+
+</ul>
+
+        
+    </footer>
+
+    
+    <script data-goatcounter="https://naps62.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    
+</body>
+
+</html>

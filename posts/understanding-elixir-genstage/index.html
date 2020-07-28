@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    
+    
+
+
+    
+    
+    
+
+    
+
+    <!-- SEO -->
+    <title>Understanding Elixir’s GenStages: Querying the Blockchain | Miguel Palhas | @naps62</title>
+    <meta name="title" content="Understanding Elixir’s GenStages: Querying the Blockchain | Miguel Palhas | @naps62" />
+    <meta name="description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;understanding-elixir-genstage&#x2F;" />
+    <meta property="og:title" content="Understanding Elixir’s GenStages: Querying the Blockchain | Miguel Palhas | @naps62" />
+    <meta property="twitter:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;understanding-elixir-genstage&#x2F;" />
+    <meta property="twitter:title" content="Understanding Elixir’s GenStages: Querying the Blockchain | Miguel Palhas | @naps62" />
+    <meta property="twitter:description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+    <meta property="twitter:creator" content="@naps62" />
+
+    
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <!--  css -->
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;naps62.com/ergo.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="http://naps62.com/favicon.ico">
+
+    <!-- fonts -->
+    <!-- preload  -->
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway" as="style">
+    <link rel="preload" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" as="style">
+    <!-- load -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- canonical -->
+    
+    <link rel="canonical" href="https:&#x2F;&#x2F;blog.appsignal.com&#x2F;2018&#x2F;11&#x2F;13&#x2F;elixir-alchemy-understanding-elixirs-genstages-querying-the-blockchain.html" />
+    
+    
+</head>
+
+<body>
+    
+    
+<input type="checkbox" id="openSidebarMenu" class="openSidebarMenu">
+<label class="menu cross menu--1" for="openSidebarMenu">
+    <svg viewBox="0 0 75 75" xmlns="https://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="30" />
+        <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
+        <path class="line--2" d="M0 50h70" />
+        <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
+    </svg>
+</label>
+
+<div id="sidebarMenu">
+    <div class="menu_wrapper">
+        <ul class="sidebarMenuInner">
+            <li>
+                <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+                <div class="menu_div"></div>
+            </li>
+            
+            <li><a href="https://naps62.com" target="_blank">naps62.com</a></li>
+            
+            
+            <li><a href="https://github.com/naps62" target="_blank">naps62</a><i class="fab fa-github"></i></li>
+            
+            
+            <li><a href="https://twitter.com/naps62" target="_blank">@naps62</a><i class="fab fa-twitter"></i></li>
+            
+            
+            
+            
+            
+            
+            
+            <li><a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank">say hello</a><i class="fas fa-envelope"></i></li>
+            
+            
+            <li><a href="https:&#x2F;&#x2F;naps62.com/rss.xml" target="_blank">rss</a><i class="fas fa-rss"></i></li>
+            
+        </ul>
+    </div>
+</div>
+
+    
+
+    
+<nav id="overlord" class="overlord">
+    
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+</nav>
+
+<section class="post_container">
+    <article>
+        
+        <h1 class="article_title"><a href="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;understanding-elixir-genstage&#x2F;" id="article_link">Understanding Elixir’s GenStages: Querying the Blockchain</a></h1>
+        
+<ul class="frontmatter frontmatter_page" id="frontmatter">
+    <li>
+        <time class="article_time" datetime="2018-11-13">November 13, 2018</time>
+    </li>
+    <span class="dotDivider"></span>
+    <li> 1276 words </li>
+    <span class="dotDivider"></span>
+    <li> 7 min </li>
+</ul>
+
+
+        <p><em>Note: This post was originally written on <a target="_blank" rel="noopener" href="https://blog.appsignal.com/2018/11/13/elixir-alchemy-understanding-elixirs-genstages-querying-the-blockchain.html">AppSignal's Elixir Alchemy Blog</a></em></p>
+<p>In this post, we’ll dive into Elixir’s GenStage module. Along the way, we’ll explain backpressure and we’ll write a Genstage to query the blockchain. Let’s start by discussing how using a GenStage can solve buffering problems.</p>
+<h2 id="what-is-a-genstage">What Is a GenStage?</h2>
+<p>Imagine you’re consuming data from an external source. That source could be anything “streamable” - such as reading a file line-by-line, a table in a database, or even a sequence of requests to a 3rd party API.</p>
+<p>In such scenarios, where you need to stream data into your system, and probably do some processing on each data point, it’s common to use a buffer to read in a few items, process the whole batch, and then fetch a new set into the buffer. I remember, from the time I was learning C/C++, that this would be a common, although arguably naive way to do things.</p>
+<p>With that approach, you may run into one of two problems: the buffer can get too small, or the buffer van get too large.</p>
+<ol>
+<li><strong>Buffer Too Small</strong> This happens if you read too few items at a time. Since you’re switching back and forth between reading and processing items, there will be a performance cost from the task switching. In the example of reading a file, your hardware or Operating System may be reading more data than what you’re actually requesting, resulting in sub-optimal performance, in addition to having to fetch the same part of the file later on.</li>
+<li><strong>Buffer Too Large</strong> In this case, you request too much from your data source. You may end up either creating a bottleneck (e.g. having to wait for your hard drive to read everything you requested), or not being able to process all the data in an efficient manner. If you’ve ever heard of a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Buffer_overflow">buffer overflow</a> (a common performance and security concern), this is it. You’re reading more than what your system can keep up with, resulting in all kinds of problems, from performance to actual failures.</li>
+</ol>
+<h2 id="the-solution-backpressure">The Solution: Backpressure</h2>
+<p>The term <em>backpressure</em> refers to the behavior of a system that builds up input, then halts the receiving of new data once the buffer is full, resuming it once again when the system is ready to handle it.</p>
+<p>This is the core idea behind Elixir’s GenStage.</p>
+<h2 id="genstage">GenStage</h2>
+<p>GenStage is an abstraction built on top of GenServer to provide a simple way to create a Producer/Consumer architecture, while automatically managing the concept of backpressure.</p>
+<p>In a GenStage, you create a pipeline of multiple Producers &amp; Consumers. Producers generate data points, or read them from a source, and then pass them down to the pipeline. They can then be sent through one or more Consumers that will do whatever processing you need done.</p>
+<p>The idea of backpressure is applied in the way items are created in a Producer. When the pipeline is ready to receive new items, the <code>handle_demand/2</code> function of the Producer is called, requesting a specific amount of items.</p>
+<p>The amount requested is decided internally (although you can specify a maximum value), and the function is called whenever there is room for them in the pipeline. If items take too long to process, Producers end up being idle for a while, thus relieving some pressure from the system.</p>
+<h2 id="use-case">Use Case</h2>
+<p>As an example of what a GenStage can be useful for, let’s consider reading chunks of data from an external data source. In this case, we’ll use the <a target="_blank" rel="noopener" href="https://www.ethereum.org/">Ethereum</a> blockchain, since it fits this concept nicely.</p>
+<p>A blockchain is composed of a series of blocks, each one containing multiple transactions. If we want to process the entire blockchain (for example, to look up all transactions involving a given address, or to listen to it continuously when integrating with your application), a GenStage is a perfect fit.</p>
+<p>In this context, each block can be considered as a single data item. Let’s see how this can be achieved.</p>
+<h2 id="querying-the-blockchain">Querying the Blockchain</h2>
+<p>We’re going to use <a target="_blank" rel="noopener" href="https://infura.io/">Infura’s public HTTP API</a> to interact with the Ethereum blockchain. Let’s start by building a wrapper to its interface. I’ll be using the <a target="_blank" rel="noopener" href="https://github.com/teamon/tesla">Tesla library</a> for this (this is just a personal preference, feel free to choose your own).</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">defmodule </span><span style="color:#d08770;">EthSync</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Infura </span><span style="color:#b48ead;">do
+  use </span><span style="color:#d08770;">Tesla</span><span style="color:#4f5b66;">
+
+  plug(</span><span style="color:#d08770;">Tesla</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Middleware</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">BaseUrl</span><span style="color:#4f5b66;">, &quot;</span><span style="color:#a3be8c;">https://ropsten.infura.io/</span><span style="color:#4f5b66;">&quot;)
+
+  </span><span style="color:#a7adba;"># encode/decode body as json
+  # Infura doesn&#39;t set the &quot;content-type&quot; header to &quot;application/json&quot;
+  # so we need to tell Tesla that we want text/plain requests to be decoded as well
+</span><span style="color:#4f5b66;">  plug(</span><span style="color:#d08770;">Tesla</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Middleware</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">JSON</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">decode_content_types: </span><span style="color:#4f5b66;">[&quot;</span><span style="color:#a3be8c;">text/plain; charset=utf-8</span><span style="color:#4f5b66;">&quot;])
+
+  </span><span style="color:#a7adba;">@doc &quot;Get an entire block&quot;
+  </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">get_block</span><span style="color:#4f5b66;">(number) </span><span style="color:#b48ead;">do
+    case</span><span style="color:#4f5b66;"> call(</span><span style="color:#a3be8c;">:eth_getBlockByNumber</span><span style="color:#4f5b66;">, [to_hex(number), </span><span style="color:#d08770;">true</span><span style="color:#4f5b66;">]) </span><span style="color:#b48ead;">do
+      </span><span style="color:#4f5b66;">{</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">nil</span><span style="color:#4f5b66;">} -&gt;
+        {</span><span style="color:#a3be8c;">:error</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:block_not_found</span><span style="color:#4f5b66;">}
+
+      error -&gt;
+        error
+    </span><span style="color:#b48ead;">end
+  end
+
+  </span><span style="color:#a7adba;">@doc &quot;Sends a JSON-RPC call to the server&quot;
+  </span><span style="color:#b48ead;">defp </span><span style="color:#8fa1b3;">call</span><span style="color:#4f5b66;">(method, params \\ []) </span><span style="color:#b48ead;">do
+    case</span><span style="color:#4f5b66;"> post(&quot;&quot;, %{</span><span style="color:#d08770;">jsonrpc: </span><span style="color:#4f5b66;">&quot;</span><span style="color:#a3be8c;">2.0</span><span style="color:#4f5b66;">&quot;, </span><span style="color:#d08770;">id: </span><span style="color:#4f5b66;">&quot;</span><span style="color:#a3be8c;">call_id</span><span style="color:#4f5b66;">&quot;, </span><span style="color:#d08770;">method:</span><span style="color:#4f5b66;"> method, </span><span style="color:#d08770;">params:</span><span style="color:#4f5b66;"> params}) </span><span style="color:#b48ead;">do
+      </span><span style="color:#4f5b66;">{</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, %</span><span style="color:#d08770;">Tesla</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Env</span><span style="color:#4f5b66;">{</span><span style="color:#d08770;">status: 200</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">body:</span><span style="color:#4f5b66;"> %{&quot;</span><span style="color:#a3be8c;">result</span><span style="color:#4f5b66;">&quot; =&gt; result}}} -&gt;
+        {</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, result}
+
+      {</span><span style="color:#a3be8c;">:error</span><span style="color:#4f5b66;">, _} = error -&gt;
+        error
+    </span><span style="color:#b48ead;">end
+  end
+
+  </span><span style="color:#a7adba;">@doc &quot;Converts integer values to hex strings&quot;
+  </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">to_hex</span><span style="color:#4f5b66;">(decimal), </span><span style="color:#d08770;">do: </span><span style="color:#4f5b66;">&quot;</span><span style="color:#a3be8c;">0x</span><span style="color:#4f5b66;">&quot; &lt;&gt; </span><span style="color:#d08770;">Integer</span><span style="color:#4f5b66;">.to_string(decimal, </span><span style="color:#d08770;">16</span><span style="color:#4f5b66;">)
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>We’ll only need a single endpoint for this: getting a block’s data, given its index on the chain. The block number must be given in hexadecimal format, so we also need a helper method to handle the conversion.</p>
+<p>We can verify that this is working via <code>iex</code>:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">iex(</span><span style="color:#d08770;">1</span><span style="color:#4f5b66;">)&gt; </span><span style="color:#d08770;">EthSync</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Infura</span><span style="color:#4f5b66;">.get_block(</span><span style="color:#d08770;">1</span><span style="color:#4f5b66;">)
+{</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">,
+ %{
+   &quot;</span><span style="color:#a3be8c;">number</span><span style="color:#4f5b66;">&quot; =&gt; &quot;</span><span style="color:#a3be8c;">0x1</span><span style="color:#4f5b66;">&quot;,
+   &quot;</span><span style="color:#a3be8c;">transactions</span><span style="color:#4f5b66;">&quot; =&gt; [],
+   </span><span style="color:#a7adba;"># ...
+ </span><span style="color:#4f5b66;">}
+}
+
+iex(</span><span style="color:#d08770;">2</span><span style="color:#4f5b66;">)&gt; </span><span style="color:#d08770;">EthSync</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Infura</span><span style="color:#4f5b66;">.get_block(</span><span style="color:#d08770;">1_000_000_000_000</span><span style="color:#4f5b66;">)
+{</span><span style="color:#a3be8c;">:error</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:block_not_found</span><span style="color:#4f5b66;">}
+</span></code></pre><h2 id="building-the-producer">Building the Producer</h2>
+<p>Our Producer will be a process with the responsibility of fetching Ethereum blocks.</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">defmodule </span><span style="color:#d08770;">EthSync</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Producer2 </span><span style="color:#b48ead;">do
+  alias </span><span style="color:#d08770;">EthSync</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Infura
+  </span><span style="color:#b48ead;">use </span><span style="color:#d08770;">GenStage
+
+  </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">init</span><span style="color:#4f5b66;">(_) </span><span style="color:#b48ead;">do
+    </span><span style="color:#4f5b66;">{</span><span style="color:#a3be8c;">:producer</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">1</span><span style="color:#4f5b66;">}
+  </span><span style="color:#b48ead;">end
+
+  def </span><span style="color:#8fa1b3;">handle_demand</span><span style="color:#4f5b66;">(demand, next_block) when demand &gt; </span><span style="color:#d08770;">0 </span><span style="color:#b48ead;">do
+    </span><span style="color:#d08770;">IO</span><span style="color:#4f5b66;">.puts(&quot;</span><span style="color:#a3be8c;">Demanding #{</span><span style="color:#4f5b66;">demand}&quot;)
+
+    blocks =
+      next_block..(next_block - </span><span style="color:#d08770;">1 </span><span style="color:#4f5b66;">+ demand)
+      |&gt; </span><span style="color:#d08770;">Enum</span><span style="color:#4f5b66;">.map(</span><span style="color:#b48ead;">fn</span><span style="color:#4f5b66;"> n -&gt;
+        </span><span style="color:#d08770;">IO</span><span style="color:#4f5b66;">.puts(&quot;</span><span style="color:#a3be8c;">Fetching block #{</span><span style="color:#4f5b66;">n}&quot;)
+        </span><span style="color:#d08770;">Infura</span><span style="color:#4f5b66;">.get_block(n)
+      </span><span style="color:#b48ead;">end</span><span style="color:#4f5b66;">)
+
+    {</span><span style="color:#a3be8c;">:noreply</span><span style="color:#4f5b66;">, blocks, next_block + length(blocks)}
+  </span><span style="color:#b48ead;">end
+end
+</span></code></pre><h2 id="building-the-consumer">Building the Consumer</h2>
+<p>The Consumer will receive lists of blocks and then process them. In the example, we’ll use <code>:timer.sleep/1</code> to simulate processing time since we’re not doing any actual work. Keep in mind that the list of blocks received is not necessarily the same as what was sent in the Producer. Items can be buffered according to the GenStage’s internal rules. It may also happen that you have multiple Consumers and items get split between them.</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">defmodule </span><span style="color:#d08770;">EthSync</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Consumer </span><span style="color:#b48ead;">do
+  alias </span><span style="color:#d08770;">EthSync</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Infura
+  </span><span style="color:#b48ead;">use </span><span style="color:#d08770;">GenStage
+
+  </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">init</span><span style="color:#4f5b66;">(_) </span><span style="color:#b48ead;">do
+    </span><span style="color:#4f5b66;">{</span><span style="color:#a3be8c;">:consumer</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">nil</span><span style="color:#4f5b66;">}
+  </span><span style="color:#b48ead;">end
+
+  def </span><span style="color:#8fa1b3;">handle_events</span><span style="color:#4f5b66;">(blocks, _from, state) </span><span style="color:#b48ead;">do</span><span style="color:#4f5b66;">
+    blocks
+    |&gt; </span><span style="color:#d08770;">Enum</span><span style="color:#4f5b66;">.each(</span><span style="color:#b48ead;">fn
+      </span><span style="color:#4f5b66;">{</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, %{&quot;</span><span style="color:#a3be8c;">number</span><span style="color:#4f5b66;">&quot; =&gt; n}} -&gt;
+        </span><span style="color:#d08770;">IO</span><span style="color:#4f5b66;">.puts(&quot;</span><span style="color:#a3be8c;">Received block #{</span><span style="color:#4f5b66;">n}&quot;)
+        </span><span style="color:#a3be8c;">:timer</span><span style="color:#4f5b66;">.sleep(</span><span style="color:#d08770;">1_000</span><span style="color:#4f5b66;">)
+    </span><span style="color:#b48ead;">end</span><span style="color:#4f5b66;">)
+
+    {</span><span style="color:#a3be8c;">:noreply</span><span style="color:#4f5b66;">, [], state}
+  </span><span style="color:#b48ead;">end
+end
+</span></code></pre><h2 id="wiring-it-all-up">Wiring It All Up</h2>
+<p>To start the pipeline, we need to start the processes for our Producer &amp; Consumer, and then link them together, so that items produced by the former get sent out to the latter:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">iex&gt; {</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, producer} = </span><span style="color:#d08770;">GenStage</span><span style="color:#4f5b66;">.start_link(</span><span style="color:#d08770;">Producer2</span><span style="color:#4f5b66;">, [])
+{</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, </span><span style="color:#a7adba;">#PID&lt;0.160.0&gt;}
+</span><span style="color:#4f5b66;">
+iex&gt; {</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, consumer} = </span><span style="color:#d08770;">GenStage</span><span style="color:#4f5b66;">.start_link(</span><span style="color:#d08770;">Consumer2</span><span style="color:#4f5b66;">, [])
+{</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, </span><span style="color:#a7adba;">#PID&lt;0.162.0&gt;}
+</span><span style="color:#4f5b66;">
+iex&gt; </span><span style="color:#d08770;">GenStage</span><span style="color:#4f5b66;">.sync_subscribe(consumer, </span><span style="color:#d08770;">to:</span><span style="color:#4f5b66;"> producer, </span><span style="color:#d08770;">max_demand: 3</span><span style="color:#4f5b66;">)
+{</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, </span><span style="color:#a7adba;">#Reference&lt;0.2486793675.579338241.116277&gt;}
+</span><span style="color:#d08770;">Demanding 3
+Received</span><span style="color:#4f5b66;"> block </span><span style="color:#d08770;">0x1
+Received</span><span style="color:#4f5b66;"> block </span><span style="color:#d08770;">0x2
+Received</span><span style="color:#4f5b66;"> block </span><span style="color:#d08770;">0x3
+Demanding 1
+Received</span><span style="color:#4f5b66;"> block </span><span style="color:#d08770;">0x4
+Received</span><span style="color:#4f5b66;"> block </span><span style="color:#d08770;">0x5
+Demanding 1
+</span></code></pre>
+<p>Notice that even though we start the Producer at the beginning, it only started fetching blocks once we wired the Consumer to it. That’s because there was no demand until that point. Additionally, even though we specify <code>max_demand: 3</code>, that’s not necessarily the amount requested at all times. Since we only have a single Consumer, and it takes 1 second to process each block, the GenStage is smart enough not to overflow it with too many blocks. It adjusts the number of events as needed.</p>
+
+
+        
+    </article>
+</section>
+
+     
+
+    <footer>
+        
+        
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+        
+<ul class="social_list foot_list">
+    <li class="font_faint">
+        <a href="https://github.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-github"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https://twitter.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-twitter"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank" class="extra_small">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https:&#x2F;&#x2F;naps62.com/atom.xml" target="_blank" class="extra_small">
+            <i class="fas fa-rss"></i>rss
+        </a>
+    </li>
+
+</ul>
+
+        
+    </footer>
+
+    
+    <script data-goatcounter="https://naps62.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    
+</body>
+
+</html>

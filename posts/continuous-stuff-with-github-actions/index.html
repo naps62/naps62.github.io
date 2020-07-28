@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    
+    
+
+
+    
+    
+    
+
+    
+
+    <!-- SEO -->
+    <title>Continuous Stuff with GitHub Actions | Miguel Palhas | @naps62</title>
+    <meta name="title" content="Continuous Stuff with GitHub Actions | Miguel Palhas | @naps62" />
+    <meta name="description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;continuous-stuff-with-github-actions&#x2F;" />
+    <meta property="og:title" content="Continuous Stuff with GitHub Actions | Miguel Palhas | @naps62" />
+    <meta property="twitter:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;continuous-stuff-with-github-actions&#x2F;" />
+    <meta property="twitter:title" content="Continuous Stuff with GitHub Actions | Miguel Palhas | @naps62" />
+    <meta property="twitter:description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+    <meta property="twitter:creator" content="@naps62" />
+
+    
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <!--  css -->
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;naps62.com/ergo.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="http://naps62.com/favicon.ico">
+
+    <!-- fonts -->
+    <!-- preload  -->
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway" as="style">
+    <link rel="preload" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" as="style">
+    <!-- load -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- canonical -->
+    
+    <link rel="canonical" href="https:&#x2F;&#x2F;subvisual.com&#x2F;blog&#x2F;posts&#x2F;continuous-stuff-with-github-actions" />
+    
+    
+</head>
+
+<body>
+    
+    
+<input type="checkbox" id="openSidebarMenu" class="openSidebarMenu">
+<label class="menu cross menu--1" for="openSidebarMenu">
+    <svg viewBox="0 0 75 75" xmlns="https://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="30" />
+        <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
+        <path class="line--2" d="M0 50h70" />
+        <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
+    </svg>
+</label>
+
+<div id="sidebarMenu">
+    <div class="menu_wrapper">
+        <ul class="sidebarMenuInner">
+            <li>
+                <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+                <div class="menu_div"></div>
+            </li>
+            
+            <li><a href="https://naps62.com" target="_blank">naps62.com</a></li>
+            
+            
+            <li><a href="https://github.com/naps62" target="_blank">naps62</a><i class="fab fa-github"></i></li>
+            
+            
+            <li><a href="https://twitter.com/naps62" target="_blank">@naps62</a><i class="fab fa-twitter"></i></li>
+            
+            
+            
+            
+            
+            
+            
+            <li><a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank">say hello</a><i class="fas fa-envelope"></i></li>
+            
+            
+            <li><a href="https:&#x2F;&#x2F;naps62.com/rss.xml" target="_blank">rss</a><i class="fas fa-rss"></i></li>
+            
+        </ul>
+    </div>
+</div>
+
+    
+
+    
+<nav id="overlord" class="overlord">
+    
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+</nav>
+
+<section class="post_container">
+    <article>
+        
+        <h1 class="article_title"><a href="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;continuous-stuff-with-github-actions&#x2F;" id="article_link">Continuous Stuff with GitHub Actions</a></h1>
+        
+<ul class="frontmatter frontmatter_page" id="frontmatter">
+    <li>
+        <time class="article_time" datetime="2020-03-30">March 30, 2020</time>
+    </li>
+    <span class="dotDivider"></span>
+    <li> 1836 words </li>
+    <span class="dotDivider"></span>
+    <li> 10 min </li>
+</ul>
+
+
+        <p><em>This post was originally posted on my company's blog. Feel free to check out the <a target="_blank" rel="noopener" href="https://subvisual.com/blog/posts/continuous-stuff-with-github-actions">original</a></em></p>
+<p>Last year, I took on the task of improving the continuous process over at <a target="_blank" rel="noopener" href="https://utrust.com">Utrust</a>. We weren't really happy with
+the amount of work that went into our releases, and I was looking for a more agile approach, where everyone from
+developers to the QA team could do their part with low friction.</p>
+<p>Coincidentally, that project started right around the same time GitHub Actions went into public beta. Some of our
+problems were related to shortcomings on our existing CI solution, so it felt right to see what GitHub had to offer.</p>
+<p>I ended up pleasantly surprised. But first, let's talk about what exactly was wrong with our previous CI.</p>
+<h2 id="shortcomings-of-traditional-cis">Shortcomings of traditional CIs</h2>
+<p>I've worked with a fair amount of CIs over the years...</p>
+<p><img src="./cis.png" alt="CIs" /></p>
+<HalfWidthImage img={ImgCI} alt="CIs" large={50} small={50} />
+<p>There was always something that seemed a bit off, though.  They all do one simple, but very useful, thing: they react to
+commits</p>
+<p>The main use case for this is the now common one: to run tests for every new version of your code.  But any kind of
+automated task can be triggered, really. A deploy is very common as well, or a preview build for testing.</p>
+<p>But a lot of these automations shouldn't necessarily need a commit. They are not triggered by changes in the code.
+Deploys might be triggered by some higher-level decision, or a QA team manually approving the latest version, which was
+committed days ago.</p>
+<h3 id="not-everything-is-a-commit">Not everything is a commit</h3>
+<p>This led to the common practice of creating &quot;special&quot; ways to trigger these commits. In <a target="_blank" rel="noopener" href="http://circleci.com/">CircleCI</a>, for
+example, you'd do something like this:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#bf616a;">workflows</span><span style="color:#4f5b66;">:
+  </span><span style="color:#bf616a;">build</span><span style="color:#4f5b66;">:
+    </span><span style="color:#bf616a;">release</span><span style="color:#4f5b66;">:
+      - </span><span style="color:#bf616a;">deploy_to_staging</span><span style="color:#4f5b66;">:
+          </span><span style="color:#bf616a;">filters</span><span style="color:#4f5b66;">:
+            </span><span style="color:#bf616a;">branches</span><span style="color:#4f5b66;">:
+              </span><span style="color:#bf616a;">only</span><span style="color:#4f5b66;">:
+                - </span><span style="color:#a3be8c;">staging
+</span></code></pre>
+<p>With this, commits to the <code>staging</code> branch would trigger a deploy to staging. Seems simple enough.  But now you need
+a branch for every single environment. And probably quite a few <code>push -f</code> commands, or similar git sorceries to force
+a commit from your normal workflow into a branch whose history is messier than the plot of <a target="_blank" rel="noopener" href="https://www.imdb.com/title/tt0390384/">Primer</a>.</p>
+<h2 id="github-api-to-the-rescue">GitHub API to the rescue</h2>
+<p>The problem here is that we're solving things the wrong way. A deploy is not a commit. It's a deploy.</p>
+<p>And GitHub actually has a <a target="_blank" rel="noopener" href="https://developer.github.com/v3/repos/deployments/">Deployments API</a> that encapsulates that exact concept.  You can tell
+GitHub to create a deployment, by providing a certain git reference, an environment to which you want to deploy, and
+other optional parameters.</p>
+<p>GitHub will then collect this and build a history of all the deploys you requested, and the status of each one (which
+can be updated using the same API).</p>
+<p>This API won't really do anything by itself, though. It builds a nice log, but that's about it.  You can subscribe to
+webhooks from this API though.</p>
+<p>So any 3rd party service could theoretically listen to these webhooks, and process the deployment you requested, instead
+of forcing you the come up with fancy ways to commit things in a particular way.</p>
+<p>None of these CIs seem to do that, though. And that's why GitHub Actions are so different.</p>
+<h2 id="github-action-triggers">GitHub Action triggers</h2>
+<p>GitHub's new toy allows us to build jobs that can be triggered <a target="_blank" rel="noopener" href="https://help.github.com/en/actions/reference/events-that-trigger-workflows">in a variety of ways</a>. You can
+have the traditional &quot;on every push&quot; jobs, but also more fancy stuff, such as &quot;on every deployment created&quot;, or even &quot;on
+every commit to an issue&quot;.</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#bf616a;">name</span><span style="color:#4f5b66;">: </span><span style="color:#bf616a;">GitHub Action Example
+
+</span><span style="color:#d08770;">on</span><span style="color:#4f5b66;">: [</span><span style="color:#a3be8c;">deployment</span><span style="color:#4f5b66;">]
+
+</span><span style="color:#bf616a;">jobs</span><span style="color:#4f5b66;">:
+  </span><span style="color:#bf616a;">steps</span><span style="color:#4f5b66;">:
+    </span><span style="color:#a7adba;"># ...
+    </span><span style="color:#4f5b66;">- </span><span style="color:#bf616a;">run</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">npm run deploy ${{ github.event.deployment.environment }}
+    </span><span style="color:#a7adba;"># ...
+</span></code></pre>
+<p>This sample does not rely on a <code>git push</code> in any way. All that is needed to trigger it is to call the Deployments API,
+and the rest of the job can pick up parameters from the webhook's data to figure out what to do, such as what
+environment to deploy to.</p>
+<h2 id="preventing-redundant-builds">Preventing redundant builds</h2>
+<p>One other thing that other CIs also aimed to achieve, is to optimize usage by preventing branches from triggering builds
+unless a Pull Request is open for them. The rationale here is that a work-in-progress branch rarely needs CI feedback,
+and would only waste resources. This is often a configurable option in CI settings. But with GitHub action triggers, we
+can do a bit more than that, by having that configuration in the source code itself:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#bf616a;">name</span><span style="color:#4f5b66;">: </span><span style="color:#bf616a;">GitHub Action Example
+
+</span><span style="color:#d08770;">on</span><span style="color:#4f5b66;">:
+  </span><span style="color:#bf616a;">push</span><span style="color:#4f5b66;">:
+    </span><span style="color:#bf616a;">branches</span><span style="color:#4f5b66;">:
+      - </span><span style="color:#bf616a;">master
+    tags</span><span style="color:#4f5b66;">:
+      - &#39;</span><span style="color:#a3be8c;">*</span><span style="color:#4f5b66;">&#39;
+  </span><span style="color:#bf616a;">pull_request</span><span style="color:#4f5b66;">:
+    </span><span style="color:#bf616a;">types</span><span style="color:#4f5b66;">: [</span><span style="color:#a3be8c;">opened</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">synchronize</span><span style="color:#4f5b66;">]
+
+</span><span style="color:#bf616a;">jobs</span><span style="color:#4f5b66;">:
+  </span><span style="color:#a7adba;"># ...
+</span></code></pre>
+<p>We might want to always trigger builds for the master branch, or for every tag that is created. But for pull requests
+(which have their own webhook, and therefore, trigger), we can specify that only creation or updates to those Pull
+Requests' history should trigger the job.</p>
+<h2 id="manual-workflows-with-comments">Manual workflows with comments</h2>
+<p>We can also react to comments on the Pull Request itself, which can be useful if you want a more seamless integration of
+some features.</p>
+<p>In my case, I wanted to deploy a preview version of Pull Requests to our frontend application.  It wasn't efficient to
+do this for every single PR though (only a small subset of them actually need this), so we went with this instead:</p>
+<p><img src="./github-actions-comment.png" alt="Comments triggering GitHub Action" /></p>
+<p>Whenever someone comments on a Pull Request and includes the word &quot;preview&quot;, an Action will be triggered which will take
+that branch and deploy a live preview of it, so it can be easily tested.</p>
+<p>The ease with which this was all done by just using different hooks made this very pleasant to work with.</p>
+<h1 id="reusable-actions">Reusable actions</h1>
+<p>A second issue I often had with previous CIs was the difficulty, or complete lack of a way to create reusable parts of
+your pipeline, so you can compose other jobs with them.</p>
+<p>Yes, YAML allows you to reuse blocks...</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">
+</span><span style="color:#bf616a;">component</span><span style="color:#4f5b66;">: </span><span style="color:#b48ead;">&amp;</span><span style="color:#4f5b66;">component
+  </span><span style="color:#bf616a;">foo</span><span style="color:#4f5b66;">: </span><span style="color:#bf616a;">bar
+
+extension</span><span style="color:#4f5b66;">: </span><span style="color:#b48ead;">*</span><span style="color:#bf616a;">component
+  baz</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">biz
+</span></code></pre>
+<p>... but they don't look pretty, especially once they start to grow.  And if you, like me, have any experience mantaining
+a large project with multiple CI worflows and configurations, you probably know that things tend to get out of hand.
+It's always a single YAML file, which can grow to hundreds of lines. You can reuse blocks of YAML, but they may end up
+running under different contexts (e.g.: different docker images, different dependencies installed, etc).</p>
+<p>CircleCI did introduce the concept of <a target="_blank" rel="noopener" href="https://circleci.com/orbs/">Orbs</a> in their ecosystem, which attempts to tackle this. However,
+their reusability is limited.</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#a7adba;"># circleci.yml
+
+</span><span style="color:#bf616a;">push_s3</span><span style="color:#4f5b66;">:
+  </span><span style="color:#bf616a;">executor</span><span style="color:#4f5b66;">: </span><span style="color:#bf616a;">ubuntu
+  steps</span><span style="color:#4f5b66;">:
+    - </span><span style="color:#bf616a;">my-custom-org/my-custom-command</span><span style="color:#4f5b66;">:
+        </span><span style="color:#bf616a;">arg</span><span style="color:#4f5b66;">: &quot;</span><span style="color:#a3be8c;">foo</span><span style="color:#4f5b66;">&quot;
+</span></code></pre>
+<p>This is a trimmed-down example, where a custom command is encapsulated in a <code>my-custom-orb</code> Orb. You may notice that the
+main config file is the one who specificies the execution environment (ubuntu, in this case).  So, if the Orb tries to
+<code>yum install git</code>, this would fail, because that package manager isn't used in Ubuntu.</p>
+<p>So you end up with a mess of a script that does a whole bunch of magic just to figure out how to install the
+dependencies it needs. Check out <a  href="https://naps62.com/posts/continuous-stuff-with-github-actions/orb-awscli">the actual source code</a> for the official Orb that installs <code>awscli</code> on
+your jobs. It's a bit of a mess, isn't it?</p>
+<p>You could delegate everything into a ready-to-go Docker container, and run whatever you need in there. But then you lose
+access to the overall filesystem of your original job, where you already cloned your project and created a bunch of
+useful artifacts. Not great, either.</p>
+<p>GitHub Actions solves this by allowing you to write reusable actions in two different ways. None of those are YAML, and
+both of those are way better:</p>
+<ol>
+<li>As a Docker container, but one that will automatically mount the local filesystem into it. You get access to
+everything your job has been doing so far and, since it's docker, you can pretty much install whatever dependencies
+you need, without caring about polluting the host job.</li>
+<li>In JavaScript. Which, as you may know, is a pretty powerful tool.</li>
+</ol>
+<p>Here's a basic GitHub Actions job:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#bf616a;">name</span><span style="color:#4f5b66;">: </span><span style="color:#bf616a;">Demo
+</span><span style="color:#d08770;">on</span><span style="color:#4f5b66;">: [</span><span style="color:#a3be8c;">push</span><span style="color:#4f5b66;">]
+
+</span><span style="color:#bf616a;">jobs</span><span style="color:#4f5b66;">:
+  </span><span style="color:#bf616a;">test</span><span style="color:#4f5b66;">:
+    </span><span style="color:#bf616a;">runs-on</span><span style="color:#4f5b66;">: </span><span style="color:#bf616a;">ubuntu-latest
+
+  steps</span><span style="color:#4f5b66;">:
+    - </span><span style="color:#bf616a;">name</span><span style="color:#4f5b66;">: </span><span style="color:#bf616a;">Checkout repo
+      uses</span><span style="color:#4f5b66;">: </span><span style="color:#bf616a;">actions/checkout@v2
+
+    </span><span style="color:#4f5b66;">- </span><span style="color:#bf616a;">name</span><span style="color:#4f5b66;">: </span><span style="color:#bf616a;">Install deps
+      run</span><span style="color:#4f5b66;">: </span><span style="color:#bf616a;">npm install
+
+    </span><span style="color:#4f5b66;">- </span><span style="color:#bf616a;">name</span><span style="color:#4f5b66;">: </span><span style="color:#bf616a;">Run tests
+      run</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">npm run test
+</span></code></pre>
+<p>The first step here, <code>actions/checkout@v2</code> is what checks out your repo to the local filesystem. And it's actually done
+in JavaScript! The syntax, as you may tell, looks suspiciously like a link to a GitHub repo. And, well, it is. If you
+check <a target="_blank" rel="noopener" href="https://github.com/actions/checkout/tree/v2.0.0">release <code>v2</code> on that repository</a>, you'll see the actual JS code used to clone your repo into
+the action.</p>
+<p>And of course, you're free to fork this action and edit it with your own customizations, if you need. The exact same
+flow that GitHub already allows for regular open-source work, now applied to their own CI.</p>
+<h2 id="ok-what-s-the-catch">Ok, what's the catch?</h2>
+<p>As you may be able to tell, I like GitHub Actions quite a lot. They're not without their shortcomings though.</p>
+<p>I have 2 major concerns:</p>
+<ol>
+<li><strong>Still a new kid in the block</strong>. Public beta opened less than a year ago, which might be good enough of a reason to
+think twice before jumping into the hype-train. It's still in it's infancy and, as such, a lot of things may not be
+as polished as you'd expect. There's quite a lot of missing features being requested by the community, and hopefully
+we'll see them implemented soon enough.</li>
+<li><strong>No SSH access for debugging</strong>. This might fall under the previous point, but the lack of ability to debug failed
+actions by SSH'ing into the container was almost a deal breaker for me. I spent countless hours debugging things via
+trial-and-error that would have been way faster had I just been able to see what happened for myself.</li>
+</ol>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>These drawbacks, as concerning as they may have been, didn't prevent me from using GitHub Actions over the past few
+months, and even performing a company-wide migration at <a target="_blank" rel="noopener" href="https://utrust.com">Utrust</a>. This post was my way of compiling a short
+tutorial around how I started using them, and how they're so much different than previous CIs I've tried.  By far, the
+ease with each I'm able to create reusable, encapsulated actions, and the ability to react not just to commits, but to
+any other event GitHub emits, is a very powerful tool.</p>
+<p>Let me know on <a target="_blank" rel="noopener" href="https://twitter.com/naps62">twitter</a> if you have any thoughts about this!</p>
+
+
+        
+    </article>
+</section>
+
+     
+
+    <footer>
+        
+        
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+        
+<ul class="social_list foot_list">
+    <li class="font_faint">
+        <a href="https://github.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-github"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https://twitter.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-twitter"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank" class="extra_small">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https:&#x2F;&#x2F;naps62.com/atom.xml" target="_blank" class="extra_small">
+            <i class="fas fa-rss"></i>rss
+        </a>
+    </li>
+
+</ul>
+
+        
+    </footer>
+
+    
+    <script data-goatcounter="https://naps62.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    
+</body>
+
+</html>

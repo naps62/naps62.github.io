@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    
+    
+
+
+    
+    
+    
+
+    
+
+    <!-- SEO -->
+    <title>Focused Writing in Vim | Miguel Palhas | @naps62</title>
+    <meta name="title" content="Focused Writing in Vim | Miguel Palhas | @naps62" />
+    <meta name="description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;focused-writing-in-vim&#x2F;" />
+    <meta property="og:title" content="Focused Writing in Vim | Miguel Palhas | @naps62" />
+    <meta property="twitter:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;focused-writing-in-vim&#x2F;" />
+    <meta property="twitter:title" content="Focused Writing in Vim | Miguel Palhas | @naps62" />
+    <meta property="twitter:description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+    <meta property="twitter:creator" content="@naps62" />
+
+    
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <!--  css -->
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;naps62.com/ergo.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="http://naps62.com/favicon.ico">
+
+    <!-- fonts -->
+    <!-- preload  -->
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway" as="style">
+    <link rel="preload" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" as="style">
+    <!-- load -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- canonical -->
+    
+    
+</head>
+
+<body>
+    
+    
+<input type="checkbox" id="openSidebarMenu" class="openSidebarMenu">
+<label class="menu cross menu--1" for="openSidebarMenu">
+    <svg viewBox="0 0 75 75" xmlns="https://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="30" />
+        <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
+        <path class="line--2" d="M0 50h70" />
+        <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
+    </svg>
+</label>
+
+<div id="sidebarMenu">
+    <div class="menu_wrapper">
+        <ul class="sidebarMenuInner">
+            <li>
+                <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+                <div class="menu_div"></div>
+            </li>
+            
+            <li><a href="https://naps62.com" target="_blank">naps62.com</a></li>
+            
+            
+            <li><a href="https://github.com/naps62" target="_blank">naps62</a><i class="fab fa-github"></i></li>
+            
+            
+            <li><a href="https://twitter.com/naps62" target="_blank">@naps62</a><i class="fab fa-twitter"></i></li>
+            
+            
+            
+            
+            
+            
+            
+            <li><a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank">say hello</a><i class="fas fa-envelope"></i></li>
+            
+            
+            <li><a href="https:&#x2F;&#x2F;naps62.com/rss.xml" target="_blank">rss</a><i class="fas fa-rss"></i></li>
+            
+        </ul>
+    </div>
+</div>
+
+    
+
+    
+<nav id="overlord" class="overlord">
+    
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+</nav>
+
+<section class="post_container">
+    <article>
+        
+        <h1 class="article_title"><a href="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;focused-writing-in-vim&#x2F;" id="article_link">Focused Writing in Vim</a></h1>
+        
+<ul class="frontmatter frontmatter_page" id="frontmatter">
+    <li>
+        <time class="article_time" datetime="2020-06-15">June 15, 2020</time>
+    </li>
+    <span class="dotDivider"></span>
+    <li> 989 words </li>
+    <span class="dotDivider"></span>
+    <li> 5 min </li>
+</ul>
+
+
+        <p>I've been working on getting an improved focus environment to write blog posts in. There's a lot of &quot;Focus mode&quot;
+features out there in pretty much every editor. But in Vim, I wanted to piece together a few different things, and also
+make some additions of my own.</p>
+<p>I use a 4K monitor, which is great for gaming &amp; programming, but kind of overkill for writing blog posts. I don't
+want all that real estate.</p>
+<h2 id="the-end-result">The end result</h2>
+<p>So here's the gist of what I achieved (or a video right below, showcasing the final thing). Running <code>:Focus</code> on Vim does
+a bunch of different things:</p>
+<ul>
+<li>Center &amp; focus the 80-wide lines of content;</li>
+<li>Increase the font size... a lot;</li>
+<li>Hide away all the visual noise (statusbars, line numbers, autocomplete, window manager, and so on);</li>
+<li>Disable editor features targeted at programming (looking at you, autocomplete);</li>
+<li><em>Maybe</em> have a Table of Contents on the left side, for easy navigation on long posts.</li>
+</ul>
+<div class="youtube ">
+    <iframe src="https://www.youtube.com/embed/8dLIDBKkbCI"
+    webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder="0"
+    >
+  </iframe>
+</div>
+<p>All of this is achieved with a few existing vim plugins, all tied together in a single <code>Focus()</code> function. There's also
+some bits that need to go beyond Vim, such as increasing font size, for instance.</p>
+<h2 id="the-road-towards-it">The road towards it</h2>
+<p>Let's start with the easy stuff. Creating a <code>:Focus</code> command is pretty straightforward.</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:focused</span><span style="color:#4f5b66;"> = </span><span style="color:#d08770;">0
+</span><span style="color:#b48ead;">function</span><span style="color:#4f5b66;">! </span><span style="color:#8fa1b3;">Focus</span><span style="color:#4f5b66;">()
+  </span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">g:focused </span><span style="color:#b48ead;">== </span><span style="color:#d08770;">0
+</span><span style="color:#a7adba;">    &quot; magically enable focus stuff
+    </span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:focused</span><span style="color:#4f5b66;"> = </span><span style="color:#d08770;">1
+  </span><span style="color:#b48ead;">else
+</span><span style="color:#a7adba;">    &quot; disable all of it again
+    </span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:focused</span><span style="color:#4f5b66;"> = </span><span style="color:#d08770;">1
+  </span><span style="color:#b48ead;">endif
+endfunction
+</span></code></pre>
+<p>We can even have our function work as a toggle. Calling it a second time will (ideally) undo all the evil we did.</p>
+<p>Let's now go through all the stuff we can enable in that if statement. Feel free to cherry-pick whichever ones work for
+you. That's the beauty of using custom vim code instead of a one-size-fits-all solution.</p>
+<p>PS: For each section, I'll include the vimscript code necessary to enable it. For disabling it (the <code>else</code> part of
+the <code>if</code> statement), check out the full code in <a target="_blank" rel="noopener" href="https://gist.github.com/naps62/20e71350443191dd002c6dc640eef0c4">this gist</a>.</p>
+<h3 id="1-goyo-distraction-free-mode">1. <a target="_blank" rel="noopener" href="https://github.com/junegunn/goyo.vim">Goyo</a> - Distraction-free mode</h3>
+<p>This plugin adds a distraction-free mode to Vim, which hides most the of clutter already.</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#a7adba;">&quot; enable distraction-free with a 120 column wide buffer</span><span style="color:#4f5b66;">
+:Goyo </span><span style="color:#d08770;">120
+</span></code></pre><h3 id="2-limelight-for-even-more-focus">2. <a target="_blank" rel="noopener" href="https://github.com/junegunn/limelight.vim">Limelight</a> - for even more focus</h3>
+<p>Built by the same author, this goes one step further, and dims down all content but the currently highlighted paragrah.</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">:Limelight
+</span></code></pre><h3 id="3-voom">3. <a target="_blank" rel="noopener" href="https://www.vim.org/scripts/script.php?script_id=2657">VOoM</a></h3>
+<p>Yet another package. This one adds a Table of Contents to the left of your content buffer. It builds an index for markdown and other standard content formats, making it pretty useful for navigating large files.</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#a7adba;">&quot; enable sidebar TOC for a markdown file</span><span style="color:#4f5b66;">
+:VOoM markdown
+</span></code></pre><h3 id="4-disable-additional-vim-clutter">4. Disable additional vim clutter</h3>
+<p>Now for the actual custom stuff. These are a few small settings that I normally use on Vim, but wanted to disable while
+in focus mode:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#a7adba;">&quot; disable highlighting of the current line
+</span><span style="color:#96b5b4;">set</span><span style="color:#4f5b66;"> nocursorline
+</span><span style="color:#a7adba;">
+&quot; disable highlighting of the current column
+</span><span style="color:#96b5b4;">set</span><span style="color:#4f5b66;"> nocursorcolumn
+</span><span style="color:#a7adba;">
+&quot; even though Goyo hides the status bar, a small `-- INSERT --`
+&quot; was still showing up in the corner.
+&quot; This gets rid of that as well
+</span><span style="color:#96b5b4;">set</span><span style="color:#4f5b66;"> noshowmode
+</span></code></pre><h3 id="5-always-centered-cursor">5. Always-centered cursor</h3>
+<p>This one is probably the most hacky thing on this list. Sorry, but I couldn't resist</p>
+<p>I wanted the current line to always be vertically centered as well.</p>
+<p>Using <code>set scrolloff=20</code> would tell vim to scroll 20
+lines past the End-of-File. But while writing, the current text would still end at the bottom of the screen, unless
+I manually scrolled down those extra lines.</p>
+<p>The trick is to override the default navigation mappings, and combine them with <code>zz</code> which brings the cursor current
+line to the vertical center of the screen:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">:</span><span style="color:#96b5b4;">nmap</span><span style="color:#4f5b66;"> j jzz
+:</span><span style="color:#96b5b4;">nmap</span><span style="color:#4f5b66;"> k kzz
+:</span><span style="color:#96b5b4;">nmap</span><span style="color:#4f5b66;"> G Gzz
+</span></code></pre>
+<p><code>j</code>, <code>k</code> and <code>G</code> are the movements I use most often. Appending <code>zz</code> to them automatically keeps my current focus right
+at the center. It's not perfect, but it's close enough.</p>
+<h3 id="6-hiding-tmux-s-status-bar">6. Hiding tmux's status bar</h3>
+<p>Since I always run Vim inside a tmux session, I wanted to hide that as well. This one is actually pretty simple:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">:silent !tmux </span><span style="color:#96b5b4;">set</span><span style="color:#4f5b66;"> status off
+</span></code></pre><h3 id="7-increase-font-size">7. Increase font size</h3>
+<p>This was the final piece, and another trick I had to use. However, without a bigger font size, everything before this
+would really suck. 14pt fonts centered on a 4K monitor isn't really that useful, nor comfortable</p>
+<p>I use <a target="_blank" rel="noopener" href="https://github.com/alacritty/alacritty">alacritty</a>. Like most other terminals, there are shortcuts to zoom
+in/out, and reset. In my case, I have those set to <code>Ctrl+'</code>, <code>Ctrl+-</code> and <code>Ctrl+0</code>, respectively. In <code>alacritty.yml</code>'s
+config file, that translates to:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#bf616a;">key_bindings</span><span style="color:#4f5b66;">:
+  - { </span><span style="color:#bf616a;">key</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">Key0</span><span style="color:#4f5b66;">,       </span><span style="color:#bf616a;">mods</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">Control</span><span style="color:#4f5b66;">, </span><span style="color:#bf616a;">action</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">ResetFontSize    </span><span style="color:#4f5b66;">}
+  - { </span><span style="color:#bf616a;">key</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">Apostrophe</span><span style="color:#4f5b66;">, </span><span style="color:#bf616a;">mods</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">Control</span><span style="color:#4f5b66;">, </span><span style="color:#bf616a;">action</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">IncreaseFontSize </span><span style="color:#4f5b66;">}
+  - { </span><span style="color:#bf616a;">key</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">Subtract</span><span style="color:#4f5b66;">,   </span><span style="color:#bf616a;">mods</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">Control</span><span style="color:#4f5b66;">, </span><span style="color:#bf616a;">action</span><span style="color:#4f5b66;">: </span><span style="color:#a3be8c;">DecreaseFontSize </span><span style="color:#4f5b66;">}
+</span></code></pre>
+<p>As far as I could tell, there is no command line API that I could call to achieve the same effects, so I went with the
+keyboard shortcuts. Using <code>xdotool</code>, it's easy to send those keystroke signals to the terminal window, with a single
+command:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">:silent !xdotool key --repeat </span><span style="color:#d08770;">10</span><span style="color:#4f5b66;"> Ctrl+apostrophe
+</span></code></pre>
+<p>This is using <a target="_blank" rel="noopener" href="https://jlk.fjfi.cvut.cz/arch/manpages/man/xdotool.1.en">xdotool</a> to send a zoom-in shortcut signal to the active window, 10 times.
+A similar <code>xdotool key Ctrl+0</code> can be used to get back to the default zoom level at the end.</p>
+<p>10 was just an arbitrary number that got me to a visually comfortable level.</p>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>I used this full setup for the first time while writing this post. It has a few rough edges that I'll still be
+improving on in the future, but it's already proven extremely helpful.
+Check out the full <a target="_blank" rel="noopener" href="https://gist.github.com/naps62/20e71350443191dd002c6dc640eef0c4">vim code here</a>, or let me know on <a target="_blank" rel="noopener" href="https://twitter.com/naps62">twitter</a> if you have any thoughts on how to improve this.</p>
+
+
+        
+    </article>
+</section>
+
+     
+
+    <footer>
+        
+        
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+        
+<ul class="social_list foot_list">
+    <li class="font_faint">
+        <a href="https://github.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-github"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https://twitter.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-twitter"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank" class="extra_small">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https:&#x2F;&#x2F;naps62.com/atom.xml" target="_blank" class="extra_small">
+            <i class="fas fa-rss"></i>rss
+        </a>
+    </li>
+
+</ul>
+
+        
+    </footer>
+
+    
+    <script data-goatcounter="https://naps62.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    
+</body>
+
+</html>

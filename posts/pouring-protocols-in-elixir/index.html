@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    
+    
+
+
+    
+    
+    
+
+    
+
+    <!-- SEO -->
+    <title>Pouring Protocols in Elixir | Miguel Palhas | @naps62</title>
+    <meta name="title" content="Pouring Protocols in Elixir | Miguel Palhas | @naps62" />
+    <meta name="description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;pouring-protocols-in-elixir&#x2F;" />
+    <meta property="og:title" content="Pouring Protocols in Elixir | Miguel Palhas | @naps62" />
+    <meta property="twitter:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;pouring-protocols-in-elixir&#x2F;" />
+    <meta property="twitter:title" content="Pouring Protocols in Elixir | Miguel Palhas | @naps62" />
+    <meta property="twitter:description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+    <meta property="twitter:creator" content="@naps62" />
+
+    
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <!--  css -->
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;naps62.com/ergo.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="http://naps62.com/favicon.ico">
+
+    <!-- fonts -->
+    <!-- preload  -->
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway" as="style">
+    <link rel="preload" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" as="style">
+    <!-- load -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- canonical -->
+    
+    <link rel="canonical" href="https:&#x2F;&#x2F;blog.appsignal.com&#x2F;2019&#x2F;02&#x2F;19&#x2F;elixir-alchemy-pouring-protocols.html" />
+    
+    
+</head>
+
+<body>
+    
+    
+<input type="checkbox" id="openSidebarMenu" class="openSidebarMenu">
+<label class="menu cross menu--1" for="openSidebarMenu">
+    <svg viewBox="0 0 75 75" xmlns="https://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="30" />
+        <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
+        <path class="line--2" d="M0 50h70" />
+        <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
+    </svg>
+</label>
+
+<div id="sidebarMenu">
+    <div class="menu_wrapper">
+        <ul class="sidebarMenuInner">
+            <li>
+                <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+                <div class="menu_div"></div>
+            </li>
+            
+            <li><a href="https://naps62.com" target="_blank">naps62.com</a></li>
+            
+            
+            <li><a href="https://github.com/naps62" target="_blank">naps62</a><i class="fab fa-github"></i></li>
+            
+            
+            <li><a href="https://twitter.com/naps62" target="_blank">@naps62</a><i class="fab fa-twitter"></i></li>
+            
+            
+            
+            
+            
+            
+            
+            <li><a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank">say hello</a><i class="fas fa-envelope"></i></li>
+            
+            
+            <li><a href="https:&#x2F;&#x2F;naps62.com/rss.xml" target="_blank">rss</a><i class="fas fa-rss"></i></li>
+            
+        </ul>
+    </div>
+</div>
+
+    
+
+    
+<nav id="overlord" class="overlord">
+    
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+</nav>
+
+<section class="post_container">
+    <article>
+        
+        <h1 class="article_title"><a href="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;pouring-protocols-in-elixir&#x2F;" id="article_link">Pouring Protocols in Elixir</a></h1>
+        
+<ul class="frontmatter frontmatter_page" id="frontmatter">
+    <li>
+        <time class="article_time" datetime="2019-02-19">February 19, 2019</time>
+    </li>
+    <span class="dotDivider"></span>
+    <li> 883 words </li>
+    <span class="dotDivider"></span>
+    <li> 5 min </li>
+</ul>
+
+
+        <p><em>Note: This post was originally written on <a target="_blank" rel="noopener" href="https://blog.appsignal.com/2019/02/19/elixir-alchemy-pouring-protocols.html">AppSignal's Elixir Alchemy Blog</a></em></p>
+<p>Elixir has several mechanisms that allow us to write expressive and intuitive code. Pattern matching, for instance, is a powerful way of dealing with multiple scenarios without having to go into complicated branching. It allows each of our functions to be clear and concise.</p>
+<h2 id="what-are-protocols">What Are Protocols?</h2>
+<p>In a way, Protocols are similar to pattern matching, but they allow us to write more meaningful and context-specific code based on the datatype we’re dealing with.</p>
+<p>Let’s take the example of a content-delivery website. This website has multiple types of content: audio clips, videos, texts, and whatever else you can think of.</p>
+<p>Each of these content types obviously has different attributes and metadata, so it makes sense for them to be represented by independent structs:</p>
+<p>Translating this into Elixir, you’d have the following structures:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">defmodule </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Audio </span><span style="color:#b48ead;">do
+  defstruct </span><span style="color:#4f5b66;">[</span><span style="color:#a3be8c;">:title</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:album</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:artist</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:duration</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:bitrate</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:file</span><span style="color:#4f5b66;">]
+</span><span style="color:#b48ead;">end
+
+defmodule </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Video </span><span style="color:#b48ead;">do
+  defstruct </span><span style="color:#4f5b66;">[</span><span style="color:#a3be8c;">:title</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:cast</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:release_date</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:duration</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:resolution</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:file</span><span style="color:#4f5b66;">]
+</span><span style="color:#b48ead;">end
+
+defmodule </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Text </span><span style="color:#b48ead;">do
+  defstruct </span><span style="color:#4f5b66;">[</span><span style="color:#a3be8c;">:title</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:author</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:word_count</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:chapter_count</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:format</span><span style="color:#4f5b66;">, </span><span style="color:#a3be8c;">:file</span><span style="color:#4f5b66;">]
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>Each of these types has a few different fields, most of them unique to the type. We also have a common <code>:file</code> field which will point to the file keeping the actual data.</p>
+<p>Now, let’s say you want to make your content as accessible as possible. You may, for instance, want to allow your hearing-impaired users to view the transcripts of both your audio and video. For that, you’ll use your awesome <code>AudioTranscriber</code> and <code>VideoTranscriber</code> modules which provide <code>transcribe_audio/1</code> and <code>transcribe_video/1</code> functions, respectively.</p>
+<p>The implementation of those functions uses state-of-the-art machine learning and will be delegated to a future blog post. Let’s just assume they work and roll with it.</p>
+<p>Both transcriber modules are split up into separate modules. Aside from having different function names for transcribing content, they might be completely different libraries. To allow us to use both in a transparent manner, we’ll implement a protocol named <code>Content.Transcribe</code> that has a unified API that can handle both types of content.</p>
+<h2 id="implementing-the-protocol">Implementing the Protocol</h2>
+<p>Using protocols, we can easily define what the act of transcribing something means to each of our data types. This is done by first defining a transcribing protocol:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">defprotocol </span><span style="color:#4f5b66;">Content.Transcribe </span><span style="color:#b48ead;">do
+  def </span><span style="color:#8fa1b3;">transcribe</span><span style="color:#4f5b66;">(content)
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>and then implementing it separately for each of our types:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">defimpl </span><span style="color:#4f5b66;">Content.Transcribe, for: Content.Video </span><span style="color:#b48ead;">do
+  def </span><span style="color:#8fa1b3;">transcribe</span><span style="color:#4f5b66;">(video), </span><span style="color:#d08770;">do: VideoTranscriber</span><span style="color:#4f5b66;">.transcribe_video(video.file)
+</span><span style="color:#b48ead;">end
+
+defimpl </span><span style="color:#4f5b66;">Content.Transcribe, for: Content.Audio </span><span style="color:#b48ead;">do
+  def </span><span style="color:#8fa1b3;">transcribe</span><span style="color:#4f5b66;">(audio), </span><span style="color:#d08770;">do: AudioTranscriber</span><span style="color:#4f5b66;">.transcribe_audio(audio.file)
+</span><span style="color:#b48ead;">end
+
+defimpl </span><span style="color:#4f5b66;">Content.Transcribe, for: Content.Text </span><span style="color:#b48ead;">do
+  def </span><span style="color:#8fa1b3;">transcribe</span><span style="color:#4f5b66;">(text), </span><span style="color:#d08770;">do: File</span><span style="color:#4f5b66;">.read(text.file)
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>We have separately defined implementations of the same function for all 3 content types.</p>
+<p>You may note that for text content, the implementation merely reads the corresponding file, as it’s already in text format, while for the other two, we call the corresponding machine-learning-magic function on the file.</p>
+<p>We’re then able to call <code>transcribe/1</code> for all the data types we have an implementation for:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">iex&gt; %</span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Video</span><span style="color:#4f5b66;">{...} |&gt; </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Transcribe</span><span style="color:#4f5b66;">.transcribe()
+{</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, &quot;</span><span style="color:#a3be8c;">We&#39;re no strangers to love</span><span style="color:#96b5b4;">\n</span><span style="color:#a3be8c;">You know the rules and so do I...</span><span style="color:#4f5b66;">&quot;}
+
+iex&gt; %</span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Audio</span><span style="color:#4f5b66;">{...} |&gt; </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Transcribe</span><span style="color:#4f5b66;">.transcribe()
+{</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, &quot;</span><span style="color:#a3be8c;">Imagine there&#39;s no heaven</span><span style="color:#96b5b4;">\n</span><span style="color:#a3be8c;">It&#39;s easy if you try...</span><span style="color:#4f5b66;">&quot;}
+
+iex&gt; %</span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Text</span><span style="color:#4f5b66;">{...} |&gt; </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Transcribe</span><span style="color:#4f5b66;">.transcribe()
+{</span><span style="color:#a3be8c;">:ok</span><span style="color:#4f5b66;">, &quot;</span><span style="color:#a3be8c;">in a hole in the ground there lived a hobbit...</span><span style="color:#4f5b66;">&quot;}
+</span></code></pre><h2 id="fallback-implementations">Fallback Implementations</h2>
+<p>Now, let’s say we add a new type of media to our platform: games</p>
+<p>What happens when we try to transcribe the newly-added content?</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">iex&gt; %</span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Game</span><span style="color:#4f5b66;">{...} |&gt; </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Transcribe</span><span style="color:#4f5b66;">.transcribe()
+** (</span><span style="color:#d08770;">Protocol</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">UndefinedError</span><span style="color:#4f5b66;">) protocol </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Transcribe</span><span style="color:#4f5b66;"> is not implemented </span><span style="color:#b48ead;">for</span><span style="color:#4f5b66;"> %</span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Game</span><span style="color:#4f5b66;">{...}. </span><span style="color:#d08770;">This</span><span style="color:#4f5b66;"> protocol is implemented </span><span style="color:#d08770;">for: Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Audio</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Text</span><span style="color:#4f5b66;">, </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Video
+</span></code></pre>
+<p>Whoops! We’ve hit an error. Which makes sense. We didn’t provide any transcription implementation for this type.</p>
+<p>But it doesn’t really make sense to do so, does it? Games are supposed to be interactive experiences, and there simply may be no way to make them accessible to everyone.</p>
+<p>So we could just provide an implementation that always fails:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">defimpl </span><span style="color:#4f5b66;">Content.Transcribe, for: Content.Game </span><span style="color:#b48ead;">do
+  def </span><span style="color:#8fa1b3;">transcribe</span><span style="color:#4f5b66;">(game), </span><span style="color:#d08770;">do: </span><span style="color:#4f5b66;">{</span><span style="color:#a3be8c;">:error</span><span style="color:#4f5b66;">, &quot;</span><span style="color:#a3be8c;">not supported</span><span style="color:#4f5b66;">&quot;}
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>But this doesn’t seem very scalable, does it? If we keep adding new content types, we’ll end up having to duplicate this for every single type that we cannot transcribe.</p>
+<p>Instead, we can simply add a fallback implementation for any type we don’t specify. This is done precisely by providing an implementation for the Any type, and then stating in our protocol that we want to fall back to it when necessary.</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#b48ead;">defimpl </span><span style="color:#4f5b66;">Content.Transcribe, for: Any </span><span style="color:#b48ead;">do
+  def </span><span style="color:#8fa1b3;">transcribe</span><span style="color:#4f5b66;">(_), </span><span style="color:#d08770;">do: </span><span style="color:#4f5b66;">{</span><span style="color:#a3be8c;">:error</span><span style="color:#4f5b66;">, &quot;</span><span style="color:#a3be8c;">not supported</span><span style="color:#4f5b66;">&quot;}
+</span><span style="color:#b48ead;">end
+
+defprotocol </span><span style="color:#4f5b66;">Content.Transcribe </span><span style="color:#b48ead;">do
+  </span><span style="color:#4f5b66;">@</span><span style="color:#bf616a;">fallback_to_any </span><span style="color:#d08770;">true
+  </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">transcribe</span><span style="color:#4f5b66;">(content)
+</span><span style="color:#b48ead;">end
+</span></code></pre>
+<p>The implementation for Any can usually be used by asking Elixir to automatically derive implementations from it (you can read more about this in the official <a target="_blank" rel="noopener" href="https://elixir-lang.org/getting-started/protocols.html#deriving">Elixir Getting Started guide</a>).</p>
+<p>But by adding @fallback_to_any true to our protocol, we’re stating that whenever a specific implementation is not found, the Any implementation should be used. This allows us to fail gracefully for any unsupported data type:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">iex&gt; %</span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Game</span><span style="color:#4f5b66;">{...} |&gt; </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Transcribe</span><span style="color:#4f5b66;">.transcribe()
+{</span><span style="color:#a3be8c;">:error</span><span style="color:#4f5b66;">, &quot;</span><span style="color:#a3be8c;">not supported</span><span style="color:#4f5b66;">&quot;}
+
+iex&gt; %{</span><span style="color:#d08770;">key: </span><span style="color:#a3be8c;">:value</span><span style="color:#4f5b66;">} |&gt; </span><span style="color:#d08770;">Content</span><span style="color:#4f5b66;">.</span><span style="color:#d08770;">Transcribe</span><span style="color:#4f5b66;">.transcribe()
+{</span><span style="color:#a3be8c;">:error</span><span style="color:#4f5b66;">, &quot;</span><span style="color:#a3be8c;">not supported</span><span style="color:#4f5b66;">&quot;}
+</span></code></pre><h2 id="failed-gracefully">Failed Gracefully</h2>
+<p>Can we close off any better than with a graceful fail? We’ll leave you now that we’ve experimented with protocols and we gracefully haven’t broken any alembic today.</p>
+
+
+        
+    </article>
+</section>
+
+     
+
+    <footer>
+        
+        
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+        
+<ul class="social_list foot_list">
+    <li class="font_faint">
+        <a href="https://github.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-github"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https://twitter.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-twitter"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank" class="extra_small">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https:&#x2F;&#x2F;naps62.com/atom.xml" target="_blank" class="extra_small">
+            <i class="fas fa-rss"></i>rss
+        </a>
+    </li>
+
+</ul>
+
+        
+    </footer>
+
+    
+    <script data-goatcounter="https://naps62.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    
+</body>
+
+</html>

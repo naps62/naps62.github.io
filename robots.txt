@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://naps62.com/sitemap.xml

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    
+    
+
+
+    
+    
+    
+
+    
+
+    <!-- SEO -->
+    <title>Super-powered Vim, part II: Snippets | Miguel Palhas | @naps62</title>
+    <meta name="title" content="Super-powered Vim, part II: Snippets | Miguel Palhas | @naps62" />
+    <meta name="description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;super-powered-vim-ii-snippets&#x2F;" />
+    <meta property="og:title" content="Super-powered Vim, part II: Snippets | Miguel Palhas | @naps62" />
+    <meta property="twitter:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;super-powered-vim-ii-snippets&#x2F;" />
+    <meta property="twitter:title" content="Super-powered Vim, part II: Snippets | Miguel Palhas | @naps62" />
+    <meta property="twitter:description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+    <meta property="twitter:creator" content="@naps62" />
+
+    
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <!--  css -->
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;naps62.com/ergo.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="http://naps62.com/favicon.ico">
+
+    <!-- fonts -->
+    <!-- preload  -->
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway" as="style">
+    <link rel="preload" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" as="style">
+    <!-- load -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- canonical -->
+    
+    <link rel="canonical" href="https:&#x2F;&#x2F;subvisual.com&#x2F;blog&#x2F;posts&#x2F;134-super-powered-vim-part-ii-snippets&#x2F;" />
+    
+    
+</head>
+
+<body>
+    
+    
+<input type="checkbox" id="openSidebarMenu" class="openSidebarMenu">
+<label class="menu cross menu--1" for="openSidebarMenu">
+    <svg viewBox="0 0 75 75" xmlns="https://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="30" />
+        <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
+        <path class="line--2" d="M0 50h70" />
+        <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
+    </svg>
+</label>
+
+<div id="sidebarMenu">
+    <div class="menu_wrapper">
+        <ul class="sidebarMenuInner">
+            <li>
+                <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+                <div class="menu_div"></div>
+            </li>
+            
+            <li><a href="https://naps62.com" target="_blank">naps62.com</a></li>
+            
+            
+            <li><a href="https://github.com/naps62" target="_blank">naps62</a><i class="fab fa-github"></i></li>
+            
+            
+            <li><a href="https://twitter.com/naps62" target="_blank">@naps62</a><i class="fab fa-twitter"></i></li>
+            
+            
+            
+            
+            
+            
+            
+            <li><a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank">say hello</a><i class="fas fa-envelope"></i></li>
+            
+            
+            <li><a href="https:&#x2F;&#x2F;naps62.com/rss.xml" target="_blank">rss</a><i class="fas fa-rss"></i></li>
+            
+        </ul>
+    </div>
+</div>
+
+    
+
+    
+<nav id="overlord" class="overlord">
+    
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+</nav>
+
+<section class="post_container">
+    <article>
+        
+        <h1 class="article_title"><a href="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;super-powered-vim-ii-snippets&#x2F;" id="article_link">Super-powered Vim, part II: Snippets</a></h1>
+        
+<ul class="frontmatter frontmatter_page" id="frontmatter">
+    <li>
+        <time class="article_time" datetime="2017-04-04">April 04, 2017</time>
+    </li>
+    <span class="dotDivider"></span>
+    <li> 594 words </li>
+    <span class="dotDivider"></span>
+    <li> 3 min </li>
+</ul>
+
+
+        <p>This post is a follow-up to <a href="/posts/super-powered-vim-i-projections">Super-powered Vim, part I: Projections</a>.</p>
+<p>Keeping the same line of thought of the previous post, about taking the effort out of the boring tasks that come with writing code, let's now talk about a simple yet powerful concept: snippets.</p>
+<h2 id="writing-code-is-boring">Writing code is boring</h2>
+<p>Open up three different code files in your current project. Now look at them, and compare them.</p>
+<p>Chances are you'll see a lot of duplication between them. Maybe not the duplication that you can refactor away though. But, and let's assume here we're talking about a Ruby project, you're seeing something along these lines:</p>
+<ul>
+<li>All 3 files have a class or module, named after the path and file they're in;</li>
+<li>For classes, there might be a constructor that sets up some instance variables;</li>
+<li>You probably have a corresponding test file somewhere, with the same RSpec boilerplate you use everywhere.</li>
+</ul>
+<p>Ever thought about not having to write most of this anymore?</p>
+<p>As I said above, this is all duplicated code. And while we cannot refactor our app to remove that duplication (without coming up with a new programming language, at least), we can surely make our editor do the heavy-lifting for us:</p>
+<p><img src="https://subvisual.s3.amazonaws.com/blog/post_image/247/original.gif" alt="file" /></p>
+<p>In the above image, I'm using two snippets created with <a target="_blank" rel="noopener" href="https://github.com/SirVer/ultisnips">UltiSnips</a>.</p>
+<ol>
+<li>The first one, invoked with the keyword <code>class</code> creates a Ruby class, naming it after the path and filename where currently editing. The snippet is intelligent enough to know that <code>app/models/my_namespace/a_very_long_class_name.rb</code> should probably hold a <code>MyNamespace::AVeryLongClassName</code> class. This is most likely the desired name for the class (following Ruby conventions) so the snippet goes with it as the default.</li>
+<li>Afterwards, I'm using a <code>defi</code> snippet which sets up a Ruby initializer method. This does even more magic behind the curtains so that as I type new arguments in the method header, these get added as instance variable assignments in the body.</li>
+</ol>
+<p>You can start to see the power of this approach, as with just some small keywords and a shortcut, I can easily insert any kind of boilerplate code.</p>
+<h2 id="but-how">But how?</h2>
+<p>UltiSnips is powered by Python and it has the extremely useful feature of allowing us to introduce actual Python code within the snippets. This code will be evaluated in real time, as we expand and complete snippets. Here's the code for that <code>class</code> snippet I showed earlier:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">snippet class </span><span style="color:#a3be8c;">&quot;class definition&quot;</span><span style="color:#4f5b66;">
+class `!p </span><span style="color:#8fa1b3;">rb_class_name</span><span style="color:#4f5b66;">(path, snip)`
+  $</span><span style="color:#d08770;">0
+</span><span style="color:#b48ead;">end</span><span style="color:#4f5b66;">
+endsnippet
+</span></code></pre>
+<p>There's a [great series of screencasts] that explains very well how to use UltiSnips, so I won't go into detail here. The only thing worth mentioning is that <code>!p rb_class_name(path, snip)</code> defines a block of Python code.</p>
+<p><code>rb_class_name</code> is a simple function I defined in a helper file that does the necessary text transformations to the file path (given as argument) to infer the name of the Ruby class.</p>
+<h2 id="what-s-next">What's next?</h2>
+<p>This was all very cool and whatnot, but there are still a few keystrokes we can shave off of this.</p>
+<p>Typing that <code>class</code> snippet and expanding it for every new file will be a bit boring, won't it?</p>
+<p>In <a target="_blank" rel="noopener" href="https://subvisual.co/blog/posts/135-super-powered-vim-part-iii-skeletons">part III</a>, I'll explain how we can integrate <code>vim-projectionist</code> (mentioned in <a target="_blank" rel="noopener" href="https://subvisual.co/blog/posts/133-super-powered-vim-part-i-projections">part I</a>) with snippets to go even further in the art of <em>not writing code</em>™.</p>
+
+
+        
+    </article>
+</section>
+
+     
+
+    <footer>
+        
+        
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+        
+<ul class="social_list foot_list">
+    <li class="font_faint">
+        <a href="https://github.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-github"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https://twitter.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-twitter"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank" class="extra_small">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https:&#x2F;&#x2F;naps62.com/atom.xml" target="_blank" class="extra_small">
+            <i class="fas fa-rss"></i>rss
+        </a>
+    </li>
+
+</ul>
+
+        
+    </footer>
+
+    
+    <script data-goatcounter="https://naps62.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    
+</body>
+
+</html>

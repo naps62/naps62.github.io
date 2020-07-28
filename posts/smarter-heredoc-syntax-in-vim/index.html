@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    
+    
+
+
+    
+    
+    
+
+    
+
+    <!-- SEO -->
+    <title>Smarter heredoc syntax in vim | Miguel Palhas | @naps62</title>
+    <meta name="title" content="Smarter heredoc syntax in vim | Miguel Palhas | @naps62" />
+    <meta name="description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;smarter-heredoc-syntax-in-vim&#x2F;" />
+    <meta property="og:title" content="Smarter heredoc syntax in vim | Miguel Palhas | @naps62" />
+    <meta property="twitter:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;smarter-heredoc-syntax-in-vim&#x2F;" />
+    <meta property="twitter:title" content="Smarter heredoc syntax in vim | Miguel Palhas | @naps62" />
+    <meta property="twitter:description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+    <meta property="twitter:creator" content="@naps62" />
+
+    
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <!--  css -->
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;naps62.com/ergo.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="http://naps62.com/favicon.ico">
+
+    <!-- fonts -->
+    <!-- preload  -->
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway" as="style">
+    <link rel="preload" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" as="style">
+    <!-- load -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- canonical -->
+    
+    
+</head>
+
+<body>
+    
+    
+<input type="checkbox" id="openSidebarMenu" class="openSidebarMenu">
+<label class="menu cross menu--1" for="openSidebarMenu">
+    <svg viewBox="0 0 75 75" xmlns="https://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="30" />
+        <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
+        <path class="line--2" d="M0 50h70" />
+        <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
+    </svg>
+</label>
+
+<div id="sidebarMenu">
+    <div class="menu_wrapper">
+        <ul class="sidebarMenuInner">
+            <li>
+                <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+                <div class="menu_div"></div>
+            </li>
+            
+            <li><a href="https://naps62.com" target="_blank">naps62.com</a></li>
+            
+            
+            <li><a href="https://github.com/naps62" target="_blank">naps62</a><i class="fab fa-github"></i></li>
+            
+            
+            <li><a href="https://twitter.com/naps62" target="_blank">@naps62</a><i class="fab fa-twitter"></i></li>
+            
+            
+            
+            
+            
+            
+            
+            <li><a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank">say hello</a><i class="fas fa-envelope"></i></li>
+            
+            
+            <li><a href="https:&#x2F;&#x2F;naps62.com/rss.xml" target="_blank">rss</a><i class="fas fa-rss"></i></li>
+            
+        </ul>
+    </div>
+</div>
+
+    
+
+    
+<nav id="overlord" class="overlord">
+    
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+</nav>
+
+<section class="post_container">
+    <article>
+        
+        <h1 class="article_title"><a href="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;smarter-heredoc-syntax-in-vim&#x2F;" id="article_link">Smarter heredoc syntax in vim</a></h1>
+        
+<ul class="frontmatter frontmatter_page" id="frontmatter">
+    <li>
+        <time class="article_time" datetime="2016-06-06">June 06, 2016</time>
+    </li>
+    <span class="dotDivider"></span>
+    <li> 610 words </li>
+    <span class="dotDivider"></span>
+    <li> 4 min </li>
+</ul>
+
+
+        <p>I have lately run into a problem with my editor of choice, vim (well, actually, it's <a target="_blank" rel="noopener" href="https://github.com/neovim/neovim">neovim</a>), and the syntax highlighting in Ruby files.</p>
+<p>Particularly, I ran into problems with the Heredoc syntax.</p>
+<h2 id="what-is-heredoc">What is heredoc?</h2>
+<p>Long story short, it's a feature present in many programming languages that lets you write multiline strings without all the hassle of dealing with quoting issues, newline characters, etc. Here's an example:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#96b5b4;">puts </span><span style="color:#4f5b66;">&lt;&lt;HEREDOC
+</span><span style="color:#a3be8c;">  a heredoc block can contain anything
+  &quot;even quotes.&quot;
+</span><span style="color:#4f5b66;">HEREDOC
+
+</span><span style="color:#a7adba;">## output:
+</span><span style="color:#4f5b66;">  a heredoc block can contain anything
+  &quot;</span><span style="color:#a3be8c;">even quotes.</span><span style="color:#4f5b66;">&quot;
+</span></code></pre>
+<p>Instead of the placeholder <code>HEREDOC</code>, you can write any other name, as long as both ends match.</p>
+<p>Ruby 2.3 also introduced the squiggly heredoc syntax, which strips off the indentation in every line, allowing you to keep your code indented without messing up the output, similar to rails' <code>strip_heredoc</code> method. But I'll let Avdi Grimm explain that in his <a target="_blank" rel="noopener" href="http://devblog.avdi.org/2016/01/06/about-the-ruby-squiggly-heredoc-syntax/">own blog post</a>.</p>
+<h2 id="heredoc-syntax-in-vim">Heredoc syntax in vim</h2>
+<p>Getting back to the subject, Ruby has 3 three different heredoc syntaxes. They're mostly similar, but have slight differences:</p>
+<p><img src="https://subvisual.s3.amazonaws.com/blog/post_image/126/image-1464871761215.png" alt="file" /></p>
+<p>As you can see from the screenshot, at the time of writing, my vim setup has yet to recognize the new squiggly heredoc syntax, which is what prompted me to look for a fix.</p>
+<p>I ended up finding a way to not only properly highlight the new syntax but also provide some powerful syntax highlighting to the heredoc content's themselves:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#4f5b66;">## ~</span><span style="color:#96b5b4;">/.vim/</span><span style="color:#4f5b66;">after</span><span style="color:#96b5b4;">/syntax/</span><span style="color:#4f5b66;">ruby</span><span style="color:#b48ead;">.</span><span style="color:#4f5b66;">vim
+
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">s:bcs</span><span style="color:#4f5b66;"> = </span><span style="color:#bf616a;">b:current_syntax</span><span style="color:#4f5b66;">
+unlet b</span><span style="color:#b48ead;">:</span><span style="color:#4f5b66;">current_syntax
+syntax include @SQL syntax/sql</span><span style="color:#b48ead;">.</span><span style="color:#4f5b66;">vim
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">b:current_syntax</span><span style="color:#4f5b66;"> = </span><span style="color:#bf616a;">s:bcs</span><span style="color:#4f5b66;">
+
+syntax region hereDocText    matchgroup=Statement start=+&lt;&lt;[-~</span><span style="color:#b48ead;">.</span><span style="color:#4f5b66;">]</span><span style="color:#b48ead;">*\</span><span style="color:#8fa1b3;">z</span><span style="color:#4f5b66;">([A-Z]</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">+</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">)+ </span><span style="color:#b48ead;">end</span><span style="color:#4f5b66;">=+^</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">s</span><span style="color:#b48ead;">*\</span><span style="color:#4f5b66;">z</span><span style="color:#d08770;">1</span><span style="color:#4f5b66;">+ contains=NONE
+
+syntax region hereDocDashSQL matchgroup=Statement start=+&lt;&lt;[-~</span><span style="color:#b48ead;">.</span><span style="color:#4f5b66;">]</span><span style="color:#b48ead;">*\</span><span style="color:#8fa1b3;">z</span><span style="color:#4f5b66;">(SQLDOC</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">)+  </span><span style="color:#b48ead;">end</span><span style="color:#4f5b66;">=+^</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">s</span><span style="color:#b48ead;">*\</span><span style="color:#4f5b66;">z</span><span style="color:#d08770;">1</span><span style="color:#4f5b66;">+ contains=</span><span style="color:#bf616a;">@SQL
+</span></code></pre>
+<p>Place the above code in <code>~/.vim/after/syntax/ruby.vim</code>, and you'll be able to do the following:</p>
+<p><img src="https://subvisual.s3.amazonaws.com/blog/post_image/127/image-1464871768376.png" alt="file" /></p>
+<p>The vim code did two things:</p>
+<ol>
+<li>Told vim to match all heredoc syntaxes (using an appropriate RegEx), and use no highlight within it.;</li>
+<li>When the heredoc keyword is <code>SQLDOC</code>, the inner text is highlighted as SQL code.</li>
+</ol>
+<p>The same principle can be applied to create keywords for any syntax supported by vim. Here's an example for both SQL and Shell Scripting:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">s:bcs</span><span style="color:#4f5b66;"> = </span><span style="color:#bf616a;">b:current_syntax</span><span style="color:#4f5b66;">
+unlet b</span><span style="color:#b48ead;">:</span><span style="color:#4f5b66;">current_syntax
+syntax include @SQL syntax/sql</span><span style="color:#b48ead;">.</span><span style="color:#4f5b66;">vim
+</span><span style="color:#a7adba;">
+&quot; this unlet instruction is needed
+&quot; before we load each new syntax</span><span style="color:#4f5b66;">
+unlet b</span><span style="color:#b48ead;">:</span><span style="color:#4f5b66;">current_syntax
+syntax include @SHELL syntax/sh</span><span style="color:#b48ead;">.</span><span style="color:#4f5b66;">vim
+
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">b:current_syntax</span><span style="color:#4f5b66;"> = </span><span style="color:#bf616a;">s:bcs</span><span style="color:#4f5b66;">
+
+syntax region hereDocText    matchgroup=Statement start=+&lt;&lt;[-~</span><span style="color:#b48ead;">.</span><span style="color:#4f5b66;">]</span><span style="color:#b48ead;">*\</span><span style="color:#8fa1b3;">z</span><span style="color:#4f5b66;">([A-Z]</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">+</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">)+ </span><span style="color:#b48ead;">end</span><span style="color:#4f5b66;">=+^</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">s</span><span style="color:#b48ead;">*\</span><span style="color:#4f5b66;">z</span><span style="color:#d08770;">1</span><span style="color:#4f5b66;">+ contains=NONE
+
+syntax region hereDocDashSQL matchgroup=Statement start=+&lt;&lt;[-~</span><span style="color:#b48ead;">.</span><span style="color:#4f5b66;">]</span><span style="color:#b48ead;">*\</span><span style="color:#8fa1b3;">z</span><span style="color:#4f5b66;">(SQLDOC</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">)+  </span><span style="color:#b48ead;">end</span><span style="color:#4f5b66;">=+^</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">s</span><span style="color:#b48ead;">*\</span><span style="color:#4f5b66;">z</span><span style="color:#d08770;">1</span><span style="color:#4f5b66;">+ contains=</span><span style="color:#bf616a;">@SQL</span><span style="color:#4f5b66;">
+
+syntax region hereDocDashShell matchgroup=Statement start=+&lt;&lt;[-~</span><span style="color:#b48ead;">.</span><span style="color:#4f5b66;">]</span><span style="color:#b48ead;">*\</span><span style="color:#8fa1b3;">z</span><span style="color:#4f5b66;">(SHELLDOC</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">)+  </span><span style="color:#b48ead;">end</span><span style="color:#4f5b66;">=+^</span><span style="color:#b48ead;">\</span><span style="color:#4f5b66;">s</span><span style="color:#b48ead;">*\</span><span style="color:#4f5b66;">z</span><span style="color:#d08770;">1</span><span style="color:#4f5b66;">+ contains=</span><span style="color:#bf616a;">@SHELL
+</span></code></pre>
+<p>The only caveat here is that you're forced to use a keyword that matches the syntax you want, and the fact that your coworkers won't see any changes unless they also use Vim and apply this patch as well.</p>
+<p>That being said, I believe it is still a very useful change nonetheless, and a great example of the capabilities of Vim.</p>
+<h3 id="more-ruby-goodness">More Ruby goodness</h3>
+<p>If you've enjoyed this bit of knowledge you should really subscribe to <a target="_blank" rel="noopener" href="https://subvisual.co/newsletter/">our newsletter</a>, where this and other great articles from the Web are shared every week.</p>
+<p>If you want to meet us and/or see some talks on Ruby topics, come join us at RubyConf Portugal 2016. For making all the way to the end of this article you get <a target="_blank" rel="noopener" href="https://ti.to/subvisual/rubyconfpt-2016/discount/good-reader-method">25% off the price of the ticket</a>.</p>
+
+
+        
+    </article>
+</section>
+
+     
+
+    <footer>
+        
+        
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+        
+<ul class="social_list foot_list">
+    <li class="font_faint">
+        <a href="https://github.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-github"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https://twitter.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-twitter"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank" class="extra_small">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https:&#x2F;&#x2F;naps62.com/atom.xml" target="_blank" class="extra_small">
+            <i class="fas fa-rss"></i>rss
+        </a>
+    </li>
+
+</ul>
+
+        
+    </footer>
+
+    
+    <script data-goatcounter="https://naps62.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    
+</body>
+
+</html>

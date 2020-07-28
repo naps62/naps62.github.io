@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    
+    
+
+
+    
+    
+    
+
+    
+    
+    
+
+    <!-- SEO -->
+    <title>A knowledge base with Vim, Fzf and Ripgrep | Miguel Palhas | @naps62</title>
+    <meta name="title" content="A knowledge base with Vim, Fzf and Ripgrep | Miguel Palhas | @naps62" />
+    <meta name="description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;knowledge-base&#x2F;" />
+    <meta property="og:title" content="A knowledge base with Vim, Fzf and Ripgrep | Miguel Palhas | @naps62" />
+    <meta property="twitter:url" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;knowledge-base&#x2F;" />
+    <meta property="twitter:title" content="A knowledge base with Vim, Fzf and Ripgrep | Miguel Palhas | @naps62" />
+    <meta property="twitter:description" content="Software Developer | Elixir | Ruby | Rust | DevOps | Chess" />
+    <meta property="twitter:creator" content="@naps62" />
+
+    
+    <meta property="og:image" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;knowledge-base&#x2F;twitter-card.png">
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:image" content="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;knowledge-base&#x2F;twitter-card.png">
+    
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <!--  css -->
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;naps62.com/ergo.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="http://naps62.com/favicon.ico">
+
+    <!-- fonts -->
+    <!-- preload  -->
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway" as="style">
+    <link rel="preload" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" as="style">
+    <!-- load -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,300i,400,500,500i,600,700,800,900|Raleway">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- canonical -->
+    
+    
+</head>
+
+<body>
+    
+    
+<input type="checkbox" id="openSidebarMenu" class="openSidebarMenu">
+<label class="menu cross menu--1" for="openSidebarMenu">
+    <svg viewBox="0 0 75 75" xmlns="https://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="30" />
+        <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
+        <path class="line--2" d="M0 50h70" />
+        <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
+    </svg>
+</label>
+
+<div id="sidebarMenu">
+    <div class="menu_wrapper">
+        <ul class="sidebarMenuInner">
+            <li>
+                <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+                <div class="menu_div"></div>
+            </li>
+            
+            <li><a href="https://naps62.com" target="_blank">naps62.com</a></li>
+            
+            
+            <li><a href="https://github.com/naps62" target="_blank">naps62</a><i class="fab fa-github"></i></li>
+            
+            
+            <li><a href="https://twitter.com/naps62" target="_blank">@naps62</a><i class="fab fa-twitter"></i></li>
+            
+            
+            
+            
+            
+            
+            
+            <li><a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank">say hello</a><i class="fas fa-envelope"></i></li>
+            
+            
+            <li><a href="https:&#x2F;&#x2F;naps62.com/rss.xml" target="_blank">rss</a><i class="fas fa-rss"></i></li>
+            
+        </ul>
+    </div>
+</div>
+
+    
+
+    
+<nav id="overlord" class="overlord">
+    
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+</nav>
+
+<section class="post_container">
+    <article>
+        
+        <h1 class="article_title"><a href="https:&#x2F;&#x2F;naps62.com&#x2F;posts&#x2F;knowledge-base&#x2F;" id="article_link">A knowledge base with Vim, Fzf and Ripgrep</a></h1>
+        
+<ul class="frontmatter frontmatter_page" id="frontmatter">
+    <li>
+        <time class="article_time" datetime="2020-07-27">July 27, 2020</time>
+    </li>
+    <span class="dotDivider"></span>
+    <li> 1219 words </li>
+    <span class="dotDivider"></span>
+    <li> 7 min </li>
+</ul>
+
+
+        <p>I've been trying to grow my own knowledge base for a long time now, by keeping
+track of multiple notes taken from books, quotes, and other sources of
+knowledge.</p>
+<p>Now, and after a few iterations, I'm moving that to a more Unix-oriented
+approach, which I'm presenting here.</p>
+<p><strong>TL;DR: I built my own terminal-based Zettelkasten system. Checkout the
+Readme and source code <a target="_blank" rel="noopener" href="https://github.com/naps62/zk">at Github</a>.</strong></p>
+<h2 id="my-sources">My sources</h2>
+<p>I'm both the worst person at note taking, and the kind of person that needs
+note-taking the most. My memory sucks, but so does my caligraphy.</p>
+<p>Like most other people, I consume information from several different sources. Here's a few:</p>
+<ul>
+<li>Throughout my work (google searches, stack overflow, conversations, etc)</li>
+<li>Books, which I mostly consume with my Kindle, and sometimes <a target="_blank" rel="noopener" href="https://www.audible.com">Audible</a></li>
+<li>Articles (via both <a target="_blank" rel="noopener" href="https://feedly.com">Feedly</a> and <a target="_blank" rel="noopener" href="https://app.getpocket.com">Pocket</a>)</li>
+<li>Podcasts</li>
+</ul>
+<p>You may notice that I'm very digital-oriented. I do that both as a way to live 
+a more minimalistic lifestyle (less physical items + easier to travel), but also
+to be able to retrieve information more easily.</p>
+<p>Using my Kindle allows me to highlight any quote I want to save for later. Same
+goes for my news feeds. Audible also has a clipping feature, although it's
+a bit more awkward to use, and doesn't provide any kind of programatic access to
+text. For more ad-hoc situations, such as a conversation, a quick note on
+<a target="_blank" rel="noopener" href="https://todoist.com">Todoist</a> also works really well.</p>
+<p>Throughout my day, I want the ability to quickly highlight pieces of
+information, with the least amount of friction possible.</p>
+<p>Periodically, usually at the end of each month, I'll go through all new notes,
+and organize them into my own knowledge base, with two main goals in mind:</p>
+<ol>
+<li>To condense any potentially useful knowledge in an accessible way</li>
+<li>To go through everything a second time (or more), to consolidate knowledge.</li>
+</ol>
+<p>Whenever I, later on, want to remind myself of a particular concept, or even
+find a particular quote or definition to include in a talk I'm building, I'll
+often go back to this knowledge base. I'll also make a point to revisit notes
+for a particular book at some point in the future, doing a slightly informal
+version of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Spaced_repetition">Spaced
+Repetition</a></p>
+<p>So here's how I built this knowledge base:</p>
+<h2 id="first-draft-notion">First draft: Notion</h2>
+<p>My first version of this knowledge base was built with
+<a target="_blank" rel="noopener" href="https://notion.so">Notion</a>.</p>
+<p>Notion is a text editor with superpowers. It allows me to create whatever
+hierarchy I want. It supports full-text search. And works on all platforms
+without any extra effort, meaning I can have my knowledge available at all
+times.</p>
+<p>I can create a page for each book I read:</p>
+<p><img src="./notion-index.png" alt="notion index" /></p>
+<p>And within those pages, I can use a markdown-like syntax to list highlights:</p>
+<p><img src="./notion-thinking-systems.png" alt="notion systems" /></p>
+<p>But this didn't fit my own workflow very easily.</p>
+<p>I'm a long-time linux user, and I've come to learn how to be productive with
+tools that I have available on my terminal. So it made sense to me that my
+knowledge base should be accessible on my terminal as well, and taking advantage
+of the tools that I already know and love.</p>
+<p>This also allowed me to build some custom features that I've been wanting for
+some time.</p>
+<p>Which is why I build my own zettelkasten setup.</p>
+<h2 id="a-zettelkasten">A Zettelkasten</h2>
+<blockquote>
+<p>a knowledge management and note-taking method used in research and study</p>
+</blockquote>
+<p><em><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Zettelkasten">Wikipedia</a></em></p>
+<p>I've actually only learned of this name recently, when reading <a target="_blank" rel="noopener" href="https://superorganizers.substack.com/p/how-to-build-a-learning-machine">a blog
+post</a> that ended up being one of the inspirations for this
+work.</p>
+<p>A zettelkasten is a personal knowledge base. The name is of german origin,
+&quot;Zettel&quot; meaning note, and &quot;Kasten&quot; meaning box.</p>
+<p>It's not a concrete methodology, or a specific way of organizing information.
+It's nothing more than a metaphorical box of notes.</p>
+<h2 id="a-unix-based-zettelkasten">A unix-based zettelkasten</h2>
+<p>To this end, I ended up building my own set of scripts to manage a knowledge
+base, by stitching together multiple tools that are already part of my daily
+workflow.</p>
+<h3 id="notes-as-markdown">Notes as markdown</h3>
+<p>Each note is represented as a single markdown file.</p>
+<p>Markdown is intuitive enough to use in the context of a terminal, and syntax
+highglighting allows me to leverage it for a few extra things, as we'll see</p>
+<p>Here's an example of a real note from my knowledge base:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#8fa1b3;"># Recalcitrance
+</span><span style="color:#4f5b66;">
+Resistance towards helpfulness or evolution
+
+https://www.dictionary.com/browse/recalcitrance
+
+@superintelligence @nick-bostrom @book
+</span><span style="color:#8fa1b3;">#definition #ai
+</span></code></pre>
+<p>This is a short one. A definition of a word. One that I learned while reading
+<a target="_blank" rel="noopener" href="https://www.goodreads.com/book/show/20527133-superintelligence">Superintelligence</a>
+a few years ago.</p>
+<p>I chose to use hashtags, such as <code>#definition</code> to tag each note as I see fit,
+but also to specify sources using <code>@</code>.</p>
+<p>This allows me build tooling to search for both tags and sources, and quickly
+find what I'm looking for.</p>
+<p>This note is also not static. If I come back to it, I'm free to edit it as I see
+fit, or even add new tags, if I want to relate it with some newfound idea
+present somewhere else in the base.</p>
+<h3 id="see-it-in-action">See it in action</h3>
+<p>Here's a quick rundown of what I have so far:</p>
+<ol>
+<li>The knowledge base is pointed to by <code>$ZK_PATH</code>;</li>
+<li><code>zk new &lt;title&gt;</code> creates a new note;</li>
+<li><code>zk tags</code> starts an interactive fuzzy search across all existing tags;</li>
+<li><code>zk sources</code> does the same thing, but for sources instead;</li>
+<li><code>zk search</code> starts a full text search on the entire knowledge base.</li>
+</ol>
+<p><img src="./zk-in-action.gif" alt="zk in action" /></p>
+<p>PS: As I mentioned, most of this is inspired by <a target="_blank" rel="noopener" href="https://superorganizers.substack.com/p/how-to-build-a-learning-machine">this
+article</a>. The author <a target="_blank" rel="noopener" href="https://github.com/sirupsen/zk">built and open-sourced</a> his
+own system using very similar tools as the ones I did.</p>
+<p>Curious about what's underneath all this? It's actually fairly simple:</p>
+<h4 id="git">Git</h4>
+<p>The knowledge base itself is a <code>git</code> repo. Assuming you're a developer (or
+similar role), this should not require any further explanation. 😄</p>
+<h4 id="vim">Vim</h4>
+<p>My editor of choice. Since this is, at the moment, made for personal use,
+I haven't focused on supporting anything else, as I have no need for it</p>
+<h4 id="ripgrep">Ripgrep</h4>
+<p>Remember what I said about searching for tags or sources?</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/BurntSushi/ripgrep"><code>ripgrep</code></a> is an extremely fast full-text search tool.</p>
+<p>I can build a search for tags (words starting with <code>#</code>) with something like the
+following:</p>
+<pre style="background-color:#eff1f5;">
+<code><span style="color:#bf616a;">rg --only-matching </span><span style="color:#4f5b66;">&quot;</span><span style="color:#a3be8c;">#[\w\-_]{3,}</span><span style="color:#4f5b66;">&quot;</span><span style="color:#bf616a;"> --type</span><span style="color:#4f5b66;"> md ...
+</span></code></pre><h4 id="fzf">Fzf</h4>
+<p>Fzf is a fuzzy-finder which, when coupled with ripgrep, provides a great
+interactive and real-time search environment right in my terminal</p>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>This system is still in its early stages (in fact, I'm still in the process of
+migrating some notes from Notion).
+It does look very promising though, since I find myself using it a lot more
+often just because it sits right there in my terminal.</p>
+<p>Check out the source code on <a target="_blank" rel="noopener" href="https://github.com/naps62/zk">GitHub</a>, or <a target="_blank" rel="noopener" href="https://twitter.com/naps62">let me know</a> your
+thoughts about all this. 👋</p>
+
+
+        
+    </article>
+</section>
+
+     
+
+    <footer>
+        
+        
+<figure class="mini_logo ">
+    <a href="https:&#x2F;&#x2F;naps62.com" style="background-image: url(https:&#x2F;&#x2F;naps62.com/img/photo.png)"></a>
+</figure>
+<h5>
+    <a href="https:&#x2F;&#x2F;naps62.com">Miguel Palhas | @naps62</a>
+</h5>
+
+        
+<ul class="social_list foot_list">
+    <li class="font_faint">
+        <a href="https://github.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-github"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https://twitter.com/naps62" target="_blank" class="extra_small">
+            <i class="fab fa-twitter"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="mailto:mpalhas@gmail.com?subject=hi" target="_blank" class="extra_small">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </li>
+
+    <li class="font_faint">
+        <a href="https:&#x2F;&#x2F;naps62.com/atom.xml" target="_blank" class="extra_small">
+            <i class="fas fa-rss"></i>rss
+        </a>
+    </li>
+
+</ul>
+
+        
+    </footer>
+
+    
+    <script data-goatcounter="https://naps62.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    
+</body>
+
+</html>
