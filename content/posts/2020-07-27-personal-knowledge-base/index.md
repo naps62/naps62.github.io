@@ -211,5 +211,5 @@ migrating some notes from Notion).
 It does look very promising though, since I find myself using it a lot more
 often just because it sits right there in my terminal.
 
-Check out the source code on [github][zk], or [let me know][twitter] your
+Check out the source code on [GitHub][zk], or [let me know][twitter] your
 thoughts about all this. 👋
