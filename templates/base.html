@@ -20,6 +20,10 @@
     {% set description = config.description %}
     {% endif %}
 
+    {% if page.extra.seo_image %}
+    {% set seo_image = current_url ~ page.extra.seo_image %}
+    {% endif %}
+
     <!-- SEO -->
     <title>{{ title }}</title>
     <meta name="title" content="{{ title }}" />
@@ -33,10 +37,10 @@
     <meta property="twitter:description" content="{{ description }}" />
     <meta property="twitter:creator" content="@{{ config.extra.twitter }}" />
 
-    {% if page.extra.seo_image %}
-    <meta property="og:image" content="{{ page.extra.seo_image }}">
+    {% if seo_image %}
+    <meta property="og:image" content="{{ seo_image }}">
     <meta property="twitter:card" content="summary_large_card" />
-    <meta property="twitter:image" content="{{ page.extra.seo_image }}">
+    <meta property="twitter:image" content="{{ seo_image }}">
     {% endif %}
 
     <!-- Enable responsiveness on mobile devices-->
