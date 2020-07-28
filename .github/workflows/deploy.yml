@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: alpine:edge
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -15,8 +15,9 @@ jobs:
 
       - name: Install zola
         run: |
-          echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-          apk add zola@testing
+          wget -q -O - \
+          "https://github.com/getzola/zola/releases/download/v0.11.0/zola-v0.11.0-x86_64-unknown-linux-gnu.tar.gz" \
+          | sudo tar xzf - -C /usr/local/bin
 
       - name: Build
         run: zola build
@@ -30,4 +31,4 @@ jobs:
           git add .
 
           git commit -m "Automatic deploy"
-          git push --force "https://${{ secrets.DEPLOY_TOKEN }}@github.com/naps62.github.io.git" master:master
+          git push --force "https://${{ secrets.DEPLOY_TOKEN }}@github.com/naps62/naps62.github.io.git" master:master
