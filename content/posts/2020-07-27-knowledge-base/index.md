@@ -27,15 +27,15 @@ track of multiple notes taken from books, quotes, and other sources of
 knowledge.
 
 Now, and after a few iterations, I'm moving that to a more Unix-oriented
-approach, which I'm presenting here
+approach, which I'm presenting here.
 
 **TL;DR: I built my own terminal-based Zettelkasten system. Checkout the
-Readme and source code [at Github][zk]**
+Readme and source code [at Github][zk].**
 
 ## My sources
 
 I'm both the worst person at note taking, and the kind of person that needs
-note-taking the most. My memory sucks, but so does my caligraphy
+note-taking the most. My memory sucks, but so does my caligraphy.
 
 Like most other people, I consume information from several different sources. Here's a few:
 
@@ -49,7 +49,7 @@ a more minimalistic lifestyle (less physical items + easier to travel), but also
 to be able to retrieve information more easily.
 
 Using my Kindle allows me to highlight any quote I want to save for later. Same
-goes for my news feeds.  Audible also has a clipping feature, although it's
+goes for my news feeds. Audible also has a clipping feature, although it's
 a bit more awkward to use, and doesn't provide any kind of programatic access to
 text. For more ad-hoc situations, such as a conversation, a quick note on
 [Todoist][todoist] also works really well.
@@ -65,7 +65,7 @@ and organize them into my own knowledge base, with two main goals in mind:
 
 Whenever I, later on, want to remind myself of a particular concept, or even
 find a particular quote or definition to include in a talk I'm building, I'll
-often go back to this knowledge base.  I'll also make a point to revisit notes
+often go back to this knowledge base. I'll also make a point to revisit notes
 for a particular book at some point in the future, doing a slightly informal
   version of [Spaced
   Repetition][spaced-repetition]
