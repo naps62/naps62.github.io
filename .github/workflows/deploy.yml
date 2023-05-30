@@ -11,26 +11,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: recursive
 
-      - name: Install zola
-        run: |
-          wget -q -O - \
-          "https://github.com/getzola/zola/releases/download/v0.11.0/zola-v0.11.0-x86_64-unknown-linux-gnu.tar.gz" \
-          | sudo tar xzf - -C /usr/local/bin
-
-      - name: Build
-        run: zola build
-
-      - name: Push
-        run: |
-          cd public
-          git init
-          git config user.name "GitHub Actions"
-          git config user.email "github-actions-bot@users.noreply.github.com"
-          git add .
-
-          git commit -m "Automatic deploy"
-          git push --force "https://${{ secrets.DEPLOY_TOKEN }}@github.com/naps62/naps62.github.io.git" master:master
+      - name: build_and_deploy
+        uses: shalzz/zola-deploy-action@v0.17.2
+        env:
+          PAGES_BRANCH: master
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
