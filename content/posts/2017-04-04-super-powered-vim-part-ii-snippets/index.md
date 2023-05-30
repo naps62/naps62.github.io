@@ -2,7 +2,9 @@
 title="Super-powered Vim, part II: Snippets"
 slug="super-powered-vim-ii-snippets"
 date=2017-04-04
-category="vim"
+
+[taxonomies]
+tags = ["productivity", "vim"]
 
 [extra]
 canonical="https://subvisual.com/blog/posts/134-super-powered-vim-part-ii-snippets/"
@@ -18,9 +20,9 @@ Open up three different code files in your current project. Now look at them, an
 
 Chances are you'll see a lot of duplication between them. Maybe not the duplication that you can refactor away though. But, and let's assume here we're talking about a Ruby project, you're seeing something along these lines:
 
-* All 3 files have a class or module, named after the path and file they're in;
-* For classes, there might be a constructor that sets up some instance variables;
-* You probably have a corresponding test file somewhere, with the same RSpec boilerplate you use everywhere.
+- All 3 files have a class or module, named after the path and file they're in;
+- For classes, there might be a constructor that sets up some instance variables;
+- You probably have a corresponding test file somewhere, with the same RSpec boilerplate you use everywhere.
 
 Ever thought about not having to write most of this anymore?
 

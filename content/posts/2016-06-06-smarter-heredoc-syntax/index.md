@@ -2,7 +2,9 @@
 title="Smarter heredoc syntax in vim"
 slug="smarter-heredoc-syntax-in-vim"
 date=2016-06-06
-category="vim"
+
+[taxonomies]
+tags = ["productivity", "vim"]
 +++
 
 I have lately run into a problem with my editor of choice, vim (well, actually, it's [neovim](https://github.com/neovim/neovim)), and the syntax highlighting in Ruby files.

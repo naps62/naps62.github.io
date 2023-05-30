@@ -2,13 +2,15 @@
 title="Understanding Elixir’s GenStages: Querying the Blockchain"
 slug="understanding-elixir-genstage"
 date=2018-11-13
-category="elixir"
+
+[taxonomies]
+tags = ["elixir"]
 
 [extra]
 canonical="https://blog.appsignal.com/2018/11/13/elixir-alchemy-understanding-elixirs-genstages-querying-the-blockchain.html"
 +++
 
-*Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2018/11/13/elixir-alchemy-understanding-elixirs-genstages-querying-the-blockchain.html)*
+_Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2018/11/13/elixir-alchemy-understanding-elixirs-genstages-querying-the-blockchain.html)_
 
 In this post, we’ll dive into Elixir’s GenStage module. Along the way, we’ll explain backpressure and we’ll write a Genstage to query the blockchain. Let’s start by discussing how using a GenStage can solve buffering problems.
 
@@ -25,7 +27,7 @@ With that approach, you may run into one of two problems: the buffer can get too
 
 ## The Solution: Backpressure
 
-The term *backpressure* refers to the behavior of a system that builds up input, then halts the receiving of new data once the buffer is full, resuming it once again when the system is ready to handle it.
+The term _backpressure_ refers to the behavior of a system that builds up input, then halts the receiving of new data once the buffer is full, resuming it once again when the system is ready to handle it.
 
 This is the core idea behind Elixir’s GenStage.
 
@@ -162,6 +164,7 @@ end
 ```
 
 ## Wiring It All Up
+
 To start the pipeline, we need to start the processes for our Producer & Consumer, and then link them together, so that items produced by the former get sent out to the latter:
 
 ```elixir

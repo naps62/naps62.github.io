@@ -4,6 +4,9 @@ slug="super-powered-vim-iii-skeletons"
 date=2017-04-04
 category="vim"
 
+[taxonomies]
+tags = ["productivity", "vim"]
+
 [extra]
 canonical="https://subvisual.com/blog/posts/135-super-powered-vim-part-iii-skeletons/"
 +++
@@ -137,7 +140,6 @@ If you haven't seen the prequels to this post, maybe now would be a good time to
 Check out [part I] and [part II] for more details on what projections and snippets are, and how to use them!
 
 Or take a look at [another post by one of our developers](https://subvisual.co/blog/posts/tag/development). Happy coding!
-
 
 [part I]: https://subvisual.co/blog/posts/133-super-powered-vim-part-i-projections
 [part II]: https://subvisual.co/blog/posts/134-super-powered-vim-part-ii-snippets

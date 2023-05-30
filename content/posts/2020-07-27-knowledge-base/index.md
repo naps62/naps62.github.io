@@ -4,6 +4,9 @@ slug="knowledge-base"
 date=2020-07-27
 category="linux"
 
+[taxonomies]
+tags = ["productivity", "vim"]
+
 [extra]
 seo_image = "twitter-card.png"
 +++
@@ -44,7 +47,7 @@ Like most other people, I consume information from several different sources. He
 - Articles (via both [Feedly][feedly] and [Pocket][pocket])
 - Podcasts
 
-You may notice that I'm very digital-oriented. I do that both as a way to live 
+You may notice that I'm very digital-oriented. I do that both as a way to live
 a more minimalistic lifestyle (less physical items + easier to travel), but also
 to be able to retrieve information more easily.
 
@@ -67,8 +70,8 @@ Whenever I, later on, want to remind myself of a particular concept, or even
 find a particular quote or definition to include in a talk I'm building, I'll
 often go back to this knowledge base. I'll also make a point to revisit notes
 for a particular book at some point in the future, doing a slightly informal
-  version of [Spaced
-  Repetition][spaced-repetition]
+version of [Spaced
+Repetition][spaced-repetition]
 
 So here's how I built this knowledge base:
 
@@ -106,7 +109,7 @@ Which is why I build my own zettelkasten setup.
 
 > a knowledge management and note-taking method used in research and study
 
-*[Wikipedia][zk-wiki]*
+_[Wikipedia][zk-wiki]_
 
 I've actually only learned of this name recently, when reading [a blog
 post][learning-machine] that ended up being one of the inspirations for this

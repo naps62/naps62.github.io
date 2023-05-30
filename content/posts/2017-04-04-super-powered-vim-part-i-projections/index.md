@@ -2,7 +2,9 @@
 title="Super-powered Vim, part I: Projections"
 slug="super-powered-vim-i-projections"
 date=2017-04-04
-category="vim"
+
+[taxonomies]
+tags = ["productivity", "vim"]
 
 [extra]
 canonical="https://subvisual.com/blog/posts/133-super-powered-vim-part-i-projections/"
@@ -31,7 +33,7 @@ The way I move about my code should not be coupled to what the file structure lo
 
 And that's what [`vim-projectionist`] is all about.
 
-## Defining projections 
+## Defining projections
 
 There are several useful features within [`tpope/vim-projectionist`]. But the killer for me is the ability to define an alternate for each file.
 
@@ -39,8 +41,8 @@ With a simple configuration based on the naming of your files, you can create "p
 
 ```json
 {
-  "app/*.rb": {"alternate": "spec/{}_spec.rb"},
-  "spec/*_spec.rb": {"alternate": "app/{}.rb"}
+  "app/*.rb": { "alternate": "spec/{}_spec.rb" },
+  "spec/*_spec.rb": { "alternate": "app/{}.rb" }
 }
 ```
 
@@ -91,7 +93,6 @@ autocmd User ProjectionistDetect
 
 It's kind of awkward to define a json schema inline within a VimL file. But hey, it works!
 These projections are now global, and are loaded only when necessary, whenever I invoke a projectionist method within a Ruby file.
- 
 
 ## What's next?
 
@@ -100,7 +101,6 @@ Later, in [part III], I'll explain an awesome integration that can be done betwe
 
 [Vim]: http://www.vim.org/
 [`vim-projectionist`]: https://github.com/tpope/vim-projectionist
-
 [`tpope/vim-projectionist`]: https://github.com/tpope/vim-projectionist
 [part II]: https://subvisual.co/blog/posts/134-super-powered-vim-part-ii-snippets
 [part III]: https://subvisual.co/blog/posts/135-super-powered-vim-part-iii-skeletons

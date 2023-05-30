@@ -2,13 +2,15 @@
 title="Routing in Phoenix Umbrella Apps"
 slug="routing-in-phoenix-umbrella-apps"
 date=2019-04-16
-category="elixir"
+
+[taxonomies]
+tags = ["elixir"]
 
 [extra]
 canonical="https://blog.appsignal.com/2019/04/16/elixir-alchemy-routing-phoenix-umbrella-apps.html"
 +++
 
-*Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2019/04/16/elixir-alchemy-routing-phoenix-umbrella-apps.html)*
+_Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2019/04/16/elixir-alchemy-routing-phoenix-umbrella-apps.html)_
 
 [Umbrella apps](https://elixirschool.com/en/lessons/advanced/umbrella-projects/) are an awesome way to structure Elixir projects.
 
@@ -30,7 +32,7 @@ Clearly, each of these frontend interfaces has different requirements:
 2. The admin panel may even have its own UI requirements. In this case, I’m using [ex_admin](https://github.com/smpallen99/ex_admin) for convenience. This means, even UI assets are not shared.
 3. They mostly have completely different back-end logic as well. Only a small subset of the queries and operations can be shared between the two.
 4. I may also want to access both of them through different URLs (e.g. use an `admin` subdomain for the Admin frontend).
-The multiple differences between the two make it clear that it would be better for these to be two separate phoenix apps—each with its own setup.
+   The multiple differences between the two make it clear that it would be better for these to be two separate phoenix apps—each with its own setup.
 
 Something like this:
 

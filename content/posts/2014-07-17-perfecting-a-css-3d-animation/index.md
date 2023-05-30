@@ -2,7 +2,10 @@
 title="Perfecting a CSS 3D Animation"
 slug="perfecting-a-css-3d-animation"
 date=2015-07-17
-category="css"
+
+[taxonomies]
+tags = ["frontend"]
+categories = ["frontend"]
 +++
 
 With recent advances in front end technologies, front end developers have been going crazy, pushing CSS to its limits and doing all sorts of [beautiful animations](http://codepen.io/azevedo-252/pen/rVvMXX). Seriously, there are some [crazy things](http://codepen.io/fbrz/pen/whxbF) out there.
@@ -20,16 +23,16 @@ I'll be using [indented Sass](http://sass-lang.com/documentation/file.INDENTED_S
 
 Let's start from the very bottom. There are 4 basic geometric transformations you can apply to a DOM element using the `transform` property: Translation, Rotation, Skew and Scaling
 
-``` sass
+```sass
 .Square--translate
   transform: translate(30px, 20px) // x and y axis
-  
+
 .Square--rotated
   transform: rotate(45deg)
 
 .Square--skewed
   transform: skew(20deg)
-  
+
 .Square--scale
   transform: scale(0.5, 0.5)
 ```
@@ -37,10 +40,9 @@ Let's start from the very bottom. There are 4 basic geometric transformations yo
 <p data-height="266" data-theme-id="16919" data-slug-hash="ZGRVvx" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/ZGRVvx/'>Subvisual - Atom Post - Step 1</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
-
 You can also combine multiple transformations in a single rule, like so:
 
-``` sass
+```sass
 .element
   transform: translate(50px) rotate(90deg)
 ```
@@ -58,10 +60,9 @@ However, keep in mind that order is important here. So these two transforms are 
 <p data-height="268" data-theme-id="16919" data-slug-hash="zGaexX" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/zGaexX/'>Subvisual - Atom Post - Step 2</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
-
 Each transform operation gets stacked on top of the previous ones.
 So translating an element after it has been rotated (as in the `Square--rotateThenTranslate` class) will actually change the direction it moves in. Both squares above are moving to the right. But it's their right, not your's.
- 
+
 Notice as well that I'm using another variant of the transforms, `translateX` and `rotateZ`, to specify the axis to which I want to apply it.
 
 ## Animations
@@ -71,7 +72,7 @@ Another cool thing about CSS is that you can animate almost anything:
 ```sass
 .Square--rotateThenTranslate
   animation: rotate 2s infinite linear
-  
+
 @keyframes rotate
   0%
     transform: rotateZ(0deg) translateX(30px)
@@ -81,7 +82,6 @@ Another cool thing about CSS is that you can animate almost anything:
 
 <p data-height="268" data-theme-id="16919" data-slug-hash="bdKzBL" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/bdKzBL/'>Subvisual - Atom Post - Step 3</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
 
 ## Building an atom, one orbit at a time
 
@@ -117,7 +117,6 @@ $Electron-radius: 10px
 <p data-height="268" data-theme-id="16919" data-slug-hash="EjRrvx" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/EjRrvx/'>Subvisual - Atom Post - Step 4</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
-
 ## Positioning the Orbit
 
 Our orbit is currently flat. But we want to give it a three-dimensional look. It should look like a sphere, not a circle. From the user's perspective, each orbit should actually look like an ellipse.
@@ -127,13 +126,10 @@ A naive way to simulate this would be to use an actual ellipse instead of a circ
 1. Rotating an element around an ellipsis is not possible in CSS (or at least, it's impractically hard). You'd have to use an SVG path, or another more complex solution
 2. Even if you manage that, the animation speed would look unnatural.
 
-
-
 But don't take my word for it, have a look:
 
 <p data-height="206" data-theme-id="16919" data-slug-hash="oXymEz" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/oXymEz/'>Subvisual - Atom post - Step 5</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
 
 See how the movement affects your perception? You don't really perceive that as a rotated circle. It's just a flat ellipse, with no three-dimensional feel.
 
@@ -147,10 +143,9 @@ A more correct way to do this would be to use an actual circle, and rotate it:
 <p data-height="268" data-theme-id="16919" data-slug-hash="aOKrKv" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/aOKrKv/'>Subvisual - Atom Post - Step 6</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
-
 See the problem there? The electron inherited the rotation, which makes it looked twisted as well. That's the one thing we need to fix now.
 
-*UPDATE:* I later noticed that Firefox has even bigger problems rendering this last example. The specific problem I'm mentioning can be seen on Google Chrome
+_UPDATE:_ I later noticed that Firefox has even bigger problems rendering this last example. The specific problem I'm mentioning can be seen on Google Chrome
 
 ## Transform inheritance
 
@@ -170,7 +165,7 @@ Here's a simple example of how to do this:
 ```
 
 Notice that we need to apply the operations in reverse order as well. Think of it as a stack of operations. The `translateX` was the last one to be applied, so it needs to be the first one to revert.
- 
+
 That `transform-style` property is required on the parent, to ensure 3d transformations are propagated correctly to children elements. You can learn a bit more about it (here)]https://css-tricks.com/almanac/properties/t/transform-style/]
 
 ## Fixing the child element
@@ -210,7 +205,6 @@ The end result is much closer to our goal:
 <p data-height="268" data-theme-id="16919" data-slug-hash="WvyBOy" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/WvyBOy/'>Subvisual - Atom Post - Step 7</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
-
 You can play around with the editor of the sample above to get a better feeling of what's happening.
 
 ## Layering Issues
@@ -220,16 +214,15 @@ One other issue you may have noticed is that our electrons are now clipping thro
 I first tried to use `z-index` for this, but that doesn't really play well with 3D transforms, and absolutely positioned elements.
 In the end, I created a duplicate of each orbit, and moved them to the background using yet another `translateZ`. You can check the final animation for the solution, but here's the general idea:
 
-``` sass
+```sass
 /* this orbit is visible, but has no electron inside*/
 .Orbit.Orbit--background.Orbit--visible
 
 /* this one is on the foreground, and with an atom
-   but the orbit line itself is hidden */ 
+   but the orbit line itself is hidden */
 .Orbit.Orbit--foreground.Orbit--invisible
   .Electron
 ```
-
 
 ## Wrapping up
 

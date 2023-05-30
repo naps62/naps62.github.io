@@ -2,10 +2,13 @@
 title="Tutorial: Deploying Elixir applications with Docker and Digital Ocean"
 slug="tutorial-deploying-elixir-applications"
 date=2017-05-24
-category="elixir"
+
+[taxonomies]
+tags = ["elixir"]
 
 [extra]
 canonical="https://subvisual.com/blog/posts/137-tutorial-deploying-elixir-applications-with-docker-and-digital-ocean/"
+lang = "es"
 +++
 
 While Elixir is becoming a popular language for web development, there is at least one topic that I still find lacking: Deploys.
@@ -29,9 +32,10 @@ That said, if you have different requirements, this tutorial can be a good start
 3. [Setting up docker-compose](#setting-up-compose)
 4. [Deploying with docker-machine](#deploying-with-docker-machine)
 5. [Running Migrations](#running-migrations)
-5. [Final thoughts](#final-thoughts)
+6. [Final thoughts](#final-thoughts)
 
 <span id="elixir-releases"></span>
+
 ## Elixir Releases
 
 There are two ways to get your Elixir code running on a server. The first is to push it and run `mix phx.server` or whichever command your application uses to start itself.
@@ -57,6 +61,7 @@ There are a couple of tools that make it straightforward to generate releases:
 I'll be using distillery for this tutorial. However, I won't be using it directly, but via a Docker container, so that I can solve the system architecture problem mentioned above.
 
 <span id="isolating-the-build"></span>
+
 ## Isolating the build with docker
 
 The architectures of the server and the machine where we build our release need to match. So it's easy to see we can run into problems. We shouldn't have to worry about breaking our builds just by using a different computer.
@@ -70,7 +75,7 @@ And that's exactly what [`mix_docker`](https://github.com/Recruitee/mix_docker) 
 
 Note: We could also take advantage of Docker's new feature: [Multi-stage builds](https://docs.docker.com/engine/userguide/eng-image/multistage-build/#use-multi-stage-builds), but mix_docker does not yet support those, so we're going with the two Dockerfile approach for convenience.
 
-### Building a Release 
+### Building a Release
 
 To set it up, add `mix_docker` to your `mix.exs` , and run `mix deps.get` . At the time of writing, the released version (0.3.0) does not work with Erlang 19, so I had to fetch the Github repo directly:
 
@@ -101,7 +106,7 @@ $ mix docker.build
 
 This copies your entire application to a minimal Docker image running Alpine Linux. The image contains only the essential packages to build your application, which is nothing more than an Erlang/Elixir installation.
 
-### Releasing a Release 
+### Releasing a Release
 
 We now want this build to run on our server. For that, `mix_docker` provides another docker image and a command:
 
@@ -111,7 +116,7 @@ $ mix docker.release
 
 An Elixir release is a self-contained project that requires no dependencies (at least for a simple project, as is the case here), so this second container has nothing more than the same Alpine Linux installation with a couple of system libraries, making it very compact.
 
-### Publishing to Docker Hub 
+### Publishing to Docker Hub
 
 Now we have a docker image that runs our app. Everything is contained there, so we just need to get that on a server. I use [Docker Hub](https://hub.docker.com/) for that since it integrates nicely with the rest of the Docker toolkit.
 
@@ -135,6 +140,7 @@ Having that out of the way, we still need a few things to make the containerized
 In the next section, I'll explain how to use [Docker Compose](https://docs.docker.com/compose/) to do just that.
 
 <span id="setting-up-compose"></span>
+
 ## Setting up docker-compose
 
 Compose is a tool that allows us to define and run a multi-container app, specifying how the networking and dependencies between them should work. Think of it as a low-scale orchestration tool.
@@ -142,26 +148,26 @@ Compose is a tool that allows us to define and run a multi-container app, specif
 To use it for our app, we need to create a `docker-compose.yml` looking like this:
 
 ```yaml
-version: "2.0"
+version: '2.0'
 services:
   web:
-    image: "naps62/demo:0.1.0"
+    image: 'naps62/demo:0.1.0'
     command: foreground
     depends_on:
       - db
     ports:
-      - "4000:4000"
+      - '4000:4000'
     environment:
-      DATABASE_URL: "ecto://demo_db:demo_user@db/demo_db"
+      DATABASE_URL: 'ecto://demo_db:demo_user@db/demo_db'
       PORT: 4000
       POOL_SIZE: 10
 
   db:
     image: postgres:9.6.2
     environment:
-      POSTGRES_DB: "demo_db"
-      POSTGRES_USER: "demo_user"
-      POSTGRES_PASSWORD: "demo_pass"
+      POSTGRES_DB: 'demo_db'
+      POSTGRES_USER: 'demo_user'
+      POSTGRES_PASSWORD: 'demo_pass'
 ```
 
 I won't go through in much detail since there are already a lot of tutorials covering Docker Compose ( [exhibit A](https://docs.docker.com/compose/gettingstarted/), [exhibit B](https://blog.codeship.com/orchestrate-containers-for-development-with-docker-compose/), [exhibit C](https://thoughtbot.com/upcase/videos/intro-to-docker) ). I'll just to go through the relevant parts for this tutorial:
@@ -169,13 +175,13 @@ I won't go through in much detail since there are already a lot of tutorials cov
 1.  `image: "naps62/demo:0.1.0"` refers to the image we just built. Notice the tag must be updated if we release a new version. Or alternatively, we can use `image: "naps62/demo:${TAG}"` to get the release tag from an environment variable, making it easier to update it in the future;
 1.  `command: foreground` this is the command to be executed by the docker image. `foreground` just appends to be the executable included in a docker release to start the app. Other alternatives are available if we need to start it as a background job, but that is not what we need here;
 1.  `ports: "4000:4000"` sets the port forwarding to the default port used by the Phoenix server. We'll later add an nginx reverse proxy to redirect requests to this port;
-1.  `DATABASE_URL: "ecto://.."` This sets the full URL for Ecto to connect to our PostgreSQL database, which is running in a separate container. It contains the username, password, and database name; 
+1.  `DATABASE_URL: "ecto://.."` This sets the full URL for Ecto to connect to our PostgreSQL database, which is running in a separate container. It contains the username, password, and database name;
 
 For that `DATABASE_URL` variable to be used, we also need to change our Ecto configs for production:
 
 ```elixir
 ## config/prod.exs
-	
+
 config :db, Demo.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: {:system, "DATABASE_URL"},
@@ -186,13 +192,14 @@ config :db, Demo.Repo,
 With this setup, we can get our entire system running with `docker-compose up`. But we want to do that on a remote server, not locally, so let's dive into that now:
 
 <span id="deploying-with-docker-machine"></span>
+
 ## Deploying with Docker Machine
 
 Docker Machine is yet another tool in the large Docker ecosystem. It is used to handle docker installations and containers in remote machines without all the hassle of setting up a server manually and `ssh` 'ing into it.
 
 In this case, we'll be using it to create a Digital Ocean droplet (via their API, not manually), and run our app.
 
-### Grab your Digital Ocean token 
+### Grab your Digital Ocean token
 
 You'll need to get an API token from your Digital Ocean account so that Docker Machine can have access to it.
 
@@ -206,7 +213,7 @@ Now, copy it to your terminal as an environment variable:
 $ export DIGITAL_OCEAN_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-### Bonus: Persist your token with a secrets file 
+### Bonus: Persist your token with a secrets file
 
 To make this persistent, and prevent you from having to export this variable on every new terminal, you can create a `~/.secrets.sh` with the export command, and load it in your `.bashrc` or `.zshrc` :
 
@@ -216,19 +223,19 @@ To make this persistent, and prevent you from having to export this variable on 
 
 Just remember not to commit this to your dotfiles repository, if you have one. And, of course, this is only an option if you have enough control over who uses your computer, so tread lightly.
 
-### Create Droplet 
+### Create Droplet
 
 Creating a droplet on Digital Ocean can be done with a single Docker Machine command, which will use the Digital Ocean API to do most of the work for us. Let's create a droplet called `docker-demo`:
 
 ```sh
-$ docker-machine create --driver=digitalocean --digitalocean-access-token=$DIGITAL_OCEAN_TOKEN --digitalocean-size=512mb docker-demo 
+$ docker-machine create --driver=digitalocean --digitalocean-access-token=$DIGITAL_OCEAN_TOKEN --digitalocean-size=512mb docker-demo
 ```
 
 That's it! The new droplet has Docker up and running, and an SSH key was created automatically for you, allowing you to run `docker-machine ssh docker-demo` to access its shell if needed.
 
 But to deploy our app, there's an even easier way.
 
-### Running Docker Compose remotely 
+### Running Docker Compose remotely
 
 Docker Compose supports running containers on remote hosts rather than locally. For this, only a few environment variables are needed to point to the correct host, and Docker Machine also has us covered there:
 
@@ -284,6 +291,7 @@ server {
 After this, run `service nginx start` to start the process. If you already did the previous `docker-compose up -d`, then your app should now be accessible. Congratulations!
 
 <span id="running-migrations"></span>
+
 ## Running migrations
 
 Now that you successfully deployed an Elixir web app, you need to take care of updates as well. One of the most common maintenance tasks of updating an app is to run database migrations.
@@ -294,7 +302,7 @@ Fortunately, it is really easy to run migrations programmatically, and both Ecto
 
 With Distillery, we can specify hook scripts that will be executed when our app first starts. And through these scripts, we can make an RPC call to our app, triggering some code that will run the migration.
 
-### Running migrations programmatically 
+### Running migrations programmatically
 
 Define the following module somewhere in your codebase:
 
@@ -322,7 +330,7 @@ environment :prod do
 
   # add this line
   set post_start_hook: "rel/hooks/post_start"
-``` 
+```
 
 This references a `rel/hooks/post_start` file, which we will now create. This is actually a regular shell script where we can do whatever we need.
 
@@ -353,8 +361,9 @@ echo "Migrations run successfully"
 Now every time the app is deployed, our migration task will be called.
 
 You can see that this is not tied to database migrations in any way. We can easily add other kinds of tasks to this hook, making it a very generic way of having additional deployment tasks running.
-  
+
 <span id="final-thoughts"></span>
+
 ## Final thoughts
 
 If you enjoyed this tutorial, or if you have any questions feel free to reach me out through [Twitter](https://twitter.com/naps62) or via the comments below.

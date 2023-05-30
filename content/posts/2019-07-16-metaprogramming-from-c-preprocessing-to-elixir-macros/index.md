@@ -4,11 +4,14 @@ slug="metaprogramming-from-c-to-elixir"
 date=2019-02-19
 category="elixir"
 
+[taxonomies]
+tags = ["elixir"]
+
 [extra]
 canonical="https://blog.appsignal.com/2019/07/16/elixir-alchemy-metaprogramming.html"
 +++
 
-*Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2019/07/16/elixir-alchemy-metaprogramming.html)*
+_Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2019/07/16/elixir-alchemy-metaprogramming.html)_
 
 Developers have a love-hate relationship with metaprogramming. On the one hand, it’s a powerful tool to build reusable code. On the other hand, it can quickly become hard to understand and maintain.
 

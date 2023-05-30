@@ -2,13 +2,15 @@
 title="Flags, Seeds and Idempotency: Database Tooling with Elixir"
 slug="flags-seeds-and-idempotency-elixir"
 date=2019-02-19
-category="elixir"
+
+[taxonomies]
+tags = ["elixir"]
 
 [extra]
 canonical="https://blog.appsignal.com/2019/09/10/flags-seeds-idempotency-elixir.html"
 +++
 
-*Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2019/09/10/flags-seeds-idempotency-elixir.html)*
+_Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2019/09/10/flags-seeds-idempotency-elixir.html)_
 
 Today we stir into our cauldron of magic potions and idempotence, and brew some neat Elixir database tooling. We’ll do so by going through my experience of setting up my own.
 
@@ -18,10 +20,10 @@ Coming from Ruby on Rails, one of the things that I’ve seen lacking in the Eli
 
 Most deployment solutions for Ruby on Rails would handle the setup of the database, tying directly into the way they are configured in the framework. This often included such things as:
 
-* Creating and setting up the initial database
-* Running all existing migrations
-* Seeding the database
-* Continuously running new migrations as they get added in future releases
+- Creating and setting up the initial database
+- Running all existing migrations
+- Seeding the database
+- Continuously running new migrations as they get added in future releases
 
 This was all part of the ecosystem and was often taken for granted. But actually, there’s a lot of work involved in plugging all those things together. And sometimes, assumptions were made that made it difficult to tweak this flow to your particular needs.
 

@@ -2,13 +2,15 @@
 title="Pouring Protocols in Elixir"
 slug="pouring-protocols-in-elixir"
 date=2019-02-19
-category="elixir"
+
+[taxonomies]
+tags = ["elixir"]
 
 [extra]
 canonical="https://blog.appsignal.com/2019/02/19/elixir-alchemy-pouring-protocols.html"
 +++
 
-*Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2019/02/19/elixir-alchemy-pouring-protocols.html)*
+_Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2019/02/19/elixir-alchemy-pouring-protocols.html)_
 
 Elixir has several mechanisms that allow us to write expressive and intuitive code. Pattern matching, for instance, is a powerful way of dealing with multiple scenarios without having to go into complicated branching. It allows each of our functions to be clear and concise.
 

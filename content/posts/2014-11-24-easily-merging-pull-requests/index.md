@@ -3,6 +3,9 @@ title="Easily Merging Pull Requests"
 slug="easily-merging-pull-requests"
 date=2014-11-24
 category="git"
+
+[taxonomies]
+tags = ["productivity"]
 +++
 
 I try to automate all the annoying repetitive things I can. And not long ago, merging Pull Request was certainly on top of my list.
@@ -100,7 +103,7 @@ For this I'm using yet another custom command. I extracted this since I ended up
 branch=$1
 destiny=${2:-master}
 git checkout $destiny
-git push --delete origin $branch > /dev/null & 
+git push --delete origin $branch > /dev/null &
 git branch -D $branch
 ```
 

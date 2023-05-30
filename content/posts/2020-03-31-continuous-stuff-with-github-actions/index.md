@@ -2,7 +2,9 @@
 title="Continuous Stuff with GitHub Actions"
 slug="continuous-stuff-with-github-actions"
 date=2020-03-30
-category="devops"
+
+[taxonomies]
+tags = ["devops"]
 
 [extra]
 canonical="https://subvisual.com/blog/posts/continuous-stuff-with-github-actions"
@@ -21,7 +23,7 @@ canonical="https://subvisual.com/blog/posts/continuous-stuff-with-github-actions
 [actions-checkout]: https://github.com/actions/checkout/tree/v2.0.0
 [twitter]: https://twitter.com/naps62
 
-*This post was originally posted on my company's blog. Feel free to check out the [original](https://subvisual.com/blog/posts/continuous-stuff-with-github-actions)*
+_This post was originally posted on my company's blog. Feel free to check out the [original](https://subvisual.com/blog/posts/continuous-stuff-with-github-actions)_
 
 Last year, I took on the task of improving the continuous process over at [Utrust][utrust]. We weren't really happy with
 the amount of work that went into our releases, and I was looking for a more agile approach, where everyone from
@@ -40,10 +42,10 @@ I've worked with a fair amount of CIs over the years...
 
 <HalfWidthImage img={ImgCI} alt="CIs" large={50} small={50} />
 
-There was always something that seemed a bit off, though.  They all do one simple, but very useful, thing: they react to
+There was always something that seemed a bit off, though. They all do one simple, but very useful, thing: they react to
 commits
 
-The main use case for this is the now common one: to run tests for every new version of your code.  But any kind of
+The main use case for this is the now common one: to run tests for every new version of your code. But any kind of
 automated task can be triggered, really. A deploy is very common as well, or a preview build for testing.
 
 But a lot of these automations shouldn't necessarily need a commit. They are not triggered by changes in the code.
@@ -66,7 +68,7 @@ workflows:
                 - staging
 ```
 
-With this, commits to the `staging` branch would trigger a deploy to staging. Seems simple enough.  But now you need
+With this, commits to the `staging` branch would trigger a deploy to staging. Seems simple enough. But now you need
 a branch for every single environment. And probably quite a few `push -f` commands, or similar git sorceries to force
 a commit from your normal workflow into a branch whose history is messier than the plot of [Primer][primer].
 
@@ -74,14 +76,14 @@ a commit from your normal workflow into a branch whose history is messier than t
 
 The problem here is that we're solving things the wrong way. A deploy is not a commit. It's a deploy.
 
-And GitHub actually has a [Deployments API][github-deployments] that encapsulates that exact concept.  You can tell
+And GitHub actually has a [Deployments API][github-deployments] that encapsulates that exact concept. You can tell
 GitHub to create a deployment, by providing a certain git reference, an environment to which you want to deploy, and
 other optional parameters.
 
 GitHub will then collect this and build a history of all the deploys you requested, and the status of each one (which
 can be updated using the same API).
 
-This API won't really do anything by itself, though. It builds a nice log, but that's about it.  You can subscribe to
+This API won't really do anything by itself, though. It builds a nice log, but that's about it. You can subscribe to
 webhooks from this API though.
 
 So any 3rd party service could theoretically listen to these webhooks, and process the deployment you requested, instead
@@ -143,7 +145,7 @@ Requests' history should trigger the job.
 We can also react to comments on the Pull Request itself, which can be useful if you want a more seamless integration of
 some features.
 
-In my case, I wanted to deploy a preview version of Pull Requests to our frontend application.  It wasn't efficient to
+In my case, I wanted to deploy a preview version of Pull Requests to our frontend application. It wasn't efficient to
 do this for every single PR though (only a small subset of them actually need this), so we went with this instead:
 
 ![Comments triggering GitHub Action](./github-actions-comment.png)
@@ -152,7 +154,6 @@ Whenever someone comments on a Pull Request and includes the word "preview", an 
 that branch and deploy a live preview of it, so it can be easily tested.
 
 The ease with which this was all done by just using different hooks made this very pleasant to work with.
-
 
 # Reusable actions
 
@@ -170,7 +171,7 @@ extension: *component
   baz: biz
 ```
 
-... but they don't look pretty, especially once they start to grow.  And if you, like me, have any experience mantaining
+... but they don't look pretty, especially once they start to grow. And if you, like me, have any experience mantaining
 a large project with multiple CI worflows and configurations, you probably know that things tend to get out of hand.
 It's always a single YAML file, which can grow to hundreds of lines. You can reuse blocks of YAML, but they may end up
 running under different contexts (e.g.: different docker images, different dependencies installed, etc).
@@ -185,11 +186,11 @@ push_s3:
   executor: ubuntu
   steps:
     - my-custom-org/my-custom-command:
-        arg: "foo"
+        arg: 'foo'
 ```
 
 This is a trimmed-down example, where a custom command is encapsulated in a `my-custom-orb` Orb. You may notice that the
-main config file is the one who specificies the execution environment (ubuntu, in this case).  So, if the Orb tries to
+main config file is the one who specificies the execution environment (ubuntu, in this case). So, if the Orb tries to
 `yum install git`, this would fail, because that package manager isn't used in Ubuntu.
 
 So you end up with a mess of a script that does a whole bunch of magic just to figure out how to install the
@@ -255,7 +256,7 @@ I have 2 major concerns:
 
 These drawbacks, as concerning as they may have been, didn't prevent me from using GitHub Actions over the past few
 months, and even performing a company-wide migration at [Utrust][utrust]. This post was my way of compiling a short
-tutorial around how I started using them, and how they're so much different than previous CIs I've tried.  By far, the
+tutorial around how I started using them, and how they're so much different than previous CIs I've tried. By far, the
 ease with each I'm able to create reusable, encapsulated actions, and the ability to react not just to commits, but to
 any other event GitHub emits, is a very powerful tool.
 

@@ -1,0 +1,3 @@
+[submodule "themes/naps62-serene"]
+	path = themes/naps62-serene
+	url = git@github.com:naps62/serene

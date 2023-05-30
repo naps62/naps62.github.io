@@ -2,13 +2,15 @@
 title="Typespecs and Behaviours in Elixir"
 slug="typespecs-and-behaviours-in-elixir"
 date= 2019-10-15
-category="elixir"
+
+[taxonomies]
+tags = ["elixir"]
 
 [extra]
 canonical="https://blog.appsignal.com/2019/10/15/behaviours.html"
 +++
 
-*Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2019/10/15/behaviours.html)*
+_Note: This post was originally written on [AppSignal's Elixir Alchemy Blog](https://blog.appsignal.com/2019/10/15/behaviours.html)_
 
 Today2, we will dive into Typespecs and Behaviours. These are two Elixir features that we are ecstatic (pun intended) about. They are great examples of built-in features in Elixir that help get some of the advantages of statically typed code.
 
@@ -91,7 +93,7 @@ warning: function greet/1 required by behaviour MyApp.Language is not implemente
   test.ex:20
 ```
 
-Note that this is not a compilation failure, just a warning. These annotations are only meant to guide your development and warn you of *potential* mistakes. It’s up to you to know what to do with them.
+Note that this is not a compilation failure, just a warning. These annotations are only meant to guide your development and warn you of _potential_ mistakes. It’s up to you to know what to do with them.
 
 But before looking into a real-life example of this, we need to discuss a pattern that is commonly associated with behaviours and interfaces…
 

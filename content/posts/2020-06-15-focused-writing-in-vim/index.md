@@ -2,7 +2,9 @@
 title="Focused Writing in Vim"
 slug="focused-writing-in-vim"
 date=2020-06-15
-category="vim"
+
+[taxonomies]
+tags = ["vim"]
 +++
 
 [gist]: https://gist.github.com/naps62/20e71350443191dd002c6dc640eef0c4
@@ -18,13 +20,14 @@ want all that real estate.
 
 So here's the gist of what I achieved (or a video right below, showcasing the final thing). Running `:Focus` on Vim does
 a bunch of different things:
-* Center & focus the 80-wide lines of content;
-* Increase the font size... a lot;
-* Hide away all the visual noise (statusbars, line numbers, autocomplete, window manager, and so on);
-* Disable editor features targeted at programming (looking at you, autocomplete);
-* *Maybe* have a Table of Contents on the left side, for easy navigation on long posts.
 
-{{ yt(id="8dLIDBKkbCI") }}
+- Center & focus the 80-wide lines of content;
+- Increase the font size... a lot;
+- Hide away all the visual noise (statusbars, line numbers, autocomplete, window manager, and so on);
+- Disable editor features targeted at programming (looking at you, autocomplete);
+- _Maybe_ have a Table of Contents on the left side, for easy navigation on long posts.
+
+{{ youtube(id="8dLIDBKkbCI") }}
 
 All of this is achieved with a few existing vim plugins, all tied together in a single `Focus()` function. There's also
 some bits that need to go beyond Vim, such as increasing font size, for instance.
@@ -139,9 +142,9 @@ config file, that translates to:
 
 ```yaml
 key_bindings:
-  - { key: Key0,       mods: Control, action: ResetFontSize    }
+  - { key: Key0, mods: Control, action: ResetFontSize }
   - { key: Apostrophe, mods: Control, action: IncreaseFontSize }
-  - { key: Subtract,   mods: Control, action: DecreaseFontSize }
+  - { key: Subtract, mods: Control, action: DecreaseFontSize }
 ```
 
 As far as I could tell, there is no command line API that I could call to achieve the same effects, so I went with the
