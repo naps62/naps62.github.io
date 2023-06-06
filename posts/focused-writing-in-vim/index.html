@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Focused Writing in Vim</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Focused Writing in Vim</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2020-06-15</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/vim"># vim</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p>I've been working on getting an improved focus environment to write blog posts in. There's a lot of &quot;Focus mode&quot;
+features out there in pretty much every editor. But in Vim, I wanted to piece together a few different things, and also
+make some additions of my own.</p>
+<p>I use a 4K monitor, which is great for gaming &amp; programming, but kind of overkill for writing blog posts. I don't
+want all that real estate.</p>
+<h2 id="the-end-result">The end result<a class="zola-anchor" href="#the-end-result" aria-label="Anchor link for: the-end-result">#</a></h2>
+<p>So here's the gist of what I achieved (or a video right below, showcasing the final thing). Running <code>:Focus</code> on Vim does
+a bunch of different things:</p>
+<ul>
+<li>Center &amp; focus the 80-wide lines of content;</li>
+<li>Increase the font size... a lot;</li>
+<li>Hide away all the visual noise (statusbars, line numbers, autocomplete, window manager, and so on);</li>
+<li>Disable editor features targeted at programming (looking at you, autocomplete);</li>
+<li><em>Maybe</em> have a Table of Contents on the left side, for easy navigation on long posts.</li>
+</ul>
+<div >
+  <iframe
+    src="https://www.youtube.com/embed/8dLIDBKkbCI"
+    webkitallowfullscreen
+    mozallowfullscreen
+    allowfullscreen
+  >
+  </iframe>
+</div>
+<p>All of this is achieved with a few existing vim plugins, all tied together in a single <code>Focus()</code> function. There's also
+some bits that need to go beyond Vim, such as increasing font size, for instance.</p>
+<h2 id="the-road-towards-it">The road towards it<a class="zola-anchor" href="#the-road-towards-it" aria-label="Anchor link for: the-road-towards-it">#</a></h2>
+<p>Let's start with the easy stuff. Creating a <code>:Focus</code> command is pretty straightforward.</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">let g:focused = 0
+function! Focus()
+  if g:focused == 0
+    &quot; magically enable focus stuff
+    let g:focused = 1
+  else
+    &quot; disable all of it again
+    let g:focused = 1
+  endif
+endfunction
+</code></pre>
+<p>We can even have our function work as a toggle. Calling it a second time will (ideally) undo all the evil we did.</p>
+<p>Let's now go through all the stuff we can enable in that if statement. Feel free to cherry-pick whichever ones work for
+you. That's the beauty of using custom vim code instead of a one-size-fits-all solution.</p>
+<p>PS: For each section, I'll include the vimscript code necessary to enable it. For disabling it (the <code>else</code> part of
+the <code>if</code> statement), check out the full code in <a href="https://gist.github.com/naps62/20e71350443191dd002c6dc640eef0c4">this gist</a>.</p>
+<h3 id="1-goyo-distraction-free-mode">1. <a href="https://github.com/junegunn/goyo.vim">Goyo</a> - Distraction-free mode<a class="zola-anchor" href="#1-goyo-distraction-free-mode" aria-label="Anchor link for: 1-goyo-distraction-free-mode">#</a></h3>
+<p>This plugin adds a distraction-free mode to Vim, which hides most the of clutter already.</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">&quot; enable distraction-free with a 120 column wide buffer
+:Goyo 120
+</code></pre>
+<h3 id="2-limelight-for-even-more-focus">2. <a href="https://github.com/junegunn/limelight.vim">Limelight</a> - for even more focus<a class="zola-anchor" href="#2-limelight-for-even-more-focus" aria-label="Anchor link for: 2-limelight-for-even-more-focus">#</a></h3>
+<p>Built by the same author, this goes one step further, and dims down all content but the currently highlighted paragrah.</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">:Limelight
+</code></pre>
+<h3 id="3-voom">3. <a href="https://www.vim.org/scripts/script.php?script_id=2657">VOoM</a><a class="zola-anchor" href="#3-voom" aria-label="Anchor link for: 3-voom">#</a></h3>
+<p>Yet another package. This one adds a Table of Contents to the left of your content buffer. It builds an index for markdown and other standard content formats, making it pretty useful for navigating large files.</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">&quot; enable sidebar TOC for a markdown file
+:VOoM markdown
+</code></pre>
+<h3 id="4-disable-additional-vim-clutter">4. Disable additional vim clutter<a class="zola-anchor" href="#4-disable-additional-vim-clutter" aria-label="Anchor link for: 4-disable-additional-vim-clutter">#</a></h3>
+<p>Now for the actual custom stuff. These are a few small settings that I normally use on Vim, but wanted to disable while
+in focus mode:</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">&quot; disable highlighting of the current line
+set nocursorline
+
+&quot; disable highlighting of the current column
+set nocursorcolumn
+
+&quot; even though Goyo hides the status bar, a small `-- INSERT --`
+&quot; was still showing up in the corner.
+&quot; This gets rid of that as well
+set noshowmode
+</code></pre>
+<h3 id="5-always-centered-cursor">5. Always-centered cursor<a class="zola-anchor" href="#5-always-centered-cursor" aria-label="Anchor link for: 5-always-centered-cursor">#</a></h3>
+<p>This one is probably the most hacky thing on this list. Sorry, but I couldn't resist</p>
+<p>I wanted the current line to always be vertically centered as well.</p>
+<p>Using <code>set scrolloff=20</code> would tell vim to scroll 20
+lines past the End-of-File. But while writing, the current text would still end at the bottom of the screen, unless
+I manually scrolled down those extra lines.</p>
+<p>The trick is to override the default navigation mappings, and combine them with <code>zz</code> which brings the cursor current
+line to the vertical center of the screen:</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">:nmap j jzz
+:nmap k kzz
+:nmap G Gzz
+</code></pre>
+<p><code>j</code>, <code>k</code> and <code>G</code> are the movements I use most often. Appending <code>zz</code> to them automatically keeps my current focus right
+at the center. It's not perfect, but it's close enough.</p>
+<h3 id="6-hiding-tmux-s-status-bar">6. Hiding tmux's status bar<a class="zola-anchor" href="#6-hiding-tmux-s-status-bar" aria-label="Anchor link for: 6-hiding-tmux-s-status-bar">#</a></h3>
+<p>Since I always run Vim inside a tmux session, I wanted to hide that as well. This one is actually pretty simple:</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">:silent !tmux set status off
+</code></pre>
+<h3 id="7-increase-font-size">7. Increase font size<a class="zola-anchor" href="#7-increase-font-size" aria-label="Anchor link for: 7-increase-font-size">#</a></h3>
+<p>This was the final piece, and another trick I had to use. However, without a bigger font size, everything before this
+would really suck. 14pt fonts centered on a 4K monitor isn't really that useful, nor comfortable</p>
+<p>I use <a href="https://github.com/alacritty/alacritty">alacritty</a>. Like most other terminals, there are shortcuts to zoom
+in/out, and reset. In my case, I have those set to <code>Ctrl+'</code>, <code>Ctrl+-</code> and <code>Ctrl+0</code>, respectively. In <code>alacritty.yml</code>'s
+config file, that translates to:</p>
+<pre data-lang="yaml" class="language-yaml "><code class="language-yaml" data-lang="yaml">key_bindings:
+  - { key: Key0, mods: Control, action: ResetFontSize }
+  - { key: Apostrophe, mods: Control, action: IncreaseFontSize }
+  - { key: Subtract, mods: Control, action: DecreaseFontSize }
+</code></pre>
+<p>As far as I could tell, there is no command line API that I could call to achieve the same effects, so I went with the
+keyboard shortcuts. Using <code>xdotool</code>, it's easy to send those keystroke signals to the terminal window, with a single
+command:</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">:silent !xdotool key --repeat 10 Ctrl+apostrophe
+</code></pre>
+<p>This is using <a href="https://jlk.fjfi.cvut.cz/arch/manpages/man/xdotool.1.en">xdotool</a> to send a zoom-in shortcut signal to the active window, 10 times.
+A similar <code>xdotool key Ctrl+0</code> can be used to get back to the default zoom level at the end.</p>
+<p>10 was just an arbitrary number that got me to a visually comfortable level.</p>
+<h2 id="wrapping-up">Wrapping up<a class="zola-anchor" href="#wrapping-up" aria-label="Anchor link for: wrapping-up">#</a></h2>
+<p>I used this full setup for the first time while writing this post. It has a few rough edges that I'll still be
+improving on in the future, but it's already proven extremely helpful.
+Check out the full <a href="https://gist.github.com/naps62/20e71350443191dd002c6dc640eef0c4">vim code here</a>, or let me know on <a href="https://twitter.com/naps62">twitter</a> if you have any thoughts on how to improve this.</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#the-end-result">The end result</a>
+          
+        </li>
+        
+        <li>
+          <a href="#the-road-towards-it">The road towards it</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#1-goyo-distraction-free-mode">1. Goyo - Distraction-free mode</a>
+            </li>
+            
+            <li>
+              <a href="#2-limelight-for-even-more-focus">2. Limelight - for even more focus</a>
+            </li>
+            
+            <li>
+              <a href="#3-voom">3. VOoM</a>
+            </li>
+            
+            <li>
+              <a href="#4-disable-additional-vim-clutter">4. Disable additional vim clutter</a>
+            </li>
+            
+            <li>
+              <a href="#5-always-centered-cursor">5. Always-centered cursor</a>
+            </li>
+            
+            <li>
+              <a href="#6-hiding-tmux-s-status-bar">6. Hiding tmux&#x27;s status bar</a>
+            </li>
+            
+            <li>
+              <a href="#7-increase-font-size">7. Increase font size</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#wrapping-up">Wrapping up</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

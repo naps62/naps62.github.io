@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Metaprogramming: From C Preprocessing to Elixir Macros</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Metaprogramming: From C Preprocessing to Elixir Macros</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2019-02-19</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/elixir"># elixir</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p><em>Note: This post was originally written on <a href="https://blog.appsignal.com/2019/07/16/elixir-alchemy-metaprogramming.html">AppSignal's Elixir Alchemy Blog</a></em></p>
+<p>Developers have a love-hate relationship with metaprogramming. On the one hand, it’s a powerful tool to build reusable code. On the other hand, it can quickly become hard to understand and maintain.</p>
+<p>I like to think of it as salt. It’s pretty handy on many occasions, but use just a little too much of it, and you’re left with an unenjoyable dish.</p>
+<p>Also, large doses of either of them can lead to increased blood pressure. 😅</p>
+<p>However, metaprogramming has come a long way since it’s early days. While I still try not to overuse it, it’s become more useful and easy to work with. Let’s see how it evolved.</p>
+<h2 id="c-c">C/C++<a class="zola-anchor" href="#c-c" aria-label="Anchor link for: c-c">#</a></h2>
+<p>If we go back a few decades, to a time when programming languages were more close to the metal, the C/C++ preprocessor was one of the only options we had to do something close to metaprogramming.</p>
+<p>This preprocessor was literally what the name suggests: A parser that would run through C code, and process specific definitions (keywords such as <code>#define</code> and <code>#if</code>), and would output a final version of the C code to the compiler. This final version could change based on some criteria. It would look something like this:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">#define FOO 1
+
+#if FOO == 1
+#define MSG &quot;Hello, World&quot;
+#else
+#define MSG &quot;Goodbye, World&quot;
+#endif
+
+#include &lt;stdio.h&gt;
+
+int main() {
+  printf(MSG);
+end
+</code></pre>
+<p>This program would print <code>&quot;Hello, World&quot;</code>, always. As you may guess, changing the FOO definition to 0, and re-compiling the program, would instead cause it to print <code>&quot;Goodbye, World&quot;</code> instead.</p>
+<p>These preprocessor directives would often be used to create code targeting specific platforms or architectures. For example, you could set different behaviors for your program when compiled to target Windows systems than when targeting Linux systems. The two resulting binaries would have only the code that was relevant to that specific platform, and thus wouldn’t need to perform runtime checks for these conditions. These savings in storage and runtime performance could often be significant.</p>
+<p>However, if you have any C experience at all, you know how dangerous it is just in vanilla form. Now add a lot of preprocessing behavior on top of that, and it quickly becomes quite hard to manage. So it wouldn’t be advisable to use it for much more than small configurations, most of the time.</p>
+<h2 id="ruby">Ruby<a class="zola-anchor" href="#ruby" aria-label="Anchor link for: ruby">#</a></h2>
+<p>With better technology and higher-level scripting languages, also came the possibility of creating more elaborate styles of programming. Particularly in Ruby, metaprogramming proved to be a powerful, yet scary feature.</p>
+<p>The way this works in Ruby is based on the idea that code is nothing more than a string of text, interpreted and executed by the Ruby environment.</p>
+<p>Since Ruby is interpreted at runtime, there’s no requirement of having the entire codebase compiled upfront. Ruby allows you to dynamically define instance methods on classes.</p>
+<p>Also, due to the way Ruby classes and instances are constructed internally, you can even define methods for individual instances rather than the entire class!</p>
+<p>PS: Further reading on Ruby Classes <a href="https://www.devalot.com/articles/2008/09/ruby-singleton">here</a>.</p>
+<pre data-lang="ruby" class="language-ruby "><code class="language-ruby" data-lang="ruby">class Foo
+  def hello1
+    puts &quot;Hello from a regular method&quot;
+  end
+
+  [:hello2, :hello3].each do |f|
+    define_method f do
+      puts &quot;Hello from a dynamically-defined #{f} method&quot;
+    end
+  end
+end
+
+foo = Foo.new
+
+foo.define_singleton_method(:hello4) { puts &quot;Hello only from this instance of Foo&quot; }
+
+foo.hello1
+foo.hello2
+foo.hello3
+foo.hello4
+</code></pre>
+<p>Ruby is also pretty lax when it comes to editing existing code, even from the standard library. This is valid Ruby:</p>
+<pre data-lang="ruby" class="language-ruby "><code class="language-ruby" data-lang="ruby">array = [1, 2, 3]
+
+# will print out 3
+puts array.size
+
+class Array
+  def size
+    &quot;Hello&quot;
+  end
+end
+
+# will now print out &quot;Hello&quot;
+puts array.size
+</code></pre>
+<p>Don’t to that, though! It will most likely break your program and is a bad practice overall.</p>
+<p>Last but not least, Ruby has some powerful ways of handling unexpected function calls, such as the <code>method_missing</code> callback:</p>
+<pre data-lang="ruby" class="language-ruby "><code class="language-ruby" data-lang="ruby">array = [1, 2, 3]
+
+class Array
+  def method_missing(method, *args)
+    puts &quot;#{method} method not found&quot;
+
+    if method == :sise then
+      puts &quot;Did you intend to type size instead?&quot;
+    end
+  end
+end
+
+puts array.sise
+</code></pre>
+<p>Overall, these abilities were a big game-changer for me when I first learned about them. It enabled me to think about my codebase in a whole new different way and improve it in the process.</p>
+<p>There were some issues, though. You know what they say: with great power comes great responsibility.</p>
+<p>Several Ruby libraries used and abused these metaprogramming mechanisms to create their own Domain Specific Languages. In the long run, this overuse would result in similar problems as we had in C++ times: difficulty maintaining and understanding a codebase.</p>
+<p>Elixir took, in my opinion, yet another step forward in the right direction here…</p>
+<h2 id="elixir">Elixir ❤️<a class="zola-anchor" href="#elixir" aria-label="Anchor link for: elixir">#</a></h2>
+<p>Here, metaprogramming is built into the language’s core in a much more powerful way. Whereas Ruby allowed you to define methods dynamically, or event generate a string and evaluate it as code (the old <code>eval</code> method that we all hate), Elixir allows you to mess with the Abstract Syntax Tree (AST) itself.</p>
+<p>This is done through the <code>quote</code> keyword:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">iex&gt; expr = quote do
+  &quot;Hello, &quot; &lt;&gt; &quot;World&quot;
+end
+</code></pre>
+<p>Trying out the above code, you’ll find that the string concat operation doesn’t get executed directly. Instead of a final string, you end up with an AST expression that describes your code:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">{:&lt;&gt;, [context: Elixir, import: Kernel], [&quot;Hello, &quot;, &quot;World&quot;]}
+</code></pre>
+<p>Those familiar with <a href="https://en.wikipedia.org/wiki/Polish_notation">Polish Notation</a> may quickly identify that this is equivalent to the string concatenation code from above. So by quoting some code, you get an AST description of that code, which you can then use across the rest of your codebase.</p>
+<p>You can then start to reason about your code as if it were a data structure (which it is… an AST), and perform operations to transform it:</p>
+<p>Let’s modify things a little bit:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">iex&gt; expr = quote do
+  &quot;Hello, &quot; &lt;&gt; name
+end
+</code></pre>
+<p>Now our expression uses a dynamic name instead. However, where does that name come from? We don’t have that variable defined anywhere, but it is still syntactically correct:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">{:&lt;&gt;, [context: Elixir, import: Kernel], [&quot;Hello, &quot;, {:name, [], Elixir}]}
+</code></pre>
+<p>However, it will fail to execute, which we can test by using <code>Code.eval_quoted/3</code>:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">iex&gt; Code.eval_quoted(expr)
+** (CompileError) nofile:1: undefined function name&#x2F;0
+    (elixir) lib&#x2F;code.ex:590: Code.eval_quoted&#x2F;3
+    test.ex:5: (file)
+</code></pre>
+<p>Let’s now create a second AST definition:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">definition = quote do
+  name = &quot;Miguel&quot;
+end
+</code></pre>
+<p>This second expression definition defines a variable called <code>name</code>. However, remember, we’re not defining any value, just creating the AST for that operation.</p>
+<p>We can combine these two expressions into a single one:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">final_code = quote do
+  unquote(definition)
+  unquote(expr)
+end
+</code></pre>
+<p>This ends up having the same result as if we had typed:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">name = &quot;Miguel&quot;
+&quot;Hello, &quot; &lt;&gt; name
+</code></pre>
+<p>However, notice we never had to abandon the Elixir syntax and rules while doing so. We’re writing Elixir that writes Elixir!</p>
+<p>This is heavily used internally within Elixir’s core. Whenever you define a function, or a simple if statement, you’re executing macros that change the code’s AST according to fit your code into them. Speaking of which…</p>
+<h2 id="elixir-s-macros">Elixir’s Macros<a class="zola-anchor" href="#elixir-s-macros" aria-label="Anchor link for: elixir-s-macros">#</a></h2>
+<p>Much of Elixir’s features are written with macros. Many of the common operators you use can be rewritten with macros. Let’s take, for instance, the <code>unless</code> operator (which already exists in the language’s core) and define it ourselves:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule Foo do
+  defmacro custom_unless(condition, do: do_clause, else: else_clause) do quote do
+      if !unquote(condition) do
+        unquote(do_clause)
+      else
+        unquote(else_clause)
+      end
+    end
+  end
+
+  defmacro custom_unless(condition, do: do_clause) do
+    quote do
+      Foo.custom_unless(unquote(condition), do: unquote(do_clause), else: nil)
+    end
+  end
+end
+
+defmodule Bar do
+  require Foo
+
+  Foo.custom_unless true, do: IO.puts(&quot;not true&quot;), else: IO.puts(&quot;true&quot;)
+end
+</code></pre>
+<p>Our <code>custom_unless</code> macro take in a boolean value. Inside, we check for the opposite of the condition (we run whatever code AST was given on that condition, and invert the resulting boolean). Then we execute the AST given for either the <code>do</code> or the else clause, depending on the result.</p>
+<p>However, the fun part about Elixir is that, since even the basic constructs such as <code>if</code> clauses are often built using macros themselves, we can better embed our macros in the language. In other words, after defining our macro, this is also working Elixir code:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule Bar
+  # importing instead of requiring allows us to call the macro directly,
+  # without the Foo. prefix
+  import Foo
+
+  custom_unless true do
+    IO.puts(&quot;not true&quot;)
+  else
+    IO.puts(&quot;true&quot;)
+  end
+end
+</code></pre>
+<p>This works because the interpretation of a multiline <code>if</code>/<code>else</code> block in Elixir is not much more than syntactic sugar for:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">if condition do: something, else: something_else
+</code></pre>
+<h2 id="conclusion">Conclusion<a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">#</a></h2>
+<p>Hopefully, this has been a useful walkthrough of how macros evolved in the past, especially for Elixir developers that may not know the full power of their language, as well as the history.</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#c-c">C&#x2F;C++</a>
+          
+        </li>
+        
+        <li>
+          <a href="#ruby">Ruby</a>
+          
+        </li>
+        
+        <li>
+          <a href="#elixir">Elixir ❤️</a>
+          
+        </li>
+        
+        <li>
+          <a href="#elixir-s-macros">Elixir’s Macros</a>
+          
+        </li>
+        
+        <li>
+          <a href="#conclusion">Conclusion</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

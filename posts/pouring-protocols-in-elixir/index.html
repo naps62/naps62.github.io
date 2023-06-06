@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Pouring Protocols in Elixir</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Pouring Protocols in Elixir</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2019-02-19</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/elixir"># elixir</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p><em>Note: This post was originally written on <a href="https://blog.appsignal.com/2019/02/19/elixir-alchemy-pouring-protocols.html">AppSignal's Elixir Alchemy Blog</a></em></p>
+<p>Elixir has several mechanisms that allow us to write expressive and intuitive code. Pattern matching, for instance, is a powerful way of dealing with multiple scenarios without having to go into complicated branching. It allows each of our functions to be clear and concise.</p>
+<h2 id="what-are-protocols">What Are Protocols?<a class="zola-anchor" href="#what-are-protocols" aria-label="Anchor link for: what-are-protocols">#</a></h2>
+<p>In a way, Protocols are similar to pattern matching, but they allow us to write more meaningful and context-specific code based on the datatype we’re dealing with.</p>
+<p>Let’s take the example of a content-delivery website. This website has multiple types of content: audio clips, videos, texts, and whatever else you can think of.</p>
+<p>Each of these content types obviously has different attributes and metadata, so it makes sense for them to be represented by independent structs:</p>
+<p>Translating this into Elixir, you’d have the following structures:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule Content.Audio do
+  defstruct [:title, :album, :artist, :duration, :bitrate, :file]
+end
+
+defmodule Content.Video do
+  defstruct [:title, :cast, :release_date, :duration, :resolution, :file]
+end
+
+defmodule Content.Text do
+  defstruct [:title, :author, :word_count, :chapter_count, :format, :file]
+end
+</code></pre>
+<p>Each of these types has a few different fields, most of them unique to the type. We also have a common <code>:file</code> field which will point to the file keeping the actual data.</p>
+<p>Now, let’s say you want to make your content as accessible as possible. You may, for instance, want to allow your hearing-impaired users to view the transcripts of both your audio and video. For that, you’ll use your awesome <code>AudioTranscriber</code> and <code>VideoTranscriber</code> modules which provide <code>transcribe_audio/1</code> and <code>transcribe_video/1</code> functions, respectively.</p>
+<p>The implementation of those functions uses state-of-the-art machine learning and will be delegated to a future blog post. Let’s just assume they work and roll with it.</p>
+<p>Both transcriber modules are split up into separate modules. Aside from having different function names for transcribing content, they might be completely different libraries. To allow us to use both in a transparent manner, we’ll implement a protocol named <code>Content.Transcribe</code> that has a unified API that can handle both types of content.</p>
+<h2 id="implementing-the-protocol">Implementing the Protocol<a class="zola-anchor" href="#implementing-the-protocol" aria-label="Anchor link for: implementing-the-protocol">#</a></h2>
+<p>Using protocols, we can easily define what the act of transcribing something means to each of our data types. This is done by first defining a transcribing protocol:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defprotocol Content.Transcribe do
+  def transcribe(content)
+end
+</code></pre>
+<p>and then implementing it separately for each of our types:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defimpl Content.Transcribe, for: Content.Video do
+  def transcribe(video), do: VideoTranscriber.transcribe_video(video.file)
+end
+
+defimpl Content.Transcribe, for: Content.Audio do
+  def transcribe(audio), do: AudioTranscriber.transcribe_audio(audio.file)
+end
+
+defimpl Content.Transcribe, for: Content.Text do
+  def transcribe(text), do: File.read(text.file)
+end
+</code></pre>
+<p>We have separately defined implementations of the same function for all 3 content types.</p>
+<p>You may note that for text content, the implementation merely reads the corresponding file, as it’s already in text format, while for the other two, we call the corresponding machine-learning-magic function on the file.</p>
+<p>We’re then able to call <code>transcribe/1</code> for all the data types we have an implementation for:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">iex&gt; %Content.Video{...} |&gt; Content.Transcribe.transcribe()
+{:ok, &quot;We&#x27;re no strangers to love\nYou know the rules and so do I...&quot;}
+
+iex&gt; %Content.Audio{...} |&gt; Content.Transcribe.transcribe()
+{:ok, &quot;Imagine there&#x27;s no heaven\nIt&#x27;s easy if you try...&quot;}
+
+iex&gt; %Content.Text{...} |&gt; Content.Transcribe.transcribe()
+{:ok, &quot;in a hole in the ground there lived a hobbit...&quot;}
+</code></pre>
+<h2 id="fallback-implementations">Fallback Implementations<a class="zola-anchor" href="#fallback-implementations" aria-label="Anchor link for: fallback-implementations">#</a></h2>
+<p>Now, let’s say we add a new type of media to our platform: games</p>
+<p>What happens when we try to transcribe the newly-added content?</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">iex&gt; %Content.Game{...} |&gt; Content.Transcribe.transcribe()
+** (Protocol.UndefinedError) protocol Content.Transcribe is not implemented for %Content.Game{...}. This protocol is implemented for: Content.Audio, Content.Text, Content.Video
+</code></pre>
+<p>Whoops! We’ve hit an error. Which makes sense. We didn’t provide any transcription implementation for this type.</p>
+<p>But it doesn’t really make sense to do so, does it? Games are supposed to be interactive experiences, and there simply may be no way to make them accessible to everyone.</p>
+<p>So we could just provide an implementation that always fails:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defimpl Content.Transcribe, for: Content.Game do
+  def transcribe(game), do: {:error, &quot;not supported&quot;}
+end
+</code></pre>
+<p>But this doesn’t seem very scalable, does it? If we keep adding new content types, we’ll end up having to duplicate this for every single type that we cannot transcribe.</p>
+<p>Instead, we can simply add a fallback implementation for any type we don’t specify. This is done precisely by providing an implementation for the Any type, and then stating in our protocol that we want to fall back to it when necessary.</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defimpl Content.Transcribe, for: Any do
+  def transcribe(_), do: {:error, &quot;not supported&quot;}
+end
+
+defprotocol Content.Transcribe do
+  @fallback_to_any true
+  def transcribe(content)
+end
+</code></pre>
+<p>The implementation for Any can usually be used by asking Elixir to automatically derive implementations from it (you can read more about this in the official <a href="https://elixir-lang.org/getting-started/protocols.html#deriving">Elixir Getting Started guide</a>).</p>
+<p>But by adding @fallback_to_any true to our protocol, we’re stating that whenever a specific implementation is not found, the Any implementation should be used. This allows us to fail gracefully for any unsupported data type:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">iex&gt; %Content.Game{...} |&gt; Content.Transcribe.transcribe()
+{:error, &quot;not supported&quot;}
+
+iex&gt; %{key: :value} |&gt; Content.Transcribe.transcribe()
+{:error, &quot;not supported&quot;}
+</code></pre>
+<h2 id="failed-gracefully">Failed Gracefully<a class="zola-anchor" href="#failed-gracefully" aria-label="Anchor link for: failed-gracefully">#</a></h2>
+<p>Can we close off any better than with a graceful fail? We’ll leave you now that we’ve experimented with protocols and we gracefully haven’t broken any alembic today.</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#what-are-protocols">What Are Protocols?</a>
+          
+        </li>
+        
+        <li>
+          <a href="#implementing-the-protocol">Implementing the Protocol</a>
+          
+        </li>
+        
+        <li>
+          <a href="#fallback-implementations">Fallback Implementations</a>
+          
+        </li>
+        
+        <li>
+          <a href="#failed-gracefully">Failed Gracefully</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

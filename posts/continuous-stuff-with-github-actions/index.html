@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Continuous Stuff with GitHub Actions</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Continuous Stuff with GitHub Actions</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2020-03-30</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/devops"># devops</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p><em>This post was originally posted on my company's blog. Feel free to check out the <a href="https://subvisual.com/blog/posts/continuous-stuff-with-github-actions">original</a></em></p>
+<p>Last year, I took on the task of improving the continuous process over at <a href="https://utrust.com">Utrust</a>. We weren't really happy with
+the amount of work that went into our releases, and I was looking for a more agile approach, where everyone from
+developers to the QA team could do their part with low friction.</p>
+<p>Coincidentally, that project started right around the same time GitHub Actions went into public beta. Some of our
+problems were related to shortcomings on our existing CI solution, so it felt right to see what GitHub had to offer.</p>
+<p>I ended up pleasantly surprised. But first, let's talk about what exactly was wrong with our previous CI.</p>
+<h2 id="shortcomings-of-traditional-cis">Shortcomings of traditional CIs<a class="zola-anchor" href="#shortcomings-of-traditional-cis" aria-label="Anchor link for: shortcomings-of-traditional-cis">#</a></h2>
+<p>I've worked with a fair amount of CIs over the years...</p>
+<p><img src="https://naps62.com/posts/continuous-stuff-with-github-actions/./cis.png" alt="CIs" /></p>
+<HalfWidthImage img={ImgCI} alt="CIs" large={50} small={50} />
+<p>There was always something that seemed a bit off, though. They all do one simple, but very useful, thing: they react to
+commits</p>
+<p>The main use case for this is the now common one: to run tests for every new version of your code. But any kind of
+automated task can be triggered, really. A deploy is very common as well, or a preview build for testing.</p>
+<p>But a lot of these automations shouldn't necessarily need a commit. They are not triggered by changes in the code.
+Deploys might be triggered by some higher-level decision, or a QA team manually approving the latest version, which was
+committed days ago.</p>
+<h3 id="not-everything-is-a-commit">Not everything is a commit<a class="zola-anchor" href="#not-everything-is-a-commit" aria-label="Anchor link for: not-everything-is-a-commit">#</a></h3>
+<p>This led to the common practice of creating &quot;special&quot; ways to trigger these commits. In <a href="http://circleci.com/">CircleCI</a>, for
+example, you'd do something like this:</p>
+<pre data-lang="yaml" class="language-yaml "><code class="language-yaml" data-lang="yaml">workflows:
+  build:
+    release:
+      - deploy_to_staging:
+          filters:
+            branches:
+              only:
+                - staging
+</code></pre>
+<p>With this, commits to the <code>staging</code> branch would trigger a deploy to staging. Seems simple enough. But now you need
+a branch for every single environment. And probably quite a few <code>push -f</code> commands, or similar git sorceries to force
+a commit from your normal workflow into a branch whose history is messier than the plot of <a href="https://www.imdb.com/title/tt0390384/">Primer</a>.</p>
+<h2 id="github-api-to-the-rescue">GitHub API to the rescue<a class="zola-anchor" href="#github-api-to-the-rescue" aria-label="Anchor link for: github-api-to-the-rescue">#</a></h2>
+<p>The problem here is that we're solving things the wrong way. A deploy is not a commit. It's a deploy.</p>
+<p>And GitHub actually has a <a href="https://developer.github.com/v3/repos/deployments/">Deployments API</a> that encapsulates that exact concept. You can tell
+GitHub to create a deployment, by providing a certain git reference, an environment to which you want to deploy, and
+other optional parameters.</p>
+<p>GitHub will then collect this and build a history of all the deploys you requested, and the status of each one (which
+can be updated using the same API).</p>
+<p>This API won't really do anything by itself, though. It builds a nice log, but that's about it. You can subscribe to
+webhooks from this API though.</p>
+<p>So any 3rd party service could theoretically listen to these webhooks, and process the deployment you requested, instead
+of forcing you the come up with fancy ways to commit things in a particular way.</p>
+<p>None of these CIs seem to do that, though. And that's why GitHub Actions are so different.</p>
+<h2 id="github-action-triggers">GitHub Action triggers<a class="zola-anchor" href="#github-action-triggers" aria-label="Anchor link for: github-action-triggers">#</a></h2>
+<p>GitHub's new toy allows us to build jobs that can be triggered <a href="https://help.github.com/en/actions/reference/events-that-trigger-workflows">in a variety of ways</a>. You can
+have the traditional &quot;on every push&quot; jobs, but also more fancy stuff, such as &quot;on every deployment created&quot;, or even &quot;on
+every commit to an issue&quot;.</p>
+<pre data-lang="yaml" class="language-yaml "><code class="language-yaml" data-lang="yaml">name: GitHub Action Example
+
+on: [deployment]
+
+jobs:
+  steps:
+    # ...
+    - run: npm run deploy ${{ github.event.deployment.environment }}
+    # ...
+</code></pre>
+<p>This sample does not rely on a <code>git push</code> in any way. All that is needed to trigger it is to call the Deployments API,
+and the rest of the job can pick up parameters from the webhook's data to figure out what to do, such as what
+environment to deploy to.</p>
+<h2 id="preventing-redundant-builds">Preventing redundant builds<a class="zola-anchor" href="#preventing-redundant-builds" aria-label="Anchor link for: preventing-redundant-builds">#</a></h2>
+<p>One other thing that other CIs also aimed to achieve, is to optimize usage by preventing branches from triggering builds
+unless a Pull Request is open for them. The rationale here is that a work-in-progress branch rarely needs CI feedback,
+and would only waste resources. This is often a configurable option in CI settings. But with GitHub action triggers, we
+can do a bit more than that, by having that configuration in the source code itself:</p>
+<pre data-lang="yaml" class="language-yaml "><code class="language-yaml" data-lang="yaml">name: GitHub Action Example
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - &#x27;*&#x27;
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  # ...
+</code></pre>
+<p>We might want to always trigger builds for the master branch, or for every tag that is created. But for pull requests
+(which have their own webhook, and therefore, trigger), we can specify that only creation or updates to those Pull
+Requests' history should trigger the job.</p>
+<h2 id="manual-workflows-with-comments">Manual workflows with comments<a class="zola-anchor" href="#manual-workflows-with-comments" aria-label="Anchor link for: manual-workflows-with-comments">#</a></h2>
+<p>We can also react to comments on the Pull Request itself, which can be useful if you want a more seamless integration of
+some features.</p>
+<p>In my case, I wanted to deploy a preview version of Pull Requests to our frontend application. It wasn't efficient to
+do this for every single PR though (only a small subset of them actually need this), so we went with this instead:</p>
+<p><img src="https://naps62.com/posts/continuous-stuff-with-github-actions/./github-actions-comment.png" alt="Comments triggering GitHub Action" /></p>
+<p>Whenever someone comments on a Pull Request and includes the word &quot;preview&quot;, an Action will be triggered which will take
+that branch and deploy a live preview of it, so it can be easily tested.</p>
+<p>The ease with which this was all done by just using different hooks made this very pleasant to work with.</p>
+<h1 id="reusable-actions">Reusable actions<a class="zola-anchor" href="#reusable-actions" aria-label="Anchor link for: reusable-actions">#</a></h1>
+<p>A second issue I often had with previous CIs was the difficulty, or complete lack of a way to create reusable parts of
+your pipeline, so you can compose other jobs with them.</p>
+<p>Yes, YAML allows you to reuse blocks...</p>
+<pre data-lang="yaml" class="language-yaml "><code class="language-yaml" data-lang="yaml">
+component: &amp;component
+  foo: bar
+
+extension: *component
+  baz: biz
+</code></pre>
+<p>... but they don't look pretty, especially once they start to grow. And if you, like me, have any experience mantaining
+a large project with multiple CI worflows and configurations, you probably know that things tend to get out of hand.
+It's always a single YAML file, which can grow to hundreds of lines. You can reuse blocks of YAML, but they may end up
+running under different contexts (e.g.: different docker images, different dependencies installed, etc).</p>
+<p>CircleCI did introduce the concept of <a href="https://circleci.com/orbs/">Orbs</a> in their ecosystem, which attempts to tackle this. However,
+their reusability is limited.</p>
+<pre data-lang="yaml" class="language-yaml "><code class="language-yaml" data-lang="yaml"># circleci.yml
+
+push_s3:
+  executor: ubuntu
+  steps:
+    - my-custom-org&#x2F;my-custom-command:
+        arg: &#x27;foo&#x27;
+</code></pre>
+<p>This is a trimmed-down example, where a custom command is encapsulated in a <code>my-custom-orb</code> Orb. You may notice that the
+main config file is the one who specificies the execution environment (ubuntu, in this case). So, if the Orb tries to
+<code>yum install git</code>, this would fail, because that package manager isn't used in Ubuntu.</p>
+<p>So you end up with a mess of a script that does a whole bunch of magic just to figure out how to install the
+dependencies it needs. Check out <a href="https://naps62.com/posts/continuous-stuff-with-github-actions/orb-awscli">the actual source code</a> for the official Orb that installs <code>awscli</code> on
+your jobs. It's a bit of a mess, isn't it?</p>
+<p>You could delegate everything into a ready-to-go Docker container, and run whatever you need in there. But then you lose
+access to the overall filesystem of your original job, where you already cloned your project and created a bunch of
+useful artifacts. Not great, either.</p>
+<p>GitHub Actions solves this by allowing you to write reusable actions in two different ways. None of those are YAML, and
+both of those are way better:</p>
+<ol>
+<li>As a Docker container, but one that will automatically mount the local filesystem into it. You get access to
+everything your job has been doing so far and, since it's docker, you can pretty much install whatever dependencies
+you need, without caring about polluting the host job.</li>
+<li>In JavaScript. Which, as you may know, is a pretty powerful tool.</li>
+</ol>
+<p>Here's a basic GitHub Actions job:</p>
+<pre data-lang="yaml" class="language-yaml "><code class="language-yaml" data-lang="yaml">name: Demo
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout repo
+      uses: actions&#x2F;checkout@v2
+
+    - name: Install deps
+      run: npm install
+
+    - name: Run tests
+      run: npm run test
+</code></pre>
+<p>The first step here, <code>actions/checkout@v2</code> is what checks out your repo to the local filesystem. And it's actually done
+in JavaScript! The syntax, as you may tell, looks suspiciously like a link to a GitHub repo. And, well, it is. If you
+check <a href="https://github.com/actions/checkout/tree/v2.0.0">release <code>v2</code> on that repository</a>, you'll see the actual JS code used to clone your repo into
+the action.</p>
+<p>And of course, you're free to fork this action and edit it with your own customizations, if you need. The exact same
+flow that GitHub already allows for regular open-source work, now applied to their own CI.</p>
+<h2 id="ok-what-s-the-catch">Ok, what's the catch?<a class="zola-anchor" href="#ok-what-s-the-catch" aria-label="Anchor link for: ok-what-s-the-catch">#</a></h2>
+<p>As you may be able to tell, I like GitHub Actions quite a lot. They're not without their shortcomings though.</p>
+<p>I have 2 major concerns:</p>
+<ol>
+<li><strong>Still a new kid in the block</strong>. Public beta opened less than a year ago, which might be good enough of a reason to
+think twice before jumping into the hype-train. It's still in it's infancy and, as such, a lot of things may not be
+as polished as you'd expect. There's quite a lot of missing features being requested by the community, and hopefully
+we'll see them implemented soon enough.</li>
+<li><strong>No SSH access for debugging</strong>. This might fall under the previous point, but the lack of ability to debug failed
+actions by SSH'ing into the container was almost a deal breaker for me. I spent countless hours debugging things via
+trial-and-error that would have been way faster had I just been able to see what happened for myself.</li>
+</ol>
+<h2 id="wrapping-up">Wrapping up<a class="zola-anchor" href="#wrapping-up" aria-label="Anchor link for: wrapping-up">#</a></h2>
+<p>These drawbacks, as concerning as they may have been, didn't prevent me from using GitHub Actions over the past few
+months, and even performing a company-wide migration at <a href="https://utrust.com">Utrust</a>. This post was my way of compiling a short
+tutorial around how I started using them, and how they're so much different than previous CIs I've tried. By far, the
+ease with each I'm able to create reusable, encapsulated actions, and the ability to react not just to commits, but to
+any other event GitHub emits, is a very powerful tool.</p>
+<p>Let me know on <a href="https://twitter.com/naps62">twitter</a> if you have any thoughts about this!</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#shortcomings-of-traditional-cis">Shortcomings of traditional CIs</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#not-everything-is-a-commit">Not everything is a commit</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#github-api-to-the-rescue">GitHub API to the rescue</a>
+          
+        </li>
+        
+        <li>
+          <a href="#github-action-triggers">GitHub Action triggers</a>
+          
+        </li>
+        
+        <li>
+          <a href="#preventing-redundant-builds">Preventing redundant builds</a>
+          
+        </li>
+        
+        <li>
+          <a href="#manual-workflows-with-comments">Manual workflows with comments</a>
+          
+        </li>
+        
+        <li>
+          <a href="#reusable-actions">Reusable actions</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#ok-what-s-the-catch">Ok, what&#x27;s the catch?</a>
+            </li>
+            
+            <li>
+              <a href="#wrapping-up">Wrapping up</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

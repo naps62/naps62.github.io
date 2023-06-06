@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Tutorial: Deploying Elixir applications with Docker and Digital Ocean</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Tutorial: Deploying Elixir applications with Docker and Digital Ocean</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2017-05-24</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/elixir"># elixir</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p>While Elixir is becoming a popular language for web development, there is at least one topic that I still find lacking: Deploys.</p>
+<p>There are already several options out there, but the community has not yet adopted a standard way to solve this problem, so documentation is not that easy to find or follow.</p>
+<p>So I decided to compile what I consider to be a good standard for deploying a web application using Elixir &amp; Phoenix in this post. This isn't a one-size-fits-all solution. I would argue that there's no such thing.</p>
+<p>This is the solution to my particular problem:</p>
+<ul>
+<li>The focus is on development speed and getting something online fast</li>
+<li>You don't have special infrastructure needs (think Web Server + Database + maybe Redis or a couple of other services)</li>
+<li>You have a fast development cycle, possibly deploying to production several times every day</li>
+</ul>
+<p>That said, if you have different requirements, this tutorial can be a good starting point to learn how to work with some of the tools, and you might be able to adapt it to your special needs, so don't shy away just now!</p>
+<h2 id="table-of-contents">Table of Contents<a class="zola-anchor" href="#table-of-contents" aria-label="Anchor link for: table-of-contents">#</a></h2>
+<ol>
+<li><a href="https://naps62.com/posts/tutorial-deploying-elixir-applications/#elixir-releases">Elixir Releases</a></li>
+<li><a href="https://naps62.com/posts/tutorial-deploying-elixir-applications/#isolating-the-build">Isolating the build with docker</a></li>
+<li><a href="https://naps62.com/posts/tutorial-deploying-elixir-applications/#setting-up-compose">Setting up docker-compose</a></li>
+<li><a href="https://naps62.com/posts/tutorial-deploying-elixir-applications/#deploying-with-docker-machine">Deploying with docker-machine</a></li>
+<li><a href="https://naps62.com/posts/tutorial-deploying-elixir-applications/#running-migrations">Running Migrations</a></li>
+<li><a href="https://naps62.com/posts/tutorial-deploying-elixir-applications/#final-thoughts">Final thoughts</a></li>
+</ol>
+<p><span id="elixir-releases"></span></p>
+<h2 id="elixir-releases">Elixir Releases<a class="zola-anchor" href="#elixir-releases" aria-label="Anchor link for: elixir-releases">#</a></h2>
+<p>There are two ways to get your Elixir code running on a server. The first is to push it and run <code>mix phx.server</code> or whichever command your application uses to start itself.</p>
+<p>The second and most common approach is to build a release package. This is the approach I'll be focusing in here, but if for some reason you prefer the former method, adapting this tutorial shouldn't be hard. It mostly means you get to skip the first step.</p>
+<p>A release is a pre-compiled form of an Elixir/OTP application. It is stripped of anything not necessary for production use, requires almost no dependencies, and can be deployed anywhere (at least in theory, but more on that below).</p>
+<p>There are a couple of caveats to this approach, though:</p>
+<ol>
+<li>You lose the ability to run <code>mix</code> or other tools, which means that database migrations and other tasks, need to be done in some other way;</li>
+<li>You need to ensure the system architecture of the machine where the release is compiled matches the architecture of the server it'll run on.</li>
+</ol>
+<p>Both of these issues will be discussed later on in the post.</p>
+<h3 id="how-do-i-build-a-release">How do I build a release?<a class="zola-anchor" href="#how-do-i-build-a-release" aria-label="Anchor link for: how-do-i-build-a-release">#</a></h3>
+<p>There are a couple of tools that make it straightforward to generate releases:</p>
+<ol>
+<li><a href="https://github.com/bitwalker/distillery"><code>distillery</code></a> is currently the recommended project to use;</li>
+<li><a href="https://github.com/bitwalker/exrm"><code>exrm</code></a> is a previous project by the same author. Despite having been replaced by distillery recently, it is still worth mentioning due to its heavy use. It still has it's own page in the <a href="http://www.phoenixframework.org/v0.13.1/docs/advanced-deployment">Phoenix framework docs</a>, for instance.</li>
+</ol>
+<p>I'll be using distillery for this tutorial. However, I won't be using it directly, but via a Docker container, so that I can solve the system architecture problem mentioned above.</p>
+<p><span id="isolating-the-build"></span></p>
+<h2 id="isolating-the-build-with-docker">Isolating the build with docker<a class="zola-anchor" href="#isolating-the-build-with-docker" aria-label="Anchor link for: isolating-the-build-with-docker">#</a></h2>
+<p>The architectures of the server and the machine where we build our release need to match. So it's easy to see we can run into problems. We shouldn't have to worry about breaking our builds just by using a different computer.</p>
+<p>Building directly on the server is an option, of course, but that takes away a lot of flexibility from our hands. It would mean that our server needs all the dependencies necessary to build a release, and will also spend some computing power from our server, which might have noticeable effects, especially if you're on a budget.</p>
+<p>Instead, how about delegating the build process to a Docker container? That way, we ensure consistency, regardless of where we trigger the build. In the docker community, this is usually referred to as the <a href="http://blog.terranillius.com/post/docker_builder_pattern/">Builder Pattern</a>.
+We'll have one Docker container to build the release package, and a different one for running it, with only the bare minimum runtime dependencies.</p>
+<p>And that's exactly what <a href="https://github.com/Recruitee/mix_docker"><code>mix_docker</code></a> does for us. Out of the box, it includes two different Dockerfile descriptions, which are used to, respectively, build and release your Elixir app. Under the hood, it uses <a href="https://github.com/bitwalker/distillery"><code>distillery</code></a> to generate the releases.</p>
+<p>Note: We could also take advantage of Docker's new feature: <a href="https://docs.docker.com/engine/userguide/eng-image/multistage-build/#use-multi-stage-builds">Multi-stage builds</a>, but mix_docker does not yet support those, so we're going with the two Dockerfile approach for convenience.</p>
+<h3 id="building-a-release">Building a Release<a class="zola-anchor" href="#building-a-release" aria-label="Anchor link for: building-a-release">#</a></h3>
+<p>To set it up, add <code>mix_docker</code> to your <code>mix.exs</code> , and run <code>mix deps.get</code> . At the time of writing, the released version (0.3.0) does not work with Erlang 19, so I had to fetch the Github repo directly:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">def deps do
+  [
+    ...
+    {:mix_docker, github: &quot;Recruitee&#x2F;mix_docker&quot;},
+  ]
+end
+</code></pre>
+<p>And set it up using:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">$ mix docker.init
+</code></pre>
+<p>This will setup Distillery as well, creating a <code>rel/config.exs</code> file in your project.</p>
+<p>You might be interested in checking out <a href="https://hexdocs.pm/distillery/getting-started.html#configuration">Distillery's Configuration options</a> and change that file if you need to.</p>
+<p>Next, to build a release, run:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">$ mix docker.build
+</code></pre>
+<p>This copies your entire application to a minimal Docker image running Alpine Linux. The image contains only the essential packages to build your application, which is nothing more than an Erlang/Elixir installation.</p>
+<h3 id="releasing-a-release">Releasing a Release<a class="zola-anchor" href="#releasing-a-release" aria-label="Anchor link for: releasing-a-release">#</a></h3>
+<p>We now want this build to run on our server. For that, <code>mix_docker</code> provides another docker image and a command:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">$ mix docker.release
+</code></pre>
+<p>An Elixir release is a self-contained project that requires no dependencies (at least for a simple project, as is the case here), so this second container has nothing more than the same Alpine Linux installation with a couple of system libraries, making it very compact.</p>
+<h3 id="publishing-to-docker-hub">Publishing to Docker Hub<a class="zola-anchor" href="#publishing-to-docker-hub" aria-label="Anchor link for: publishing-to-docker-hub">#</a></h3>
+<p>Now we have a docker image that runs our app. Everything is contained there, so we just need to get that on a server. I use <a href="https://hub.docker.com/">Docker Hub</a> for that since it integrates nicely with the rest of the Docker toolkit.</p>
+<p>You need to set up an account and run <code>docker login</code> to connect locally.</p>
+<p>On the free plan, it allows only one private repository, which fortunately is enough for me. If that doesn't suit your needs, you can look into alternatives, such as <a href="https://docs.docker.com/registry/deploying/">hosting your own private Docker Registry</a>.</p>
+<p>Keeping with the Docker Hub approach:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">$ mix docker.publish --tag 0.1.0
+</code></pre>
+<p>Since my docker username is <code>naps62</code>, and considering <code>demo</code> as the name of this particular project, this would upload an image called <code>naps62/demo:0.1.0</code>.</p>
+<p>Having that out of the way, we still need a few things to make the containerized app work:</p>
+<ul>
+<li>Setting up any environment variables that might be necessary;</li>
+<li>Adding a database container as a dependency.</li>
+</ul>
+<p>In the next section, I'll explain how to use <a href="https://docs.docker.com/compose/">Docker Compose</a> to do just that.</p>
+<p><span id="setting-up-compose"></span></p>
+<h2 id="setting-up-docker-compose">Setting up docker-compose<a class="zola-anchor" href="#setting-up-docker-compose" aria-label="Anchor link for: setting-up-docker-compose">#</a></h2>
+<p>Compose is a tool that allows us to define and run a multi-container app, specifying how the networking and dependencies between them should work. Think of it as a low-scale orchestration tool.</p>
+<p>To use it for our app, we need to create a <code>docker-compose.yml</code> looking like this:</p>
+<pre data-lang="yaml" class="language-yaml "><code class="language-yaml" data-lang="yaml">version: &#x27;2.0&#x27;
+services:
+  web:
+    image: &#x27;naps62&#x2F;demo:0.1.0&#x27;
+    command: foreground
+    depends_on:
+      - db
+    ports:
+      - &#x27;4000:4000&#x27;
+    environment:
+      DATABASE_URL: &#x27;ecto:&#x2F;&#x2F;demo_db:demo_user@db&#x2F;demo_db&#x27;
+      PORT: 4000
+      POOL_SIZE: 10
+
+  db:
+    image: postgres:9.6.2
+    environment:
+      POSTGRES_DB: &#x27;demo_db&#x27;
+      POSTGRES_USER: &#x27;demo_user&#x27;
+      POSTGRES_PASSWORD: &#x27;demo_pass&#x27;
+</code></pre>
+<p>I won't go through in much detail since there are already a lot of tutorials covering Docker Compose ( <a href="https://docs.docker.com/compose/gettingstarted/">exhibit A</a>, <a href="https://blog.codeship.com/orchestrate-containers-for-development-with-docker-compose/">exhibit B</a>, <a href="https://thoughtbot.com/upcase/videos/intro-to-docker">exhibit C</a> ). I'll just to go through the relevant parts for this tutorial:</p>
+<ol>
+<li><code>image: &quot;naps62/demo:0.1.0&quot;</code> refers to the image we just built. Notice the tag must be updated if we release a new version. Or alternatively, we can use <code>image: &quot;naps62/demo:${TAG}&quot;</code> to get the release tag from an environment variable, making it easier to update it in the future;</li>
+<li><code>command: foreground</code> this is the command to be executed by the docker image. <code>foreground</code> just appends to be the executable included in a docker release to start the app. Other alternatives are available if we need to start it as a background job, but that is not what we need here;</li>
+<li><code>ports: &quot;4000:4000&quot;</code> sets the port forwarding to the default port used by the Phoenix server. We'll later add an nginx reverse proxy to redirect requests to this port;</li>
+<li><code>DATABASE_URL: &quot;ecto://..&quot;</code> This sets the full URL for Ecto to connect to our PostgreSQL database, which is running in a separate container. It contains the username, password, and database name;</li>
+</ol>
+<p>For that <code>DATABASE_URL</code> variable to be used, we also need to change our Ecto configs for production:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">## config&#x2F;prod.exs
+
+config :db, Demo.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: {:system, &quot;DATABASE_URL&quot;},
+  pool_size: 10,
+  ssl: false m
+</code></pre>
+<p>With this setup, we can get our entire system running with <code>docker-compose up</code>. But we want to do that on a remote server, not locally, so let's dive into that now:</p>
+<p><span id="deploying-with-docker-machine"></span></p>
+<h2 id="deploying-with-docker-machine">Deploying with Docker Machine<a class="zola-anchor" href="#deploying-with-docker-machine" aria-label="Anchor link for: deploying-with-docker-machine">#</a></h2>
+<p>Docker Machine is yet another tool in the large Docker ecosystem. It is used to handle docker installations and containers in remote machines without all the hassle of setting up a server manually and <code>ssh</code> 'ing into it.</p>
+<p>In this case, we'll be using it to create a Digital Ocean droplet (via their API, not manually), and run our app.</p>
+<h3 id="grab-your-digital-ocean-token">Grab your Digital Ocean token<a class="zola-anchor" href="#grab-your-digital-ocean-token" aria-label="Anchor link for: grab-your-digital-ocean-token">#</a></h3>
+<p>You'll need to get an API token from your Digital Ocean account so that Docker Machine can have access to it.</p>
+<p>Go to <a href="https://cloud.digitalocean.com/settings/api/tokens">https://cloud.digitalocean.com/settings/api/tokens</a> and create a new token:</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/notion-static/4e595b7b24fc4ba0994a2c492f247b5f/2017-05-10-163456_1135x433_scrot.png" alt="" /></p>
+<p>Now, copy it to your terminal as an environment variable:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">$ export DIGITAL_OCEAN_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+</code></pre>
+<h3 id="bonus-persist-your-token-with-a-secrets-file">Bonus: Persist your token with a secrets file<a class="zola-anchor" href="#bonus-persist-your-token-with-a-secrets-file" aria-label="Anchor link for: bonus-persist-your-token-with-a-secrets-file">#</a></h3>
+<p>To make this persistent, and prevent you from having to export this variable on every new terminal, you can create a <code>~/.secrets.sh</code> with the export command, and load it in your <code>.bashrc</code> or <code>.zshrc</code> :</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">[ -f ~&#x2F;.secrets.sh ] &amp;&amp; source ~&#x2F;.secrets.sh
+</code></pre>
+<p>Just remember not to commit this to your dotfiles repository, if you have one. And, of course, this is only an option if you have enough control over who uses your computer, so tread lightly.</p>
+<h3 id="create-droplet">Create Droplet<a class="zola-anchor" href="#create-droplet" aria-label="Anchor link for: create-droplet">#</a></h3>
+<p>Creating a droplet on Digital Ocean can be done with a single Docker Machine command, which will use the Digital Ocean API to do most of the work for us. Let's create a droplet called <code>docker-demo</code>:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">$ docker-machine create --driver=digitalocean --digitalocean-access-token=$DIGITAL_OCEAN_TOKEN --digitalocean-size=512mb docker-demo
+</code></pre>
+<p>That's it! The new droplet has Docker up and running, and an SSH key was created automatically for you, allowing you to run <code>docker-machine ssh docker-demo</code> to access its shell if needed.</p>
+<p>But to deploy our app, there's an even easier way.</p>
+<h3 id="running-docker-compose-remotely">Running Docker Compose remotely<a class="zola-anchor" href="#running-docker-compose-remotely" aria-label="Anchor link for: running-docker-compose-remotely">#</a></h3>
+<p>Docker Compose supports running containers on remote hosts rather than locally. For this, only a few environment variables are needed to point to the correct host, and Docker Machine also has us covered there:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">$ eval $(docker-machine env docker-demo)
+</code></pre>
+<p>After running the above command, our terminal will have set <code>DOCKER_HOST</code> and a couple of other variables, pointing to the droplet we created.</p>
+<p>And just like magic, we can now seamlessly start our docker containers on that host:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">$ docker-compose up -d
+</code></pre>
+<p>All of Compose's commands will work as before, but their effects will happen remotely instead. The <code>-d</code> option ensures the containers are run as a background process, so our app is now fully running. You can run <code>docker-compose ps</code> to see the proof</p>
+<p>Once you're done, you can either open a new terminal or run <code>eval $(docker-machine env -u)</code> to unset the environment variables and go back to local mode.</p>
+<p>Now our app is running in a remote droplet, but it's not yet accessible to the outside world. Let's fix that with an nginx reverse proxy.</p>
+<h2 id="nginx-reverse-proxy">Nginx reverse proxy<a class="zola-anchor" href="#nginx-reverse-proxy" aria-label="Anchor link for: nginx-reverse-proxy">#</a></h2>
+<p>We first need to install nginx on the droplet, since it doesn't come pre-installed:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">$ docker-machine ssh docker-demo
+root@docker-demo:~$ sudo apt-get install nginx
+</code></pre>
+<p>All that's left is a simple nginx configuration, pointing all requests to port 4000, which we previously exposed in our Compose configuration. Add the following as <code>etc/nginx/sites-enabled/your-website.conf</code>, replacing <code>your-website.com</code> with the actual URL you want to use:</p>
+<pre data-lang="nginx" class="language-nginx "><code class="language-nginx" data-lang="nginx">upstream your-website {
+  server 127.0.0.1:4000;
+}
+
+server {
+  listen 80;
+  server_name [your-website.com](http:&#x2F;&#x2F;your-website.com) www.your-website.com;
+
+  location &#x2F; {
+    proxy_pass http:&#x2F;&#x2F;your-website;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Host $server_name;
+  }
+}
+</code></pre>
+<p>After this, run <code>service nginx start</code> to start the process. If you already did the previous <code>docker-compose up -d</code>, then your app should now be accessible. Congratulations!</p>
+<p><span id="running-migrations"></span></p>
+<h2 id="running-migrations">Running migrations<a class="zola-anchor" href="#running-migrations" aria-label="Anchor link for: running-migrations">#</a></h2>
+<p>Now that you successfully deployed an Elixir web app, you need to take care of updates as well. One of the most common maintenance tasks of updating an app is to run database migrations.</p>
+<p>In development, you usually do this by running <code>mix ecto.migrate</code> , but you might remember that, at the beginning of the post, I mentioned that this is not an option for release builds. The mix interface is not available in production, so we need a different solution.</p>
+<p>Fortunately, it is really easy to run migrations programmatically, and both Ecto and Distillery provide us with the necessary tools.</p>
+<p>With Distillery, we can specify hook scripts that will be executed when our app first starts. And through these scripts, we can make an RPC call to our app, triggering some code that will run the migration.</p>
+<h3 id="running-migrations-programmatically">Running migrations programmatically<a class="zola-anchor" href="#running-migrations-programmatically" aria-label="Anchor link for: running-migrations-programmatically">#</a></h3>
+<p>Define the following module somewhere in your codebase:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule Demo.Release.Tasks do
+  def migrate do
+     {:ok, _} = Application.ensure_all_started(:demo)
+
+     path = Application.app_dir(:demo, &quot;priv&#x2F;repo&#x2F;migrations&quot;)
+
+    Ecto.Migrator.run(Demo.Repo, path, :up, all: true)
+  end
+end
+</code></pre>
+<p>This calls the Ecto API, which goes through your migrations and runs any new ones.</p>
+<p>We now need to trigger this code to be called when our app is deployed, using a hook that Distillery provides us. Edit the production section of your <code>rel/config.exs</code> file:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">...
+
+environment :prod do
+  ...
+
+  # add this line
+  set post_start_hook: &quot;rel&#x2F;hooks&#x2F;post_start&quot;
+</code></pre>
+<p>This references a <code>rel/hooks/post_start</code> file, which we will now create. This is actually a regular shell script where we can do whatever we need.</p>
+<p>In this case, we're going to use RPC to call the Elixir function defined above:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">##!&#x2F;bin&#x2F;sh
+
+set +e
+
+while true; do
+  nodetool ping
+  EXIT_CODE=$?
+
+  if [ $EXIT_CODE -eq 0 ]; then
+    echo &quot;Application is up!&quot;
+    break
+  fi
+done
+
+set =e
+
+echo &quot;Running migrations&quot;
+bin&#x2F;demo rpc Elixir.Release.Tasks migrate
+echo &quot;Migrations run successfully&quot;
+</code></pre>
+<p>Now every time the app is deployed, our migration task will be called.</p>
+<p>You can see that this is not tied to database migrations in any way. We can easily add other kinds of tasks to this hook, making it a very generic way of having additional deployment tasks running.</p>
+<p><span id="final-thoughts"></span></p>
+<h2 id="final-thoughts">Final thoughts<a class="zola-anchor" href="#final-thoughts" aria-label="Anchor link for: final-thoughts">#</a></h2>
+<p>If you enjoyed this tutorial, or if you have any questions feel free to reach me out through <a href="https://twitter.com/naps62">Twitter</a> or via the comments below.</p>
+<p>Or, if you're ready to take it to the next step, you can also take some hints from our tutorial for <a href="https://subvisual.co/blog/posts/130-how-to-build-offline-web-applications-with-couchdb-and-pouchdb">building offline web applications</a>.</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#table-of-contents">Table of Contents</a>
+          
+        </li>
+        
+        <li>
+          <a href="#elixir-releases">Elixir Releases</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#how-do-i-build-a-release">How do I build a release?</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#isolating-the-build-with-docker">Isolating the build with docker</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#building-a-release">Building a Release</a>
+            </li>
+            
+            <li>
+              <a href="#releasing-a-release">Releasing a Release</a>
+            </li>
+            
+            <li>
+              <a href="#publishing-to-docker-hub">Publishing to Docker Hub</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#setting-up-docker-compose">Setting up docker-compose</a>
+          
+        </li>
+        
+        <li>
+          <a href="#deploying-with-docker-machine">Deploying with Docker Machine</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#grab-your-digital-ocean-token">Grab your Digital Ocean token</a>
+            </li>
+            
+            <li>
+              <a href="#bonus-persist-your-token-with-a-secrets-file">Bonus: Persist your token with a secrets file</a>
+            </li>
+            
+            <li>
+              <a href="#create-droplet">Create Droplet</a>
+            </li>
+            
+            <li>
+              <a href="#running-docker-compose-remotely">Running Docker Compose remotely</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#nginx-reverse-proxy">Nginx reverse proxy</a>
+          
+        </li>
+        
+        <li>
+          <a href="#running-migrations">Running migrations</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#running-migrations-programmatically">Running migrations programmatically</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#final-thoughts">Final thoughts</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

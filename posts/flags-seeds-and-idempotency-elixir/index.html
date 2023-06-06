@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Flags, Seeds and Idempotency: Database Tooling with Elixir</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Flags, Seeds and Idempotency: Database Tooling with Elixir</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2019-02-19</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/elixir"># elixir</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p><em>Note: This post was originally written on <a href="https://blog.appsignal.com/2019/09/10/flags-seeds-idempotency-elixir.html">AppSignal's Elixir Alchemy Blog</a></em></p>
+<p>Today we stir into our cauldron of magic potions and idempotence, and brew some neat Elixir database tooling. We’ll do so by going through my experience of setting up my own.</p>
+<p>Coming from Ruby on Rails, one of the things that I’ve seen lacking in the Elixir space when it comes to web applications is the helpful tooling that existed in the ecosystem to deal with databases in production. In this post, we’ll cover some of these and see how we can create similar tools in Elixir.</p>
+<h2 id="customizing-the-workflow-when-setting-up-a-database">Customizing the Workflow When Setting up a Database<a class="zola-anchor" href="#customizing-the-workflow-when-setting-up-a-database" aria-label="Anchor link for: customizing-the-workflow-when-setting-up-a-database">#</a></h2>
+<p>Most deployment solutions for Ruby on Rails would handle the setup of the database, tying directly into the way they are configured in the framework. This often included such things as:</p>
+<ul>
+<li>Creating and setting up the initial database</li>
+<li>Running all existing migrations</li>
+<li>Seeding the database</li>
+<li>Continuously running new migrations as they get added in future releases</li>
+</ul>
+<p>This was all part of the ecosystem and was often taken for granted. But actually, there’s a lot of work involved in plugging all those things together. And sometimes, assumptions were made that made it difficult to tweak this flow to your particular needs.</p>
+<p>What if you have some kind of horizontal scaling on your application and need a more custom way to decide when and how migrations are executed? Or simply, what if you want to customize the order or the way each of these steps is done?</p>
+<p>The Ruby way of convention-over-configuration is pretty cool, especially when it comes to being a friendly environment for newcomers. But sometimes, the Elixir approach of explicitness has its benefits as well.</p>
+<p>With my latest projects, I ended up with some behavior where the ability to fully customize this workflow came in very handy. This ended up in a way that ensures our database is always in a ready state across deploys and even across database resets. Let’s dive into what we did and learned!</p>
+<h2 id="running-migrations">Running Migrations<a class="zola-anchor" href="#running-migrations" aria-label="Anchor link for: running-migrations">#</a></h2>
+<p>As an introduction, let’s first see how migrations can be executed on Elixir. I’ll be using <a href="https://github.com/bitwalker/distillery">distillery releases</a> to showcase this, but the process is pretty much translatable to any other Elixir/Erlang system.</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule MyApp.Migrator do
+def run do
+{:ok, _} = Application.ensure_all_started(:my_app)
+
+path = Application.app_dir(:my_app, &quot;priv&#x2F;repo&#x2F;migrations&quot;)
+
+Ecto.Migrator.run(MyApp.Repo, path, :up, all: true)
+  end
+  end
+</code></pre>
+<p>The above module provides a function that executes migrations for a particular Repo in our application. Right from the start, we notice that all of this is very easily customizable since it’s pure Elixir code that we can change ourselves. Do you have two repos with different migration directories for each? Do you have an umbrella app with several repos spread across it? All of that can be handled here, according to your application’s needs.</p>
+<p>The above function is pretty much the equivalent of <code>mix ecto.migrate</code>. But mix tasks aren’t available in Elixir releases, which is why we end up having to write them ourselves.</p>
+<p>To run this within our release, we can run this script as a start hook:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir"># rel&#x2F;pre_start_hooks&#x2F;10_migrate.sh
+
+$RELEASE_ROOT_DIR&#x2F;bin&#x2F;my_app command Elixir.MyApp.Migrator run
+
+
+# rel&#x2F;config.exs
+
+# ...
+
+release :my_app do
+ # ...
+
+ set(pre_start_hooks: &quot;rel&#x2F;pre_start_hooks&quot;)
+
+ set(
+   commands: [
+     migrate: &quot;rel&#x2F;pre_start_hooks&#x2F;10_migrate.sh&quot;
+   ]
+ )
+end
+</code></pre>
+<p>These two additions to our Distillery setup will ensure that the migration function is called every time the application starts (which means, every time we deploy a new version). So migrations will end up running automatically as they’re deployed.</p>
+<h2 id="seeding-your-database">Seeding Your Database<a class="zola-anchor" href="#seeding-your-database" aria-label="Anchor link for: seeding-your-database">#</a></h2>
+<p>Now that we have played around with migrations, let’s look into seeding your database. Usually, <code>mix seed</code> will be used to insert initial records in your database. These are the records your app needs to function properly before your users get to it.</p>
+<p>This task just runs an Elixir script stored in <code>priv/repo/seeds.exs</code>. But as we’ve seen, Mix tasks are not available within a release.</p>
+<p>Usually, your seeds file will consist of something like this:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">[&quot;user&quot;, &quot;admin&quot;, &quot;editor&quot;]
+|&gt; Enum.each(fn role -&gt;
+  MyApp.Role.new(name: role)
+  |&gt; MyApp.Repo.insert()
+end)
+
+MyApp.User.new(name: &quot;Admin&quot;, role: &quot;admin&quot;)
+|&gt; MyApp.Repo.insert()
+</code></pre>
+<p>To set this up within Distillery, I moved this logic into its own compiled module rather than an .exs script:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule MyApp.Seeds do
+  def run do
+    [&quot;user&quot;, &quot;admin&quot;, &quot;editor&quot;]
+    |&gt; Enum.each(fn role -&gt;
+      MyApp.Role.new(name: role)
+      |&gt; MyApp.Repo.insert()
+    end)
+
+    MyApp.User.new(name: &quot;Admin&quot;, role: &quot;admin&quot;)
+    |&gt; MyApp.Repo.insert()
+  end
+end
+</code></pre>
+<p>The <code>priv/repo/seeds.exs</code> script still exists, but it just calls the newly created function:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir"># priv&#x2F;repo&#x2F;seeds.exs
+
+MyApp.Seeds.run()
+</code></pre>
+<p>This way, we’re ready to set it up as a Distillery pre-start hook.</p>
+<p>This is usually fine for local development, but if you’re setting this up as a pre-start hook, it means this script will be executed over and over again, after each new deploy. If you’re not careful, you may end up inserting duplicate seed data each time.</p>
+<p>One could solve this with some tricks that try and check if seeds were already run (such as setting a flag somewhere in the database and checking for it). But there’s a much more powerful way: Idempotent seeds.</p>
+<h2 id="idempotent-seeds">Idempotent Seeds<a class="zola-anchor" href="#idempotent-seeds" aria-label="Anchor link for: idempotent-seeds">#</a></h2>
+<p>Let’s get to the coolest stuff!</p>
+<blockquote>
+<p><strong>Idempotence</strong> is the property of certain operations in mathematics and computer science whereby they can be applied multiple times without changing the result beyond the initial application.</p>
+</blockquote>
+<p>In short, an idempotent operation is one that you can harmlessly run multiple times, without fear of ending up with duplicate or accumulated results. For database seeds, ensuring their idempotency means you don’t need to worry about ending up with multiple admin users, for example.</p>
+<p>As it turns out, another very useful feature of moving seeds logic into a compiled module is the ability to unit-test them! Which is what I did:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule MyApp.SeedsTest do
+  use MyApp.DataCase, async: false
+
+  test &quot;creates an admin user&quot; do
+    MyApp.Seeds.run()
+
+    assert admin = MyApp.Repo.one(MyApp.User)
+    assert admin.role == &quot;admin&quot;
+  end
+
+  test &quot;admin user creation is idempotent&quot; do
+    MyApp.Seeds.run()
+    MyApp.Seeds.run()
+
+    user_count = MyApp.Repo.aggregate(MyApp.User, :count, :id)
+    assert user_count == 1
+  end
+end
+</code></pre>
+<p>The first test ensures the seed does what it’s supposed to (in this case, the simple creation of a role in the database). The second one ensures that running the seeds twice doesn’t affect the final result.</p>
+<p>In a complex system where your codebase is constantly evolving, and the rest of your team is building features on top of other features, it’s common for someone to accidentally add changes that don’t behave as expected once they go live. It’s easy for a developer on your team to add a few new seeds, forgetting how that will play out in production. Let’s see a more practical example of this.</p>
+<h2 id="seeding-feature-flags">Seeding Feature Flags<a class="zola-anchor" href="#seeding-feature-flags" aria-label="Anchor link for: seeding-feature-flags">#</a></h2>
+<p>One feature we rely a lot on is feature flags, which give us the ability to toggle behavior on and off without requiring a new release. In Elixir, I do this using the <a href="https://github.com/tompave/fun_with_flags">FunWithFlags package</a>.</p>
+<p>When a new flag is being added to the codebase, its initial value may not be too trivial to introduce. Are we adding a new feature, and therefore the flag should start out as <code>false</code>? Or are we wrapping an existing feature around a flag, so that we can later remove or change it, in which case the flag should be <code>true</code> by default, so as to preserve behavior?</p>
+<p>This may even change between environments. We may want certain flags to be enabled by default on our staging system but disabled in production until we manually enable them.</p>
+<p>This requirement ties in nicely with our ability to run seeds for our application in an idempotent way, check it out:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule MyApp.FlagsSeeds do
+  def run do
+    set_flag_if_not_set(:new_disabled_feature, false)
+    if System.get_env(&quot;ENV_NAME&quot;) == &quot;staging&quot; do
+      set_flag_if_not_set(:new_staging_feature, true)
+    else
+      set_flag_if_not_set(:new_staging_feature, false)
+    end
+  end
+
+  defp set_flag_if_not_set(flag_name, value) do
+    {:ok, existing} = FunWithFlags.all_flag_names()
+
+    cond do
+      Enum.member?(existing, flag_name) -&gt;
+        # flag already exists. skip operation
+        nil
+
+      value == true -&gt;
+        FunWithFlags.enable(flag_name)
+
+      value == false -&gt;
+        FunWithFlags.disable(flag_name)
+
+      true -&gt;
+        raise &quot;Invalid flag value&quot;
+    end
+  end
+end
+</code></pre>
+<p>With this module, we’re able to programmatically define the initial value of our seeds, which can be dependent on some other factor, such as which environment we’re running in.</p>
+<p>The <code>set_flag_if_not_set/2</code> function is the materialization of our idempotency requirement. We wouldn’t want a new release to disable a flag that we have already manually enabled, right?</p>
+<p>By first checking if the flag already exists, we ensure two things:</p>
+<p>This flags module is idempotent since a second run will skip all flags
+It only works for unset flags, allowing us to manually set their values when needed, without fear of being overridden
+We can get even fancier when testing this:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule MyApp.FlagSeedsTest do
+  use MyApp.DataCase, async: false
+
+  test &quot;is idempotent&quot; do
+    MyApp.FlagSeeds.run()
+    current_flags = FunWithFlags.all_flags()
+
+    MyApp.FlagSeeds.run()
+    new_flags = FunWithFlags.all_flags()
+
+    assert current_flags == new_flags()
+  end
+
+end
+</code></pre>
+<p>Now, if I or someone else on my team wrongfully change the seeds file in a way that breaks idempotency, our test suite will catch that before it even reaches a live environment, saving everyone a lot of trouble.</p>
+<h2 id="wave">👋<a class="zola-anchor" href="#wave" aria-label="Anchor link for: wave">#</a></h2>
+<p>I hope you enjoyed this little dive into some of the tooling we built, and that you’ve picked up some things you can use yourself. 👋</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#customizing-the-workflow-when-setting-up-a-database">Customizing the Workflow When Setting up a Database</a>
+          
+        </li>
+        
+        <li>
+          <a href="#running-migrations">Running Migrations</a>
+          
+        </li>
+        
+        <li>
+          <a href="#seeding-your-database">Seeding Your Database</a>
+          
+        </li>
+        
+        <li>
+          <a href="#idempotent-seeds">Idempotent Seeds</a>
+          
+        </li>
+        
+        <li>
+          <a href="#seeding-feature-flags">Seeding Feature Flags</a>
+          
+        </li>
+        
+        <li>
+          <a href="#wave">👋</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

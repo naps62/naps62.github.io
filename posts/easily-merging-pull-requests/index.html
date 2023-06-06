@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Easily Merging Pull Requests</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Easily Merging Pull Requests</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2014-11-24</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/productivity"># productivity</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p>I try to automate all the annoying repetitive things I can. And not long ago, merging Pull Request was certainly on top of my list.</p>
+<p>Whether it is for my own personal projects or within <a href="https://www.groupbuddies.com/">Group Buddies</a>, the process is mostly the same all the time:</p>
+<ol>
+<li><strong>Update my local copy of the master branch</strong>, or whichever branch the pull request was targeting.</li>
+<li><strong>Go back to the branch I'm about to merge, and rebase it against master</strong>. Conflicts might show up here, and should be solved.</li>
+<li><strong>Merge the branch</strong>. By this point, not event the GitHub one-click merge is helpfull, since I would still have to push my local changes again (possibly using <code>-f</code> due to the rebase). Also, going back and forth between the browser is just tedious.</li>
+<li><strong>Delete the branch, both locally and remotely</strong>, since it is no longer needed.</li>
+</ol>
+<p>Fortunately git is easily extensible. You can add subcommands to git by having executables following the appropriate naming convention <code>git-subcommand</code>, and placing them in your <code>$PATH</code>. So, for instance, whenever you call <code>git hello</code>, git will look for an executable called <code>git-hello</code>.
+Zamith already covered this in his last post, <a href="https://blog.groupbuddies.com/posts/43-supercharge-your-git">Supercharge your git</a></p>
+<h2 id="the-goal">The goal<a class="zola-anchor" href="#the-goal" aria-label="Anchor link for: the-goal">#</a></h2>
+<p>Ultimately, I wanted to be able to just run <code>git close-pull-request</code> while on a feature branch, and have the command do all the work for me. I eventually aliased that to <code>git cpr</code>, since the name was obviously too long.</p>
+<p>Another goal I had was portability. For these kind of work, I tend to stick with languages that are supported natively on any Linux distribution (like shell scripting or Perl). Since I do a fair amount of work on virtual machines, or even Raspberry Pi's, it's useful for me not to rely on Ruby for my workflow. This time, I went with shell scripting.</p>
+<h2 id="the-script">The script<a class="zola-anchor" href="#the-script" aria-label="Anchor link for: the-script">#</a></h2>
+<p>Here's the full script I wrote to close (the entire flow I described above):</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">##!&#x2F;bin&#x2F;sh
+
+current=$(git branchname)
+destiny=${1:-master}
+
+## 1. Update destiny
+git fetch
+git checkout $destiny
+[[ $? == 0 ]] || exit &quot;failed to switch to $destiny&quot;
+git rebase
+
+## 2. rebase PR branch
+git checkout $current
+git rebase -i $destiny
+
+## 3. merge
+git checkout $destiny
+git merge --ff-only $current
+git push
+
+## 4. remove branch
+git nuke $current $destiny
+</code></pre>
+<p>Don't bother about the <code>git nuke</code> for now, it's another custom command, and is explained below.
+Let's go through this one step at a time. First, I declare a couple of variables:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">current=$(git branchname)
+destiny=${1:-master}
+</code></pre>
+<h3 id="variables">Variables<a class="zola-anchor" href="#variables" aria-label="Anchor link for: variables">#</a></h3>
+<p>The <code>current</code> variable gets the name of the current branch. which will be the one corresponding to the Pull Request I'm merging. For that I use another custom command <code>branchname</code>, which is simply the following:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">##!&#x2F;bin&#x2F;sh
+git rev-parse --abbrev-ref HEAD
+</code></pre>
+<p>And the <code>destiny</code> variable states the branch to which I want to merge, which comes from the first argument. That weird syntax (if you're not familiar with shell scripting), indicates that if no argument is given, it will default to <code>master</code>, which is the value I want most of the time.</p>
+<p>So by calling <code>git cpr</code> with no arguments, I'm merging with <code>master</code>, but I can override that by calling <code>git cpr other-branch</code></p>
+<h2 id="1-update-master">1. Update master<a class="zola-anchor" href="#1-update-master" aria-label="Anchor link for: 1-update-master">#</a></h2>
+<p>The first step is updating the master branch. This should be a simple fetch/rebase. But in practice, I needed one extra check in between:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">[[ $? == 0 ]] || exit &quot;failed to switch to $current&quot;
+</code></pre>
+<p>This is because, switching between branches with <code>checkout</code> might fail. For instance, if there are unstaged changes waiting to be committed. In this scenario, I want to play it safe and just abort the script with <code>exit</code>. No harm done.</p>
+<h2 id="2-rebase-branch">2. Rebase branch<a class="zola-anchor" href="#2-rebase-branch" aria-label="Anchor link for: 2-rebase-branch">#</a></h2>
+<p>After that, I want to rebase the target branch against master. I do this with an interactive rebase, since I usually want to squash or reword some commits.
+If there are conflicts, the rebase itself will abort and prevent the rest of the script from going on. When that happens, I have to solve the conflicts like I normally would, and then try the command again.</p>
+<h2 id="3-merge">3. Merge<a class="zola-anchor" href="#3-merge" aria-label="Anchor link for: 3-merge">#</a></h2>
+<p>The third step involves going back to master and merging the branch. There is no rocket science here. I used the <code>--ff-only</code> option just to make sure I'm not creating a merge commit. That shouldn't happen anyway since I'm rebasing both branches prior to the merge, but you can never be too safe.</p>
+<h2 id="4-delete-the-feature-branch">4. Delete the feature branch<a class="zola-anchor" href="#4-delete-the-feature-branch" aria-label="Anchor link for: 4-delete-the-feature-branch">#</a></h2>
+<p>For this I'm using yet another custom command. I extracted this since I ended up using it a lot to clean up old branches. Here it is:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">branch=$1
+destiny=${2:-master}
+git checkout $destiny
+git push --delete origin $branch &gt; &#x2F;dev&#x2F;null &amp;
+git branch -D $branch
+</code></pre>
+<p>I start by moving to another branch (to prevent problems when I trying to delete the branch I'm currently in). Then I just call the commands to delete both the remote branch on GitHub, and the local one.</p>
+<p>I'm sending that to the background because it might take a second or two to finish, and I also don't care for it's output, which would show up randomly later since the terminal didn't wait for it.</p>
+<h2 id="further-reading">Further reading<a class="zola-anchor" href="#further-reading" aria-label="Anchor link for: further-reading">#</a></h2>
+<p>There are a lot of suggestions out there on how to extend git, but a few I would recommend are <a href="https://gitorious.org/willgit/mainline/source/a84bba3726a19bc78086852d54bb0219ea1bb6f9:bin/git-wtf">git-wtf</a> and <a href="https://gitorious.org/willgit/mainline/source/a84bba3726a19bc78086852d54bb0219ea1bb6f9:bin/git-publish-branch#L6">git-publish-branch</a> (although the latter is not that much useful since the latest git updates).</p>
+<p>Additionally, I suggest you check out <a href="https://hub.github.com/">hub</a>, or the newer and faster alternative, <a href="https://owenou.com/gh/">gh</a>. Both of these add extra functionality that might prevent you from having to write your own custom scripts.</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#the-goal">The goal</a>
+          
+        </li>
+        
+        <li>
+          <a href="#the-script">The script</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#variables">Variables</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#1-update-master">1. Update master</a>
+          
+        </li>
+        
+        <li>
+          <a href="#2-rebase-branch">2. Rebase branch</a>
+          
+        </li>
+        
+        <li>
+          <a href="#3-merge">3. Merge</a>
+          
+        </li>
+        
+        <li>
+          <a href="#4-delete-the-feature-branch">4. Delete the feature branch</a>
+          
+        </li>
+        
+        <li>
+          <a href="#further-reading">Further reading</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

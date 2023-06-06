@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>A knowledge base with Vim, Fzf and Ripgrep</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>A knowledge base with Vim, Fzf and Ripgrep</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2020-07-27</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/productivity"># productivity</a><a href="https://naps62.com/tags/vim"># vim</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p>I've been trying to grow my own knowledge base for a long time now, by keeping
+track of multiple notes taken from books, quotes, and other sources of
+knowledge.</p>
+<p>Now, and after a few iterations, I'm moving that to a more Unix-oriented
+approach, which I'm presenting here.</p>
+<p><strong>TL;DR: I built my own terminal-based Zettelkasten system. Checkout the
+Readme and source code <a href="https://github.com/naps62/zk">at Github</a>.</strong></p>
+<h2 id="my-sources">My sources<a class="zola-anchor" href="#my-sources" aria-label="Anchor link for: my-sources">#</a></h2>
+<p>I'm both the worst person at note taking, and the kind of person that needs
+note-taking the most. My memory sucks, but so does my caligraphy.</p>
+<p>Like most other people, I consume information from several different sources. Here's a few:</p>
+<ul>
+<li>Throughout my work (google searches, stack overflow, conversations, etc)</li>
+<li>Books, which I mostly consume with my Kindle, and sometimes <a href="https://www.audible.com">Audible</a></li>
+<li>Articles (via both <a href="https://feedly.com">Feedly</a> and <a href="https://app.getpocket.com">Pocket</a>)</li>
+<li>Podcasts</li>
+</ul>
+<p>You may notice that I'm very digital-oriented. I do that both as a way to live
+a more minimalistic lifestyle (less physical items + easier to travel), but also
+to be able to retrieve information more easily.</p>
+<p>Using my Kindle allows me to highlight any quote I want to save for later. Same
+goes for my news feeds. Audible also has a clipping feature, although it's
+a bit more awkward to use, and doesn't provide any kind of programatic access to
+text. For more ad-hoc situations, such as a conversation, a quick note on
+<a href="https://todoist.com">Todoist</a> also works really well.</p>
+<p>Throughout my day, I want the ability to quickly highlight pieces of
+information, with the least amount of friction possible.</p>
+<p>Periodically, usually at the end of each month, I'll go through all new notes,
+and organize them into my own knowledge base, with two main goals in mind:</p>
+<ol>
+<li>To condense any potentially useful knowledge in an accessible way</li>
+<li>To go through everything a second time (or more), to consolidate knowledge.</li>
+</ol>
+<p>Whenever I, later on, want to remind myself of a particular concept, or even
+find a particular quote or definition to include in a talk I'm building, I'll
+often go back to this knowledge base. I'll also make a point to revisit notes
+for a particular book at some point in the future, doing a slightly informal
+version of <a href="https://en.wikipedia.org/wiki/Spaced_repetition">Spaced
+Repetition</a></p>
+<p>So here's how I built this knowledge base:</p>
+<h2 id="first-draft-notion">First draft: Notion<a class="zola-anchor" href="#first-draft-notion" aria-label="Anchor link for: first-draft-notion">#</a></h2>
+<p>My first version of this knowledge base was built with
+<a href="https://notion.so">Notion</a>.</p>
+<p>Notion is a text editor with superpowers. It allows me to create whatever
+hierarchy I want. It supports full-text search. And works on all platforms
+without any extra effort, meaning I can have my knowledge available at all
+times.</p>
+<p>I can create a page for each book I read:</p>
+<p><img src="https://naps62.com/posts/knowledge-base/./notion-index.png" alt="notion index" /></p>
+<p>And within those pages, I can use a markdown-like syntax to list highlights:</p>
+<p><img src="https://naps62.com/posts/knowledge-base/./notion-thinking-systems.png" alt="notion systems" /></p>
+<p>But this didn't fit my own workflow very easily.</p>
+<p>I'm a long-time linux user, and I've come to learn how to be productive with
+tools that I have available on my terminal. So it made sense to me that my
+knowledge base should be accessible on my terminal as well, and taking advantage
+of the tools that I already know and love.</p>
+<p>This also allowed me to build some custom features that I've been wanting for
+some time.</p>
+<p>Which is why I build my own zettelkasten setup.</p>
+<h2 id="a-zettelkasten">A Zettelkasten<a class="zola-anchor" href="#a-zettelkasten" aria-label="Anchor link for: a-zettelkasten">#</a></h2>
+<blockquote>
+<p>a knowledge management and note-taking method used in research and study</p>
+</blockquote>
+<p><em><a href="https://en.wikipedia.org/wiki/Zettelkasten">Wikipedia</a></em></p>
+<p>I've actually only learned of this name recently, when reading <a href="https://superorganizers.substack.com/p/how-to-build-a-learning-machine">a blog
+post</a> that ended up being one of the inspirations for this
+work.</p>
+<p>A zettelkasten is a personal knowledge base. The name is of german origin,
+&quot;Zettel&quot; meaning note, and &quot;Kasten&quot; meaning box.</p>
+<p>It's not a concrete methodology, or a specific way of organizing information.
+It's nothing more than a metaphorical box of notes.</p>
+<h2 id="a-unix-based-zettelkasten">A unix-based zettelkasten<a class="zola-anchor" href="#a-unix-based-zettelkasten" aria-label="Anchor link for: a-unix-based-zettelkasten">#</a></h2>
+<p>To this end, I ended up building my own set of scripts to manage a knowledge
+base, by stitching together multiple tools that are already part of my daily
+workflow.</p>
+<h3 id="notes-as-markdown">Notes as markdown<a class="zola-anchor" href="#notes-as-markdown" aria-label="Anchor link for: notes-as-markdown">#</a></h3>
+<p>Each note is represented as a single markdown file.</p>
+<p>Markdown is intuitive enough to use in the context of a terminal, and syntax
+highglighting allows me to leverage it for a few extra things, as we'll see</p>
+<p>Here's an example of a real note from my knowledge base:</p>
+<pre data-lang="markdown" class="language-markdown "><code class="language-markdown" data-lang="markdown"># Recalcitrance
+
+Resistance towards helpfulness or evolution
+
+https:&#x2F;&#x2F;www.dictionary.com&#x2F;browse&#x2F;recalcitrance
+
+@superintelligence @nick-bostrom @book
+#definition #ai
+</code></pre>
+<p>This is a short one. A definition of a word. One that I learned while reading
+<a href="https://www.goodreads.com/book/show/20527133-superintelligence">Superintelligence</a>
+a few years ago.</p>
+<p>I chose to use hashtags, such as <code>#definition</code> to tag each note as I see fit,
+but also to specify sources using <code>@</code>.</p>
+<p>This allows me build tooling to search for both tags and sources, and quickly
+find what I'm looking for.</p>
+<p>This note is also not static. If I come back to it, I'm free to edit it as I see
+fit, or even add new tags, if I want to relate it with some newfound idea
+present somewhere else in the base.</p>
+<h3 id="see-it-in-action">See it in action<a class="zola-anchor" href="#see-it-in-action" aria-label="Anchor link for: see-it-in-action">#</a></h3>
+<p>Here's a quick rundown of what I have so far:</p>
+<ol>
+<li>The knowledge base is pointed to by <code>$ZK_PATH</code>;</li>
+<li><code>zk new &lt;title&gt;</code> creates a new note;</li>
+<li><code>zk tags</code> starts an interactive fuzzy search across all existing tags;</li>
+<li><code>zk sources</code> does the same thing, but for sources instead;</li>
+<li><code>zk search</code> starts a full text search on the entire knowledge base.</li>
+</ol>
+<p><img src="https://naps62.com/posts/knowledge-base/./zk-in-action.gif" alt="zk in action" /></p>
+<p>PS: As I mentioned, most of this is inspired by <a href="https://superorganizers.substack.com/p/how-to-build-a-learning-machine">this
+article</a>. The author <a href="https://github.com/sirupsen/zk">built and open-sourced</a> his
+own system using very similar tools as the ones I did.</p>
+<p>Curious about what's underneath all this? It's actually fairly simple:</p>
+<h4 id="git">Git<a class="zola-anchor" href="#git" aria-label="Anchor link for: git">#</a></h4>
+<p>The knowledge base itself is a <code>git</code> repo. Assuming you're a developer (or
+similar role), this should not require any further explanation. 😄</p>
+<h4 id="vim">Vim<a class="zola-anchor" href="#vim" aria-label="Anchor link for: vim">#</a></h4>
+<p>My editor of choice. Since this is, at the moment, made for personal use,
+I haven't focused on supporting anything else, as I have no need for it</p>
+<h4 id="ripgrep">Ripgrep<a class="zola-anchor" href="#ripgrep" aria-label="Anchor link for: ripgrep">#</a></h4>
+<p>Remember what I said about searching for tags or sources?</p>
+<p><a href="https://github.com/BurntSushi/ripgrep"><code>ripgrep</code></a> is an extremely fast full-text search tool.</p>
+<p>I can build a search for tags (words starting with <code>#</code>) with something like the
+following:</p>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">rg --only-matching &quot;#[\w\-_]{3,}&quot; --type md ...
+</code></pre>
+<h4 id="fzf">Fzf<a class="zola-anchor" href="#fzf" aria-label="Anchor link for: fzf">#</a></h4>
+<p>Fzf is a fuzzy-finder which, when coupled with ripgrep, provides a great
+interactive and real-time search environment right in my terminal</p>
+<h2 id="wrapping-up">Wrapping up<a class="zola-anchor" href="#wrapping-up" aria-label="Anchor link for: wrapping-up">#</a></h2>
+<p>This system is still in its early stages (in fact, I'm still in the process of
+migrating some notes from Notion).
+It does look very promising though, since I find myself using it a lot more
+often just because it sits right there in my terminal.</p>
+<p>Check out the source code on <a href="https://github.com/naps62/zk">GitHub</a>, or <a href="https://twitter.com/naps62">let me know</a> your
+thoughts about all this. 👋</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#my-sources">My sources</a>
+          
+        </li>
+        
+        <li>
+          <a href="#first-draft-notion">First draft: Notion</a>
+          
+        </li>
+        
+        <li>
+          <a href="#a-zettelkasten">A Zettelkasten</a>
+          
+        </li>
+        
+        <li>
+          <a href="#a-unix-based-zettelkasten">A unix-based zettelkasten</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#notes-as-markdown">Notes as markdown</a>
+            </li>
+            
+            <li>
+              <a href="#see-it-in-action">See it in action</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#wrapping-up">Wrapping up</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

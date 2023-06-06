@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Smarter heredoc syntax in vim</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Smarter heredoc syntax in vim</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2016-06-06</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/productivity"># productivity</a><a href="https://naps62.com/tags/vim"># vim</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p>I have lately run into a problem with my editor of choice, vim (well, actually, it's <a href="https://github.com/neovim/neovim">neovim</a>), and the syntax highlighting in Ruby files.</p>
+<p>Particularly, I ran into problems with the Heredoc syntax.</p>
+<h2 id="what-is-heredoc">What is heredoc?<a class="zola-anchor" href="#what-is-heredoc" aria-label="Anchor link for: what-is-heredoc">#</a></h2>
+<p>Long story short, it's a feature present in many programming languages that lets you write multiline strings without all the hassle of dealing with quoting issues, newline characters, etc. Here's an example:</p>
+<pre data-lang="ruby" class="language-ruby "><code class="language-ruby" data-lang="ruby">puts &lt;&lt;HEREDOC
+  a heredoc block can contain anything
+  &quot;even quotes.&quot;
+HEREDOC
+
+## output:
+  a heredoc block can contain anything
+  &quot;even quotes.&quot;
+</code></pre>
+<p>Instead of the placeholder <code>HEREDOC</code>, you can write any other name, as long as both ends match.</p>
+<p>Ruby 2.3 also introduced the squiggly heredoc syntax, which strips off the indentation in every line, allowing you to keep your code indented without messing up the output, similar to rails' <code>strip_heredoc</code> method. But I'll let Avdi Grimm explain that in his <a href="http://devblog.avdi.org/2016/01/06/about-the-ruby-squiggly-heredoc-syntax/">own blog post</a>.</p>
+<h2 id="heredoc-syntax-in-vim">Heredoc syntax in vim<a class="zola-anchor" href="#heredoc-syntax-in-vim" aria-label="Anchor link for: heredoc-syntax-in-vim">#</a></h2>
+<p>Getting back to the subject, Ruby has 3 three different heredoc syntaxes. They're mostly similar, but have slight differences:</p>
+<p><img src="https://subvisual.s3.amazonaws.com/blog/post_image/126/image-1464871761215.png" alt="file" /></p>
+<p>As you can see from the screenshot, at the time of writing, my vim setup has yet to recognize the new squiggly heredoc syntax, which is what prompted me to look for a fix.</p>
+<p>I ended up finding a way to not only properly highlight the new syntax but also provide some powerful syntax highlighting to the heredoc content's themselves:</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">## ~&#x2F;.vim&#x2F;after&#x2F;syntax&#x2F;ruby.vim
+
+let s:bcs = b:current_syntax
+unlet b:current_syntax
+syntax include @SQL syntax&#x2F;sql.vim
+let b:current_syntax = s:bcs
+
+syntax region hereDocText    matchgroup=Statement start=+&lt;&lt;[-~.]*\z([A-Z]\+\)+ end=+^\s*\z1+ contains=NONE
+
+syntax region hereDocDashSQL matchgroup=Statement start=+&lt;&lt;[-~.]*\z(SQLDOC\)+  end=+^\s*\z1+ contains=@SQL
+</code></pre>
+<p>Place the above code in <code>~/.vim/after/syntax/ruby.vim</code>, and you'll be able to do the following:</p>
+<p><img src="https://subvisual.s3.amazonaws.com/blog/post_image/127/image-1464871768376.png" alt="file" /></p>
+<p>The vim code did two things:</p>
+<ol>
+<li>Told vim to match all heredoc syntaxes (using an appropriate RegEx), and use no highlight within it.;</li>
+<li>When the heredoc keyword is <code>SQLDOC</code>, the inner text is highlighted as SQL code.</li>
+</ol>
+<p>The same principle can be applied to create keywords for any syntax supported by vim. Here's an example for both SQL and Shell Scripting:</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">let s:bcs = b:current_syntax
+unlet b:current_syntax
+syntax include @SQL syntax&#x2F;sql.vim
+
+&quot; this unlet instruction is needed
+&quot; before we load each new syntax
+unlet b:current_syntax
+syntax include @SHELL syntax&#x2F;sh.vim
+
+let b:current_syntax = s:bcs
+
+syntax region hereDocText    matchgroup=Statement start=+&lt;&lt;[-~.]*\z([A-Z]\+\)+ end=+^\s*\z1+ contains=NONE
+
+syntax region hereDocDashSQL matchgroup=Statement start=+&lt;&lt;[-~.]*\z(SQLDOC\)+  end=+^\s*\z1+ contains=@SQL
+
+syntax region hereDocDashShell matchgroup=Statement start=+&lt;&lt;[-~.]*\z(SHELLDOC\)+  end=+^\s*\z1+ contains=@SHELL
+</code></pre>
+<p>The only caveat here is that you're forced to use a keyword that matches the syntax you want, and the fact that your coworkers won't see any changes unless they also use Vim and apply this patch as well.</p>
+<p>That being said, I believe it is still a very useful change nonetheless, and a great example of the capabilities of Vim.</p>
+<h3 id="more-ruby-goodness">More Ruby goodness<a class="zola-anchor" href="#more-ruby-goodness" aria-label="Anchor link for: more-ruby-goodness">#</a></h3>
+<p>If you've enjoyed this bit of knowledge you should really subscribe to <a href="https://subvisual.co/newsletter/">our newsletter</a>, where this and other great articles from the Web are shared every week.</p>
+<p>If you want to meet us and/or see some talks on Ruby topics, come join us at RubyConf Portugal 2016. For making all the way to the end of this article you get <a href="https://ti.to/subvisual/rubyconfpt-2016/discount/good-reader-method">25% off the price of the ticket</a>.</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#what-is-heredoc">What is heredoc?</a>
+          
+        </li>
+        
+        <li>
+          <a href="#heredoc-syntax-in-vim">Heredoc syntax in vim</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#more-ruby-goodness">More Ruby goodness</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

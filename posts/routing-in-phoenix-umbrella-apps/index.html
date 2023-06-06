@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Routing in Phoenix Umbrella Apps</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Routing in Phoenix Umbrella Apps</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2019-04-16</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/elixir"># elixir</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p><em>Note: This post was originally written on <a href="https://blog.appsignal.com/2019/04/16/elixir-alchemy-routing-phoenix-umbrella-apps.html">AppSignal's Elixir Alchemy Blog</a></em></p>
+<p><a href="https://elixirschool.com/en/lessons/advanced/umbrella-projects/">Umbrella apps</a> are an awesome way to structure Elixir projects.</p>
+<p>Behind the curtains, they are a very thin layer that just compiles everything to a single package. Instead of building a single large monolith, you can structure your code with multiple isolated contexts. They all get compiled and run under the same BEAM instance, so they still have access to each other. Meanwhile the conceptual separation ensures you have separate OTP apps for each of your umbrella children. And it allows you to work on each of them with a certain degree of isolation.</p>
+<p>Think of this as a poor man’s microservices solution. You don’t need to add a messaging queue or send HTTP requests between each service since they’re all actually running under the same process, but you still get some of the benefits.</p>
+<p>If you want to know more about umbrella applications, I suggest the <a href="https://elixir-lang.org/getting-started/mix-otp/dependencies-and-umbrella-projects.html#umbrella-projects">official guide</a> as a starter, as it clearly outlines the advantages and caveats of umbrella apps.</p>
+<p>Now let’s look at a real life example where I’ve implemented an umbrella app.</p>
+<h2 id="a-real-example">A Real Example<a class="zola-anchor" href="#a-real-example" aria-label="Anchor link for: a-real-example">#</a></h2>
+<p>Let’s say I’m building a website for <a href="https://en.wikipedia.org/wiki/Magic:_The_Gathering">Magic: The Gathering (MTG)</a> cards. Which… well, <a href="https://github.com/naps62/mse">I am</a>. The idea is to create an interface where users can browse and search a database of cards. There’s also an admin panel where some administrative tasks can be performed.</p>
+<p>Clearly, each of these frontend interfaces has different requirements:</p>
+<ol>
+<li>The main frontend is public while the admin side only has private access.</li>
+<li>The admin panel may even have its own UI requirements. In this case, I’m using <a href="https://github.com/smpallen99/ex_admin">ex_admin</a> for convenience. This means, even UI assets are not shared.</li>
+<li>They mostly have completely different back-end logic as well. Only a small subset of the queries and operations can be shared between the two.</li>
+<li>I may also want to access both of them through different URLs (e.g. use an <code>admin</code> subdomain for the Admin frontend).
+The multiple differences between the two make it clear that it would be better for these to be two separate phoenix apps—each with its own setup.</li>
+</ol>
+<p>Something like this:</p>
+<pre><code>apps&#x2F;
+  client&#x2F;
+  admin&#x2F;
+  shared&#x2F;
+</code></pre>
+<h2 id="looks-easy-enough-what-s-the-issue">Looks Easy Enough. What’s the Issue?<a class="zola-anchor" href="#looks-easy-enough-what-s-the-issue" aria-label="Anchor link for: looks-easy-enough-what-s-the-issue">#</a></h2>
+<p>The problem comes when you try to figure out how to actually implement this. How do you route requests from the <code>admin</code> subdomain to another Phoenix app while routing other requests to the main Phoenix app?</p>
+<p>One solution would be to run each of those apps on a different port. But then, you’ll either be left accessing <code>admin.mydomain.com:4001</code>, or you’ll need some other middle layer to abstract away that port distinction from your browser. While this may be fine for an admin page that only you will access, it doesn’t work as well for a general solution.</p>
+<p>The old school solution is to put a reverse proxy between your clients and your server. nginx does this job pretty well. But in reality, you know all this is a single Elixir application. It seems weird to need a third party server to be able to route requests to different parts of it.</p>
+<p>It also doesn’t solve the problem of local development, unless you want to run nginx locally as well, which is less than ideal.</p>
+<p>We’re Elixir developers after all, and we’re pretty smart. So let’s do this the Elixir way:</p>
+<h2 id="introducing-a-proxy-app">Introducing a Proxy App<a class="zola-anchor" href="#introducing-a-proxy-app" aria-label="Anchor link for: introducing-a-proxy-app">#</a></h2>
+<p>The solution I came up with (i.e. read suggestions from similar use cases on Stack Overflow) was to create an additional umbrella child, which will be the main point of contact to the outside world.</p>
+<p>This app, which we’ll call <code>proxy</code>, will receive all incoming HTTP requests and forward them to the appropriate Phoenix app, based on a few simples rules. In our simple use case, requests to <code>admin.mydomain.com</code> will be forwarded to the <code>admin</code> app, and all others will be forwarded to the <code>client</code> app.</p>
+<p>This is a very simple phoenix app, which you can generate with <code>mix phx.new</code> like all the others. Dependencies will be kept to a minimum here. We only have phoenix &amp; cowboy as external dependencies (to set up our web server), as well as the client and admin apps to which we’ll be forwarding requests:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">def deps do
+  [
+    {:client, in_umbrella: true},
+    {:admin, in_umbrella: true},
+    {:phoenix, &quot;~&gt; 1.3.2&quot;},
+    {:cowboy, &quot;~&gt; 1.0&quot;}
+  ]
+end
+</code></pre>
+<p>Since this app will be the actual web server, we should disable the server setting in the other two:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir"># apps&#x2F;client&#x2F;config&#x2F;config.exs
+config :client, Client.Web.Endpoint, server: false
+
+# apps&#x2F;admin&#x2F;config&#x2F;config.exs
+config :admin, Admin.Web.Endpoint, server: false
+
+# apps&#x2F;proxy&#x2F;config&#x2F;config.exs
+config :proxy, Proxy.Endpoint, server: true
+</code></pre>
+<p>This ensures that only the proxy app will be listening to a port. This is not mandatory but it saves you the trouble of having to define different ports for each one (remember: only one listener per port is allowed) and ensures all requests actually go through the proxy app—which is indeed the expected behavior.</p>
+<p>Leaving <code>server: true</code> might be useful in development or testing mode, depending on how you want to set up your environment.</p>
+<h2 id="setting-up-the-endpoint">Setting up the Endpoint<a class="zola-anchor" href="#setting-up-the-endpoint" aria-label="Anchor link for: setting-up-the-endpoint">#</a></h2>
+<p>The entry point of a Phoenix app is the Endpoint module. In this case, we’ve set this to Proxy.Endpoint. Since this app really has no other responsibility, there’s no need to nest it under the Web module, as is common practice in Phoenix.</p>
+<p>However, we can strip down most things from the Endpoint module created for us by the Phoenix generator and end up with a very simple module:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule Proxy.Endpoint do
+  use Phoenix.Endpoint, otp_app: :proxy
+
+  @base_host_regex ~r|\.?mydomain.*$|
+  @subdomains %{
+    &quot;admin&quot; =&gt; Admin.Web.Endpoint,
+    &quot;client&quot; =&gt; Client.Web.Endpoint
+  }
+  @default_host Client.Web.Endpoint
+
+  def init(opts), do: opts
+
+  def call(conn, _) do
+    with subdomain &lt;- String.replace(host, @base_host_regex, &quot;&quot;),
+         endpoint &lt;- Map.get(@subdomains, subdomain, @default_host) do
+      endpoint.call(conn, endpoint.init())
+    end
+  end
+end
+</code></pre>
+<p>Let’s go over this one step at a time:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">@base_host_regex ~r|\.?mydomain.*$|
+</code></pre>
+<p>This is used to extract the subdomain part of the host URL of every request. So for <code>admin.mydomain.com</code> we want to get the string <code>admin</code> and for <code>mydomain.com</code> we will end up with an empty string (meaning, we’ll forward this to the default app. More on that later).</p>
+<p>Notice that this doesn’t exactly match the <code>.com</code> part. This is a convenience change I made for local development. Matching on <code>mydomain.*</code> allows me to use <code>admin.mydomain.lvh.me</code> when working on my local machine, and still have this whole logic working without making development-specific changes.</p>
+<p>If you don’t know what <code>lvh.me</code> is, <a href="https://nickjanetakis.com/blog/ngrok-lvhme-nipio-a-trilogy-for-local-development-and-testing#lvh-me">this article</a> might be helpful (TL;DR: It’s a development service that resolves its name to <code>localhost</code>).</p>
+<p>With the above regex in mind, the next part should be easy to understand:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">@subdomains %{
+    &quot;admin&quot; =&gt; Admin.Web.Endpoint,
+    &quot;client&quot; =&gt; Client.Web.Endpoint
+}
+@default_host Client.Web.Endpoint
+</code></pre>
+<p>For every subdomain, we want to match a particular Phoenix endpoint belonging to the app that we want to forward the request to. @default_host is what we’ll use if the subdomain is missing (the empty string scenario we talked above).</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">def call(conn, _) do
+    with subdomain &lt;- String.replace(host, @base_host_regex, &quot;&quot;),
+         endpoint &lt;- Map.get(@subdomains, subdomain, @default_host) do
+      endpoint.call(conn, endpoint.init())
+    end
+end
+</code></pre>
+<p>When this endpoint—which is actually not much more than an <a href="https://hexdocs.pm/plug/readme.html">Elixir Plug</a>—is called, we just grab the subdomain from the request host, then find the matching endpoint from our mapping (defaulting to <code>@default_host</code>), and call <code>endpoint.call/2</code> on it. This is essentially delegating the call down to the appropriate app.</p>
+<p>Now <code>client</code> and <code>admin</code> both have to only worry about their corresponding requests and authentication. All logic related to the multiple subdomains &amp; clients we may need is abstracted away in this app.</p>
+<p>Want a new client in the same umbrella? Add it here! Want the same endpoint to respond to additional subdomains? Add it here!</p>
+<h2 id="taking-the-routing-even-further">Taking the routing even further<a class="zola-anchor" href="#taking-the-routing-even-further" aria-label="Anchor link for: taking-the-routing-even-further">#</a></h2>
+<p>By adding a smart router to our umbrella application, we’re now able to serve requests to different subdomains to different apps in our umbrella application. I first implemented this pattern on a <a href="https://github.com/naps62/mse/tree/master/apps/proxy">pet project of mine</a>, but have since used and improved it on a few production projects as well.</p>
+<p>We could take this much further. For example, if you’re migrating an existing service from Ruby to Elixir. You can have this proxy application route all requests made to the Ruby version of your service redirected back to the Ruby application, ensuring backward-compatibility. Or you may want the opposite scenario, where you’re creating a new API service and want to forward matching requests to a different client or even to a different web server altogether.</p>
+<p>We can also take the routing complexity to another level. Routing was done here based solely on the subdomain of the request. But depending on your needs, you can create more complex routing rules using HTTP headers or query parameters. All of this can be done while keeping your actual web services completely oblivious to it.</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#a-real-example">A Real Example</a>
+          
+        </li>
+        
+        <li>
+          <a href="#looks-easy-enough-what-s-the-issue">Looks Easy Enough. What’s the Issue?</a>
+          
+        </li>
+        
+        <li>
+          <a href="#introducing-a-proxy-app">Introducing a Proxy App</a>
+          
+        </li>
+        
+        <li>
+          <a href="#setting-up-the-endpoint">Setting up the Endpoint</a>
+          
+        </li>
+        
+        <li>
+          <a href="#taking-the-routing-even-further">Taking the routing even further</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

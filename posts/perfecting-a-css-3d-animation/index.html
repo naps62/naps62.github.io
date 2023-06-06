@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Perfecting a CSS 3D Animation</title>
+  <meta name="description" content="&lt;p&gt;With recent advances in front end technologies, front end developers have been going crazy, pushing CSS to its limits and doing all sorts of &lt;a href=&quot;http:&#x2F;&#x2F;codepen.io&#x2F;azevedo-252&#x2F;pen&#x2F;rVvMXX&quot;&gt;beautiful animations&lt;&#x2F;a&gt;. Seriously, there are some &lt;a href=&quot;http:&#x2F;&#x2F;codepen.io&#x2F;fbrz&#x2F;pen&#x2F;whxbF&quot;&gt;crazy things&lt;&#x2F;a&gt; out there.&lt;&#x2F;p&gt;
+&lt;p&gt;I recently did this &lt;a href=&quot;http:&#x2F;&#x2F;codepen.io&#x2F;naps62&#x2F;pen&#x2F;MwVRXZ&quot;&gt;3D animated atom&lt;&#x2F;a&gt; in which I had to employ a couple of weird techniques which I&#x27;ll try to explain here.&lt;&#x2F;p&gt;
+">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Perfecting a CSS 3D Animation</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2015-07-17</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/frontend"># frontend</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p>With recent advances in front end technologies, front end developers have been going crazy, pushing CSS to its limits and doing all sorts of <a href="http://codepen.io/azevedo-252/pen/rVvMXX">beautiful animations</a>. Seriously, there are some <a href="http://codepen.io/fbrz/pen/whxbF">crazy things</a> out there.</p>
+<p>I recently did this <a href="http://codepen.io/naps62/pen/MwVRXZ">3D animated atom</a> in which I had to employ a couple of weird techniques which I'll try to explain here.</p>
+<span id="continue-reading"></span><p data-height="372" data-theme-id="16919" data-slug-hash="MwVRXZ" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/MwVRXZ/'>Subvisual - Animated Atom</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<p>I'll be using <a href="http://sass-lang.com/documentation/file.INDENTED_SYNTAX.html">indented Sass</a> syntax in the examples.</p>
+<h2 id="transforms-basics">Transforms basics<a class="zola-anchor" href="#transforms-basics" aria-label="Anchor link for: transforms-basics">#</a></h2>
+<p>Let's start from the very bottom. There are 4 basic geometric transformations you can apply to a DOM element using the <code>transform</code> property: Translation, Rotation, Skew and Scaling</p>
+<pre data-lang="sass" class="language-sass "><code class="language-sass" data-lang="sass">.Square--translate
+  transform: translate(30px, 20px) &#x2F;&#x2F; x and y axis
+
+.Square--rotated
+  transform: rotate(45deg)
+
+.Square--skewed
+  transform: skew(20deg)
+
+.Square--scale
+  transform: scale(0.5, 0.5)
+</code></pre>
+<p data-height="266" data-theme-id="16919" data-slug-hash="ZGRVvx" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/ZGRVvx/'>Subvisual - Atom Post - Step 1</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<p>You can also combine multiple transformations in a single rule, like so:</p>
+<pre data-lang="sass" class="language-sass "><code class="language-sass" data-lang="sass">.element
+  transform: translate(50px) rotate(90deg)
+</code></pre>
+<p>However, keep in mind that order is important here. So these two transforms are different:</p>
+<pre data-lang="sass" class="language-sass "><code class="language-sass" data-lang="sass">.Square--translateThenRotate
+  transform: translateX(30px) rotateZ(45deg)
+
+.Square--rotateThenTranslate
+  transform: rotateZ(45deg) translateX(30px)
+</code></pre>
+<p data-height="268" data-theme-id="16919" data-slug-hash="zGaexX" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/zGaexX/'>Subvisual - Atom Post - Step 2</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<p>Each transform operation gets stacked on top of the previous ones.
+So translating an element after it has been rotated (as in the <code>Square--rotateThenTranslate</code> class) will actually change the direction it moves in. Both squares above are moving to the right. But it's their right, not your's.</p>
+<p>Notice as well that I'm using another variant of the transforms, <code>translateX</code> and <code>rotateZ</code>, to specify the axis to which I want to apply it.</p>
+<h2 id="animations">Animations<a class="zola-anchor" href="#animations" aria-label="Anchor link for: animations">#</a></h2>
+<p>Another cool thing about CSS is that you can animate almost anything:</p>
+<pre data-lang="sass" class="language-sass "><code class="language-sass" data-lang="sass">.Square--rotateThenTranslate
+  animation: rotate 2s infinite linear
+
+@keyframes rotate
+  0%
+    transform: rotateZ(0deg) translateX(30px)
+  100%
+    transform: rotateZ(360deg) translateX(30px)
+</code></pre>
+<p data-height="268" data-theme-id="16919" data-slug-hash="bdKzBL" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/bdKzBL/'>Subvisual - Atom Post - Step 3</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<h2 id="building-an-atom-one-orbit-at-a-time">Building an atom, one orbit at a time<a class="zola-anchor" href="#building-an-atom-one-orbit-at-a-time" aria-label="Anchor link for: building-an-atom-one-orbit-at-a-time">#</a></h2>
+<p>So now we've gone through the basics of what is needed to build an animation like that atom at the beginning. Let's take that last example and style it a bit to look like an electron in orbit. Here's the gist of the changes:</p>
+<pre data-lang="sass" class="language-sass "><code class="language-sass" data-lang="sass">$Orbit-radius: 100px
+$Electron-radius: 10px
+
+@mixin circle($radius)
+  border-radius: 50%
+  width: $radius
+  height: $radius
+
+.Orbit
+  @include circle($Atom-radius)
+  position: absolute
+
+.Electron
+  @include circle($Electron-radius)
+  position: relative
+  top: $Atom-radius - $Electron-radius
+  left: $Atom-radius - $Electron-radius
+  animation: rotate 2s infinite linear
+
+@keyframes rotate
+  0%
+    transform: rotateZ(0deg) translateX($Atom-radius)
+  100%
+    transform: rotateZ(360deg) translateX($Atom-radius)
+</code></pre>
+<p data-height="268" data-theme-id="16919" data-slug-hash="EjRrvx" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/EjRrvx/'>Subvisual - Atom Post - Step 4</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<h2 id="positioning-the-orbit">Positioning the Orbit<a class="zola-anchor" href="#positioning-the-orbit" aria-label="Anchor link for: positioning-the-orbit">#</a></h2>
+<p>Our orbit is currently flat. But we want to give it a three-dimensional look. It should look like a sphere, not a circle. From the user's perspective, each orbit should actually look like an ellipse.</p>
+<p>A naive way to simulate this would be to use an actual ellipse instead of a circle. But what would happen to the animation if we animated through an ellipse instead of a circle? Well, 2 main problems come to mind:</p>
+<ol>
+<li>Rotating an element around an ellipsis is not possible in CSS (or at least, it's impractically hard). You'd have to use an SVG path, or another more complex solution</li>
+<li>Even if you manage that, the animation speed would look unnatural.</li>
+</ol>
+<p>But don't take my word for it, have a look:</p>
+<p data-height="206" data-theme-id="16919" data-slug-hash="oXymEz" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/oXymEz/'>Subvisual - Atom post - Step 5</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<p>See how the movement affects your perception? You don't really perceive that as a rotated circle. It's just a flat ellipse, with no three-dimensional feel.</p>
+<p>A more correct way to do this would be to use an actual circle, and rotate it:</p>
+<pre data-lang="sass" class="language-sass "><code class="language-sass" data-lang="sass">.Orbit
+  transform: rotateY(60deg)
+</code></pre>
+<p data-height="268" data-theme-id="16919" data-slug-hash="aOKrKv" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/aOKrKv/'>Subvisual - Atom Post - Step 6</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<p>See the problem there? The electron inherited the rotation, which makes it looked twisted as well. That's the one thing we need to fix now.</p>
+<p><em>UPDATE:</em> I later noticed that Firefox has even bigger problems rendering this last example. The specific problem I'm mentioning can be seen on Google Chrome</p>
+<h2 id="transform-inheritance">Transform inheritance<a class="zola-anchor" href="#transform-inheritance" aria-label="Anchor link for: transform-inheritance">#</a></h2>
+<p>What happened to the electron is usually the desired behaviour. Transforms are inherited by an element's children. But that's not really what we want here, since we need the electron to look round all the time, which means it has to be facing forward again.</p>
+<p>A useful trick to do here is to apply a transformation to the child which is the exact reverse of all previous transformations.
+This works because the transforms will negate each other, and the child element will look just like it did before.</p>
+<p>Here's a simple example of how to do this:</p>
+<pre data-lang="sass" class="language-sass "><code class="language-sass" data-lang="sass">.parent
+  transform: rotateX(45deg) translateX(50px)
+  transform-style: preserve-3d
+  .child
+    transform: translateX(-50px) rotateX(-45deg)
+</code></pre>
+<p>Notice that we need to apply the operations in reverse order as well. Think of it as a stack of operations. The <code>translateX</code> was the last one to be applied, so it needs to be the first one to revert.</p>
+<p>That <code>transform-style</code> property is required on the parent, to ensure 3d transformations are propagated correctly to children elements. You can learn a bit more about it (here)]https://css-tricks.com/almanac/properties/t/transform-style/]</p>
+<h2 id="fixing-the-child-element">Fixing the child element<a class="zola-anchor" href="#fixing-the-child-element" aria-label="Anchor link for: fixing-the-child-element">#</a></h2>
+<p>For our atom however, things get messier, because we're already applying a transform to the element itself (and we're also animating that transform!). That needs to be undone as well.</p>
+<p>The current state of our transforms (at the first animation frame) is:</p>
+<pre data-lang="sass" class="language-sass "><code class="language-sass" data-lang="sass">.Orbit
+  transform: rotateY(60deg)
+  .Electron
+    transform: rotateZ(0deg) translateX(50px)
+</code></pre>
+<p>So the full transformation applied to the electron is:</p>
+<pre><code>1. rotateY(60deg)
+2. rotateZ(0deg)
+3. translateX(50px)
+</code></pre>
+<p>This is essentially bringing the electron from the center to its starting position in the orbit. We want to keep it in that position, but rotate it back to the initial angle.
+So we're only interested in reverting the rotations, which leaves us with:</p>
+<pre data-lang="sass" class="language-sass "><code class="language-sass" data-lang="sass">1. rotateY(60deg)
+2. rotateZ(0deg)
+3. translateX(50px)
+4. rotateZ(-0deg)   &#x2F;&#x2F; revert (2)
+5. rotateY(-60deg)  &#x2F;&#x2F; revert (1)
+</code></pre>
+<p>The end result is much closer to our goal:</p>
+<p data-height="268" data-theme-id="16919" data-slug-hash="WvyBOy" data-default-tab="result" data-user="naps62" class='codepen'>See the Pen <a href='http://codepen.io/naps62/pen/WvyBOy/'>Subvisual - Atom Post - Step 7</a> by Miguel Palhas (<a href='http://codepen.io/naps62'>@naps62</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<p>You can play around with the editor of the sample above to get a better feeling of what's happening.</p>
+<h2 id="layering-issues">Layering Issues<a class="zola-anchor" href="#layering-issues" aria-label="Anchor link for: layering-issues">#</a></h2>
+<p>One other issue you may have noticed is that our electrons are now clipping through the orbit line. The solution for that is to move the orbits to a background layer somehow.</p>
+<p>I first tried to use <code>z-index</code> for this, but that doesn't really play well with 3D transforms, and absolutely positioned elements.
+In the end, I created a duplicate of each orbit, and moved them to the background using yet another <code>translateZ</code>. You can check the final animation for the solution, but here's the general idea:</p>
+<pre data-lang="sass" class="language-sass "><code class="language-sass" data-lang="sass">&#x2F;* this orbit is visible, but has no electron inside*&#x2F;
+.Orbit.Orbit--background.Orbit--visible
+
+&#x2F;* this one is on the foreground, and with an atom
+   but the orbit line itself is hidden *&#x2F;
+.Orbit.Orbit--foreground.Orbit--invisible
+  .Electron
+</code></pre>
+<h2 id="wrapping-up">Wrapping up<a class="zola-anchor" href="#wrapping-up" aria-label="Anchor link for: wrapping-up">#</a></h2>
+<p>The core part is done. After getting a single orbit to work as we did, there's only a few things left:</p>
+<ol>
+<li>Add new orbits, each one rotated to a different angle, forming a sphere</li>
+<li>Style everything as needed. After all this transformation non-sense, that shouldn't be too hard</li>
+</ol>
+<p>In the end, the final code ended up a bit more complex than what's shown here, but the principles still hold true. You can check the <a href="http://codepen.io/naps62/pen/MwVRXZ">final version here</a>.</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#transforms-basics">Transforms basics</a>
+          
+        </li>
+        
+        <li>
+          <a href="#animations">Animations</a>
+          
+        </li>
+        
+        <li>
+          <a href="#building-an-atom-one-orbit-at-a-time">Building an atom, one orbit at a time</a>
+          
+        </li>
+        
+        <li>
+          <a href="#positioning-the-orbit">Positioning the Orbit</a>
+          
+        </li>
+        
+        <li>
+          <a href="#transform-inheritance">Transform inheritance</a>
+          
+        </li>
+        
+        <li>
+          <a href="#fixing-the-child-element">Fixing the child element</a>
+          
+        </li>
+        
+        <li>
+          <a href="#layering-issues">Layering Issues</a>
+          
+        </li>
+        
+        <li>
+          <a href="#wrapping-up">Wrapping up</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

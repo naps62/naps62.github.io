@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Understanding Elixir’s GenStages: Querying the Blockchain</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Understanding Elixir’s GenStages: Querying the Blockchain</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2018-11-13</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/elixir"># elixir</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p><em>Note: This post was originally written on <a href="https://blog.appsignal.com/2018/11/13/elixir-alchemy-understanding-elixirs-genstages-querying-the-blockchain.html">AppSignal's Elixir Alchemy Blog</a></em></p>
+<p>In this post, we’ll dive into Elixir’s GenStage module. Along the way, we’ll explain backpressure and we’ll write a Genstage to query the blockchain. Let’s start by discussing how using a GenStage can solve buffering problems.</p>
+<h2 id="what-is-a-genstage">What Is a GenStage?<a class="zola-anchor" href="#what-is-a-genstage" aria-label="Anchor link for: what-is-a-genstage">#</a></h2>
+<p>Imagine you’re consuming data from an external source. That source could be anything “streamable” - such as reading a file line-by-line, a table in a database, or even a sequence of requests to a 3rd party API.</p>
+<p>In such scenarios, where you need to stream data into your system, and probably do some processing on each data point, it’s common to use a buffer to read in a few items, process the whole batch, and then fetch a new set into the buffer. I remember, from the time I was learning C/C++, that this would be a common, although arguably naive way to do things.</p>
+<p>With that approach, you may run into one of two problems: the buffer can get too small, or the buffer van get too large.</p>
+<ol>
+<li><strong>Buffer Too Small</strong> This happens if you read too few items at a time. Since you’re switching back and forth between reading and processing items, there will be a performance cost from the task switching. In the example of reading a file, your hardware or Operating System may be reading more data than what you’re actually requesting, resulting in sub-optimal performance, in addition to having to fetch the same part of the file later on.</li>
+<li><strong>Buffer Too Large</strong> In this case, you request too much from your data source. You may end up either creating a bottleneck (e.g. having to wait for your hard drive to read everything you requested), or not being able to process all the data in an efficient manner. If you’ve ever heard of a <a href="https://en.wikipedia.org/wiki/Buffer_overflow">buffer overflow</a> (a common performance and security concern), this is it. You’re reading more than what your system can keep up with, resulting in all kinds of problems, from performance to actual failures.</li>
+</ol>
+<h2 id="the-solution-backpressure">The Solution: Backpressure<a class="zola-anchor" href="#the-solution-backpressure" aria-label="Anchor link for: the-solution-backpressure">#</a></h2>
+<p>The term <em>backpressure</em> refers to the behavior of a system that builds up input, then halts the receiving of new data once the buffer is full, resuming it once again when the system is ready to handle it.</p>
+<p>This is the core idea behind Elixir’s GenStage.</p>
+<h2 id="genstage">GenStage<a class="zola-anchor" href="#genstage" aria-label="Anchor link for: genstage">#</a></h2>
+<p>GenStage is an abstraction built on top of GenServer to provide a simple way to create a Producer/Consumer architecture, while automatically managing the concept of backpressure.</p>
+<p>In a GenStage, you create a pipeline of multiple Producers &amp; Consumers. Producers generate data points, or read them from a source, and then pass them down to the pipeline. They can then be sent through one or more Consumers that will do whatever processing you need done.</p>
+<p>The idea of backpressure is applied in the way items are created in a Producer. When the pipeline is ready to receive new items, the <code>handle_demand/2</code> function of the Producer is called, requesting a specific amount of items.</p>
+<p>The amount requested is decided internally (although you can specify a maximum value), and the function is called whenever there is room for them in the pipeline. If items take too long to process, Producers end up being idle for a while, thus relieving some pressure from the system.</p>
+<h2 id="use-case">Use Case<a class="zola-anchor" href="#use-case" aria-label="Anchor link for: use-case">#</a></h2>
+<p>As an example of what a GenStage can be useful for, let’s consider reading chunks of data from an external data source. In this case, we’ll use the <a href="https://www.ethereum.org/">Ethereum</a> blockchain, since it fits this concept nicely.</p>
+<p>A blockchain is composed of a series of blocks, each one containing multiple transactions. If we want to process the entire blockchain (for example, to look up all transactions involving a given address, or to listen to it continuously when integrating with your application), a GenStage is a perfect fit.</p>
+<p>In this context, each block can be considered as a single data item. Let’s see how this can be achieved.</p>
+<h2 id="querying-the-blockchain">Querying the Blockchain<a class="zola-anchor" href="#querying-the-blockchain" aria-label="Anchor link for: querying-the-blockchain">#</a></h2>
+<p>We’re going to use <a href="https://infura.io/">Infura’s public HTTP API</a> to interact with the Ethereum blockchain. Let’s start by building a wrapper to its interface. I’ll be using the <a href="https://github.com/teamon/tesla">Tesla library</a> for this (this is just a personal preference, feel free to choose your own).</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule EthSync.Infura do
+  use Tesla
+
+  plug(Tesla.Middleware.BaseUrl, &quot;https:&#x2F;&#x2F;ropsten.infura.io&#x2F;&quot;)
+
+  # encode&#x2F;decode body as json
+  # Infura doesn&#x27;t set the &quot;content-type&quot; header to &quot;application&#x2F;json&quot;
+  # so we need to tell Tesla that we want text&#x2F;plain requests to be decoded as well
+  plug(Tesla.Middleware.JSON, decode_content_types: [&quot;text&#x2F;plain; charset=utf-8&quot;])
+
+  @doc &quot;Get an entire block&quot;
+  def get_block(number) do
+    case call(:eth_getBlockByNumber, [to_hex(number), true]) do
+      {:ok, nil} -&gt;
+        {:error, :block_not_found}
+
+      error -&gt;
+        error
+    end
+  end
+
+  @doc &quot;Sends a JSON-RPC call to the server&quot;
+  defp call(method, params \\ []) do
+    case post(&quot;&quot;, %{jsonrpc: &quot;2.0&quot;, id: &quot;call_id&quot;, method: method, params: params}) do
+      {:ok, %Tesla.Env{status: 200, body: %{&quot;result&quot; =&gt; result}}} -&gt;
+        {:ok, result}
+
+      {:error, _} = error -&gt;
+        error
+    end
+  end
+
+  @doc &quot;Converts integer values to hex strings&quot;
+  def to_hex(decimal), do: &quot;0x&quot; &lt;&gt; Integer.to_string(decimal, 16)
+end
+</code></pre>
+<p>We’ll only need a single endpoint for this: getting a block’s data, given its index on the chain. The block number must be given in hexadecimal format, so we also need a helper method to handle the conversion.</p>
+<p>We can verify that this is working via <code>iex</code>:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">iex(1)&gt; EthSync.Infura.get_block(1)
+{:ok,
+ %{
+   &quot;number&quot; =&gt; &quot;0x1&quot;,
+   &quot;transactions&quot; =&gt; [],
+   # ...
+ }
+}
+
+iex(2)&gt; EthSync.Infura.get_block(1_000_000_000_000)
+{:error, :block_not_found}
+</code></pre>
+<h2 id="building-the-producer">Building the Producer<a class="zola-anchor" href="#building-the-producer" aria-label="Anchor link for: building-the-producer">#</a></h2>
+<p>Our Producer will be a process with the responsibility of fetching Ethereum blocks.</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule EthSync.Producer2 do
+  alias EthSync.Infura
+  use GenStage
+
+  def init(_) do
+    {:producer, 1}
+  end
+
+  def handle_demand(demand, next_block) when demand &gt; 0 do
+    IO.puts(&quot;Demanding #{demand}&quot;)
+
+    blocks =
+      next_block..(next_block - 1 + demand)
+      |&gt; Enum.map(fn n -&gt;
+        IO.puts(&quot;Fetching block #{n}&quot;)
+        Infura.get_block(n)
+      end)
+
+    {:noreply, blocks, next_block + length(blocks)}
+  end
+end
+</code></pre>
+<h2 id="building-the-consumer">Building the Consumer<a class="zola-anchor" href="#building-the-consumer" aria-label="Anchor link for: building-the-consumer">#</a></h2>
+<p>The Consumer will receive lists of blocks and then process them. In the example, we’ll use <code>:timer.sleep/1</code> to simulate processing time since we’re not doing any actual work. Keep in mind that the list of blocks received is not necessarily the same as what was sent in the Producer. Items can be buffered according to the GenStage’s internal rules. It may also happen that you have multiple Consumers and items get split between them.</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">defmodule EthSync.Consumer do
+  alias EthSync.Infura
+  use GenStage
+
+  def init(_) do
+    {:consumer, nil}
+  end
+
+  def handle_events(blocks, _from, state) do
+    blocks
+    |&gt; Enum.each(fn
+      {:ok, %{&quot;number&quot; =&gt; n}} -&gt;
+        IO.puts(&quot;Received block #{n}&quot;)
+        :timer.sleep(1_000)
+    end)
+
+    {:noreply, [], state}
+  end
+end
+</code></pre>
+<h2 id="wiring-it-all-up">Wiring It All Up<a class="zola-anchor" href="#wiring-it-all-up" aria-label="Anchor link for: wiring-it-all-up">#</a></h2>
+<p>To start the pipeline, we need to start the processes for our Producer &amp; Consumer, and then link them together, so that items produced by the former get sent out to the latter:</p>
+<pre data-lang="elixir" class="language-elixir "><code class="language-elixir" data-lang="elixir">iex&gt; {:ok, producer} = GenStage.start_link(Producer2, [])
+{:ok, #PID&lt;0.160.0&gt;}
+
+iex&gt; {:ok, consumer} = GenStage.start_link(Consumer2, [])
+{:ok, #PID&lt;0.162.0&gt;}
+
+iex&gt; GenStage.sync_subscribe(consumer, to: producer, max_demand: 3)
+{:ok, #Reference&lt;0.2486793675.579338241.116277&gt;}
+Demanding 3
+Received block 0x1
+Received block 0x2
+Received block 0x3
+Demanding 1
+Received block 0x4
+Received block 0x5
+Demanding 1
+</code></pre>
+<p>Notice that even though we start the Producer at the beginning, it only started fetching blocks once we wired the Consumer to it. That’s because there was no demand until that point. Additionally, even though we specify <code>max_demand: 3</code>, that’s not necessarily the amount requested at all times. Since we only have a single Consumer, and it takes 1 second to process each block, the GenStage is smart enough not to overflow it with too many blocks. It adjusts the number of events as needed.</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#what-is-a-genstage">What Is a GenStage?</a>
+          
+        </li>
+        
+        <li>
+          <a href="#the-solution-backpressure">The Solution: Backpressure</a>
+          
+        </li>
+        
+        <li>
+          <a href="#genstage">GenStage</a>
+          
+        </li>
+        
+        <li>
+          <a href="#use-case">Use Case</a>
+          
+        </li>
+        
+        <li>
+          <a href="#querying-the-blockchain">Querying the Blockchain</a>
+          
+        </li>
+        
+        <li>
+          <a href="#building-the-producer">Building the Producer</a>
+          
+        </li>
+        
+        <li>
+          <a href="#building-the-consumer">Building the Consumer</a>
+          
+        </li>
+        
+        <li>
+          <a href="#wiring-it-all-up">Wiring It All Up</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

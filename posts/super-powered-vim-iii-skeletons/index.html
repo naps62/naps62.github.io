@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Super-powered Vim, part III: Skeletons</title>
+  <meta name="description" content="">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+  
+</head>
+
+<body class="post">
+  <script>if (localStorage.getItem('theme') == 'dark') document.body.classList.add('dark');</script>
+  
+<header  class="blur" >
+  <div id="wrapper">
+    <nav>
+      <a href="/">naps62</a>
+      <span class="separator">::</span>
+      
+      <a href="/posts">blog</a>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      <a href="/posts/atom.xml" aria-label="rss feed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 17C5.20914 17 7 18.7909 7 21H3V17ZM3 10C9.07513 10 14 14.9249 14 21H12C12 16.0294 7.97056 12 3 12V10ZM3 3C12.9411 3 21 11.0589 21 21H19C19 12.1634 11.8366 5 3 5V3Z" fill="currentColor"></path></svg></a>
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"
+        data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+<div id="post-wrapper">
+  <div id="blank"></div>
+  <main>
+    <div id="top"></div>
+    <article>
+      <h1>Super-powered Vim, part III: Skeletons</h1>
+      <div id="post-info">
+        <div id="date">
+          <span id="publish">2017-04-04</span>
+          </div>
+        <div id="tags">
+          <a href="https://naps62.com/tags/productivity"># productivity</a><a href="https://naps62.com/tags/vim"># vim</a>
+        </div>
+      </div>
+
+      
+      
+
+      
+
+      <p>This post is the third of a three-part series. If you're interested, you can start by checking out <a href="/posts/super-powered-vim-i-projections">part I</a> and <a href="/super-powered-vim-ii-snippets">part II</a>.</p>
+<p>Writing code is boring.</p>
+<p>In the previous parts I showed how we could speed things up a bit, by having some powerful shortcuts for file navigation and inserting repeatable blocks of code (snippets).</p>
+<p>Now, let's see how we can go one step further:</p>
+<p>Let's stick with Ruby as our sample language. The common practice in the community is to have a class or module in each file, with the name matching the file path. So <code>app/models/user.rb</code> will have a <code>class User</code>, and <code>app/models/foo/bar.rb</code> will have a <code>class Foo::Bar</code>.</p>
+<p>So wouldn't it be pretty cool if, when creating one of these files, it got be pre-populated by that class definition?</p>
+<h2 id="wait-what">Wait... What?<a class="zola-anchor" href="#wait-what" aria-label="Anchor link for: wait-what">#</a></h2>
+<p>In <a href="https://subvisual.co/blog/posts/134-super-powered-vim-part-ii-snippets">part II</a>, I already mentioned a <code>class</code> snippet, which creates a Ruby class based on the path of the file.</p>
+<p>Now I want this snippet to be automatically inserted in any new files created in the <code>app</code> directory.</p>
+<p>Could we define some kind of attribute for these paths? Say... a projection?</p>
+<p>Let's take the <code>.projections.json</code> example from <a href="https://subvisual.co/blog/posts/133-super-powered-vim-part-i-projections">part I</a> and expand it a bit:</p>
+<pre data-lang="json" class="language-json "><code class="language-json" data-lang="json">{
+  &quot;app&#x2F;*.rb&quot;: {
+    &quot;alternate&quot;: &quot;spec&#x2F;{}_spec.rb&quot;,
+    &quot;skeleton&quot;: &quot;class&quot;
+  },
+  &quot;spec&#x2F;*_spec.rb&quot;: {
+    &quot;alternate&quot;: &quot;app&#x2F;{}.rb&quot;,
+    &quot;skeleton&quot;: &quot;spec&quot;
+  }
+}
+</code></pre>
+<p>We now have a <code>skeleton</code> attribute for both <code>app</code> and <code>spec</code> files. <code>class</code> and <code>spec</code> are snippet names, which insert a class definition, and some RSpec boilerplate, respectively.</p>
+<p>Now let's look at some vimscript magic (I know... sorry):</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">augroup UltiSnips_custom
+  autocmd!
+  autocmd BufNewFile * silent! call skel#InsertSkeleton()
+augroup END
+</code></pre>
+<p>This is defining an autogroup (<a href="http://learnvimscriptthehardway.stevelosh.com/chapters/14.html">more on what that is here</a>) that listens to the <code>BufNewFile</code> event. This event is called when a buffer is created for a new file (i.e.: a file that is not yet persisted to disk). All of this happens when we do the <code>:edit</code> command for with a non-existing path.</p>
+<p>That command will then call the <code>skel#InsertSkeleton</code> function (see the code snippet at the end of the post for its definition). In short, the function will:</p>
+<ol>
+<li>Make sure the buffer does not exist and is empty (we probably don't want to do anything in these cases)</li>
+<li>Loop through the existing projections, to look for a <code>skeleton</code> key matching the current file path</li>
+<li>If a skeleton is found, insert the snippet's name, and expand it using the appropriate function from UltiSnips.</li>
+</ol>
+<p>For the example of <code>app/models/foo.rb</code>, this will literally insert the word <code>class</code> into the buffer, and call <code>UltiSnips#ExpandSnippet()</code> for us, creating the class definition.</p>
+<p><img src="http://i.imgur.com/Efolbol.gif" alt="magic" /></p>
+<h2 id="but-wait-there-s-more">But wait, there's more<a class="zola-anchor" href="#but-wait-there-s-more" aria-label="Anchor link for: but-wait-there-s-more">#</a></h2>
+<p>You just created a Ruby class by simply opening a new file.</p>
+<p>Now you want to write some tests for it, so you use your newly learnt <code>vim-projectionist</code> skills, and type <code>:A</code> (or whatever shortcut you have) to go to it's alternate file, as defined by the projections. This should match to <code>spec/models/foo_spec.rb</code></p>
+<p>This file also does not exist, but <code>vim-projectionist</code> is aware of this (see <a href="https://subvisual.co/blog/posts/133-super-powered-vim-part-i-projections">part I</a> for more on this). This will conveniently ask you if you want to create it on the fly.</p>
+<p>Once you accept to do so, the same events will be triggered, and this time, the <code>spec</code> snippet will be inserted on this file.</p>
+<p>You can then proceed to writing the interesting part of your app. Or you can take a break, enjoying those 15 seconds of work you just avoided. You deserve it.</p>
+<h2 id="full-code">Full code<a class="zola-anchor" href="#full-code" aria-label="Anchor link for: full-code">#</a></h2>
+<p>I avoided going through the entire vim code in this post, as that would've been a bit offtopic, and probably hard as well, given how much VimL sucks. All the vimscript code needed to reproduce my setup is right here for those who want it.</p>
+<p>Feel free to <a href="https://twitter.com/naps62">reach me out through twitter</a> for any questions you might have, or bugs you might find, or checkout <a href="https://github.com/naps62/dotfiles">my dotfiles</a> if you want to dig some more useful tips from there.</p>
+<pre data-lang="vim" class="language-vim "><code class="language-vim" data-lang="vim">augroup UltiSnips_custom
+  autocmd!
+  &quot; autocmd User ProjectionistActivate silent! call skel#InsertSkeleton()
+  autocmd BufNewFile * silent! call skel#InsertSkeleton()
+augroup END
+
+function s:try_insert(skel)
+  execute &quot;normal! i&quot; . a:skel . &quot;\&lt;C-r&gt;=UltiSnips#ExpandSnippet()\&lt;CR&gt;&quot;
+
+  if g:ulti_expand_res == 0
+    silent! undo
+    return
+  endif
+
+  &quot; enter insert mode and advance cursor (equivalent to typing `a` instead of `i`)
+  execute &quot;startinsert&quot;
+  call cursor( line(&#x27;.&#x27;), col(&#x27;.&#x27;) + 1)
+
+  return g:ulti_expand_res
+endfunction
+
+function! skel#InsertSkeleton() abort
+  let filename = expand(&#x27;%&#x27;)
+
+  &quot; abort on non-empty buffer or exitant file
+  if !(line(&#x27;$&#x27;) == 1 &amp;&amp; getline(&#x27;$&#x27;) == &#x27;&#x27;) || filereadable(filename)
+    return
+  endif
+
+  if !empty(&#x27;b:projectionist&#x27;)
+    &quot; Loop through projections with &#x27;skeleton&#x27; key and try each one until the
+    &quot; snippet expands
+    for [root, value] in projectionist#query(&#x27;skeleton&#x27;)
+      echo value
+      if s:try_insert(value)
+        return
+      endif
+    endfor
+  endif
+
+  call s:try_insert(&#x27;skel&#x27;)
+endfunction
+
+</code></pre>
+<h2 id="what-s-next">What's next?<a class="zola-anchor" href="#what-s-next" aria-label="Anchor link for: what-s-next">#</a></h2>
+<p>If you haven't seen the prequels to this post, maybe now would be a good time to do so?</p>
+<p>Check out <a href="https://subvisual.co/blog/posts/133-super-powered-vim-part-i-projections">part I</a> and <a href="https://subvisual.co/blog/posts/134-super-powered-vim-part-ii-snippets">part II</a> for more details on what projections and snippets are, and how to use them!</p>
+<p>Or take a look at <a href="https://subvisual.co/blog/posts/tag/development">another post by one of our developers</a>. Happy coding!</p>
+
+    </article>
+
+    
+    
+
+    <footer>
+  <div class="copyright">
+    <p>© 2023 <your-name></p>
+
+  </div>
+  
+  <div class="credits">
+    Powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>Zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>Serene</a>
+  </div>
+  
+</footer>
+  </main>
+  <aside  class="blur" >
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="#wait-what">Wait... What?</a>
+          
+        </li>
+        
+        <li>
+          <a href="#but-wait-there-s-more">But wait, there&#x27;s more</a>
+          
+        </li>
+        
+        <li>
+          <a href="#full-code">Full code</a>
+          
+        </li>
+        
+        <li>
+          <a href="#what-s-next">What&#x27;s next?</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+  </aside>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>
