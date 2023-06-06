@@ -7,7 +7,7 @@ lang = 'en'
 
 ## Let's fix our developer experience
 
-**ETHGlobal Listen (May 2023)**
+**ETHGlobal Lisbon (May 2023)**
 
 Like many others, I come from a web development background. And I miss the developer experience from those days. Short feedback loops and low cognitive load are the marks of a good DevEx. Foundry has come a long way to improve things, but a lot more can still be done, particularly for those who don't read EVM over breakfast.
 This is the story of the inefficiencies I found, the legacy standards we still rely on, and the tools I'm building to address it.
